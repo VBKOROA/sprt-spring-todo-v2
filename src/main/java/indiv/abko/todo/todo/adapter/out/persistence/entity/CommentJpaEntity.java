@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.adapter.out.persistence.entity;
 
+import indiv.abko.todo.global.entity.BaseTimeJpaEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

@@ -1,4 +1,4 @@
-package indiv.abko.todo.todo.adapter.out.persistence.entity;
+package indiv.abko.todo.global.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
