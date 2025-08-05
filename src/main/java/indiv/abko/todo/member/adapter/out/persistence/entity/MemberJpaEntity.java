@@ -1,6 +1,7 @@
 package indiv.abko.todo.member.adapter.out.persistence.entity;
 
 import indiv.abko.todo.global.entity.BaseTimeJpaEntity;
+import indiv.abko.todo.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,4 +23,13 @@ public class MemberJpaEntity extends BaseTimeJpaEntity {
     private String name; // 이름
 
     private String email; // 이메일 (로그인용 ID)
+
+    public Member toDomain() {
+        return Member.builder()
+                .name(this.name)
+                .email(this.email)
+                .modifiedAt(getModifiedAt())
+                .createdAt(getCreatedAt())
+                .build();
+    }
 }
