@@ -19,6 +19,8 @@ public class TodoJpaEntity extends BaseTimeJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long memberId;
+
     private String title; // 일정 제목
 
     private String content; // 일정 내용
