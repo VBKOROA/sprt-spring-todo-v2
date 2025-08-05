@@ -24,6 +24,8 @@ public class MemberJpaEntity extends BaseTimeJpaEntity {
 
     private String email; // 이메일 (로그인용 ID)
 
+    private String password; // 패스워드
+
     public Member toDomain() {
         return Member.builder()
                 .name(this.name)
