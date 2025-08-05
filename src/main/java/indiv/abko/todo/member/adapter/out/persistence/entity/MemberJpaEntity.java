@@ -19,7 +19,7 @@ public class MemberJpaEntity extends BaseTimeJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String name; // 이름
 
-    private String email;
+    private String email; // 이메일 (로그인용 ID)
 }
