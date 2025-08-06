@@ -6,14 +6,14 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record SignUpMemberResp(
+public record SignUpResp(
         long id,
         String name,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static SignUpMemberResp from(Member member) {
-        return SignUpMemberResp.builder()
+    public static SignUpResp from(Member member) {
+        return SignUpResp.builder()
                 .id(member.getId())
                 .name(member.getName().getValue())
                 .createdAt(member.getCreatedAt())

@@ -3,8 +3,8 @@ package indiv.abko.todo.member.adapter.in.rest;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.member.adapter.in.rest.dto.LoginReq;
 import indiv.abko.todo.member.adapter.in.rest.dto.MemberResp;
-import indiv.abko.todo.member.adapter.in.rest.dto.SignUpMemberReq;
-import indiv.abko.todo.member.adapter.in.rest.dto.SignUpMemberResp;
+import indiv.abko.todo.member.adapter.in.rest.dto.SignUpReq;
+import indiv.abko.todo.member.adapter.in.rest.dto.SignUpResp;
 import indiv.abko.todo.member.application.port.in.GetMemberUseCase;
 import indiv.abko.todo.member.application.port.in.LoginUseCase;
 import indiv.abko.todo.member.application.port.in.SignUpUseCase;
@@ -28,10 +28,10 @@ public class MemberController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResp<SignUpMemberResp> signUp(@RequestBody SignUpMemberReq signUpMemberReq) {
-        var command = signUpMemberReq.toCommand();
+    public ApiResp<SignUpResp> signUp(@RequestBody SignUpReq signUpReq) {
+        var command = signUpReq.toCommand();
         var createdMember = signUpUseCase.signUp(command);
-        var response = SignUpMemberResp.from(createdMember);
+        var response = SignUpResp.from(createdMember);
         return ApiResp.created(response);
     }
 

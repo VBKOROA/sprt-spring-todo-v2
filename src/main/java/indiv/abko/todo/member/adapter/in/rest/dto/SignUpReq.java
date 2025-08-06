@@ -2,7 +2,7 @@ package indiv.abko.todo.member.adapter.in.rest.dto;
 
 import indiv.abko.todo.member.application.port.in.command.SignUpCommand;
 
-public record SignUpMemberReq(
+public record SignUpReq(
         String name,
         String email,
         String password
