@@ -49,7 +49,7 @@ public class JwtUtil {
         return JWT.require(algorithm).build().verify(token).getSubject();
     }
 
-    public Optional<Claim> getClaim(String token, AuthClaim claimKey) {
-        return Optional.ofNullable(JWT.require(algorithm).build().verify(token).getClaim(claimKey.getKey()));
+    public Claim getClaim(String token, AuthClaim claimKey) {
+        return JWT.require(algorithm).build().verify(token).getClaim(claimKey.getKey());
     }
 }
