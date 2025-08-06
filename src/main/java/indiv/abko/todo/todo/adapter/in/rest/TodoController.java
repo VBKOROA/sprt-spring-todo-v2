@@ -144,9 +144,9 @@ public class TodoController {
         @Valid 
         TodoUpdateReq updateReq,
         @RequestAttribute("memberId")
-        Long memberId) {
+        Long requesterId) {
         var command =  UpdateTodoCommand.builder()
-                .requesterId(memberId)
+                .requesterId(requesterId)
                 .todoId(id)
                 .content(updateReq.content())
                 .build();
@@ -173,17 +173,16 @@ public class TodoController {
     public void deleteTodo(
         @Parameter(name = "id", description = "Todo ID")
         @PathVariable("id") 
-        Long id,
+        long id,
         @Parameter(name = "X-Todo-Password", 
             in = ParameterIn.HEADER, 
             description = "Todo 삭제를 위한 인증 비밀번호 / base64로 인코딩되어야 함.", 
             required = true)
-        @RequestHeader("X-Todo-Password") 
-        @ShouldBase64 
-        String encodedPassword) {
+        @RequestAttribute("memberId")
+        long requesterId) {
         var command =   DeleteTodoCommand.builder()
-                .id(id)
-                .encodedPassword(encodedPassword)
+                .todoId(id)
+                .requesterId(requesterId)
                 .build();
         todoUseCaseFacade.deleteTodo(command);
     }

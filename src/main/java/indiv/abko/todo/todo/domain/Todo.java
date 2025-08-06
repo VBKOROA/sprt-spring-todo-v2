@@ -51,7 +51,7 @@ public class Todo {
         return comments.get(lastIdx);
     }
 
-    private void shouldHaveAuth(final long memberId) {
+    public void shouldHaveAuth(final long memberId) {
         if (author.getId().equals(memberId) == false) {
             throw new BusinessException(TodoExceptionEnum.TODO_PERMISSION_DENIED);
         }

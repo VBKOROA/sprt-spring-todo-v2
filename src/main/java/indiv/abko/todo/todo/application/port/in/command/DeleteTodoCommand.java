@@ -4,7 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record DeleteTodoCommand(
-    Long id
+    long todoId,
+    long requesterId
 ) {
     
 }
