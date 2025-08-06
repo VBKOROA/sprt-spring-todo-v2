@@ -2,6 +2,9 @@ package indiv.abko.todo.member.adapter.out.persistence.entity;
 
 import indiv.abko.todo.global.entity.BaseTimeJpaEntity;
 import indiv.abko.todo.member.domain.Member;
+import indiv.abko.todo.member.domain.vo.EmailVO;
+import indiv.abko.todo.member.domain.vo.EncodedPasswordVO;
+import indiv.abko.todo.member.domain.vo.NameVO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,10 +30,23 @@ public class MemberJpaEntity extends BaseTimeJpaEntity {
 
     private String password; // 패스워드
 
-    public Member toDomainForPublic() {
+    public static MemberJpaEntity fromSignUpDomain(Member member) {
+        return MemberJpaEntity.builder()
+                .id(member.getId())
+                .email(member.getEmail().getValue())
+                .name(member.getName().getValue())
+                .password(member.getPassword().getValue())
+                .createdAt(member.getCreatedAt())
+                .modifiedAt(member.getModifiedAt())
+                .build();
+    }
+
+    public Member toDomain() {
         return Member.builder()
-                .name(this.name)
-                .email(this.email)
+                .id(id)
+                .password(EncodedPasswordVO.reconstitute(password))
+                .name(NameVO.reconstitute(this.name))
+                .email(EmailVO.reconstitute(this.email))
                 .modifiedAt(getModifiedAt())
                 .createdAt(getCreatedAt())
                 .build();

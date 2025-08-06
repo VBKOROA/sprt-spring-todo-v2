@@ -14,8 +14,8 @@ public record MemberResp(
 ) {
     public static MemberResp of(Member member) {
         return MemberResp.builder()
-                .name(member.getName())
-                .email(member.getEmail())
+                .name(member.getName().getValue())
+                .email(member.getEmail().getValue())
                 .modifiedAt(member.getModifiedAt())
                 .createdAt(member.getCreatedAt())
                 .build();
