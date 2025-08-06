@@ -83,7 +83,7 @@ public class TodoController {
             @ParameterObject
             TodoSearchCondition condition,
             @ParameterObject
-            @PageableDefault(size = 5)
+            @PageableDefault(size = 10)
             Pageable pageable) {
         var command = SearchTodosCommand.builder()
                 .title(condition.title())
