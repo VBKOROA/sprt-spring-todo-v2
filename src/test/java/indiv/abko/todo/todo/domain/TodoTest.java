@@ -21,12 +21,12 @@ class TodoTest {
                 .title(new TodoTitleVO("테스트 제목"))
                 .content(new ContentVO("테스트 내용"))
                 .password(new PasswordVO("password1234"))
-                .author("user")
+                .authorName("user")
                 .build();
 
         Comment comment = Comment.builder()
                 .content(new ContentVO("테스트 댓글"))
-                .author("commenter")
+                .authorName("commenter")
                 .build();
 
         // when
@@ -45,17 +45,17 @@ class TodoTest {
                 .title(new TodoTitleVO("테스트 제목"))
                 .content(new ContentVO("테스트 내용"))
                 .password(new PasswordVO("password1234"))
-                .author("user")
+                .authorName("user")
                 .build();
 
         // 10개의 댓글을 미리 추가
         for (int i = 0; i < 10; i++) {
-            todo.addComment(Comment.builder().content(new ContentVO("댓글 " + i)).author("user").build());
+            todo.addComment(Comment.builder().content(new ContentVO("댓글 " + i)).authorName("user").build());
         }
 
         Comment newComment = Comment.builder()
                 .content(new ContentVO("11번째 댓글"))
-                .author("commenter")
+                .authorName("commenter")
                 .build();
 
         // when & then

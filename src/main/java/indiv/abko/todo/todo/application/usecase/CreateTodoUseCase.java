@@ -1,6 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
-import indiv.abko.todo.todo.domain.port.out.PasswordEncoder;
+import indiv.abko.todo.todo.domain.port.out.GetAuthorPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.todo.application.port.in.command.CreateTodoCommand;
@@ -14,21 +14,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateTodoUseCase {
     private final TodoRepository todoRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final GetAuthorPort getAuthorPort;
 
     /**
-     * 새로운 Todo 항목을 생성하고 저장소에 저장한다.
+     * 주어진 명령 객체를 기반으로 새로운 Todo 항목을 생성하여 저장소에 저장합니다.
+     * 작성자 정보를 조회하고, 제목과 내용을 값 객체로 감싸 Todo 엔티티를 생성합니다.
      *
-     * @param createCommand 새 Todo의 정보를 담은 명령 객체 (작성자, 제목, 내용, 비밀번호 포함)
+     * @param createCommand 생성할 Todo의 작성자 ID, 제목, 내용의 정보를 담은 명령 객체
      * @return 저장된 Todo 엔티티
      */
     @Transactional
     public Todo execute(final CreateTodoCommand createCommand) {
-        final var encodedPassword = passwordEncoder.encode(createCommand.password());
-        final Todo todo = Todo.builder().author(createCommand.author())
+        final var author = getAuthorPort.getAuthor(createCommand.memberId());
+        final Todo todo = Todo.builder()
+                .author(author)
                 .content(new ContentVO(createCommand.content()))
                 .title(new TodoTitleVO(createCommand.title()))
-                .password(encodedPassword).build();
+                .build();
         return todoRepo.save(todo);
     }
 }

@@ -25,7 +25,9 @@ public class TodoJpaEntity extends BaseTimeJpaEntity {
 
     private String content; // 일정 내용
 
-    private String author; // 작성자
+    private Long authorId; // 작성자 고유키
+
+    private String authorName; // 작성자 이름
 
     private String password; // 비밀번호
 

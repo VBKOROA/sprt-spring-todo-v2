@@ -31,7 +31,7 @@ public class UpdateTodoUseCase {
     public Todo execute(UpdateTodoCommand updateCommand) {
         final Todo todo = getAggregateOrThrow(updateCommand.id());
         todo.shouldHaveAuth(updateCommand.password(), passwordEncoder);
-        todo.updatePresented(updateCommand.title(), updateCommand.author());
+        todo.updatePresented(updateCommand.title());
         return todoRepo.save(todo);
     }
 

@@ -36,7 +36,7 @@ public class AddCommentUseCase {
         final var encodedPassword = passwordEncoder.encode(command.password());
         final Comment comment = Comment.builder()
             .content(new ContentVO(command.content()))
-            .author(command.author())
+            .authorName(command.author())
             .password(encodedPassword)
             .build();
         todo.addComment(comment);

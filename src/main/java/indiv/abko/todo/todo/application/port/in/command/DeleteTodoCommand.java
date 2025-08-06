@@ -4,8 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record DeleteTodoCommand(
-    Long id,
-    String encodedPassword
+    Long id
 ) {
     
 }

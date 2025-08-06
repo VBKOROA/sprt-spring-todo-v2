@@ -1,12 +1,13 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
+import indiv.abko.todo.global.exception.BusinessException;
+import indiv.abko.todo.global.exception.GlobalExceptionEnum;
+import indiv.abko.todo.global.security.AuthClaim;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.CommentMapper;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoCreateReq;
@@ -30,14 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/v1/todos")
@@ -60,11 +53,14 @@ public class TodoController {
                 examples = @ExampleObject(value = "{\"status\":\"BAD_REQUEST\",\"message\":\"요청이 잘못되었습니다.\",\"data\":null}")
             ))
     })
-    public ApiResp<TodoResp> createTodo(@RequestBody @Valid TodoCreateReq createReq) {
+    public ApiResp<TodoResp> createTodo(@RequestBody @Valid TodoCreateReq createReq,
+                                        @RequestAttribute("memberId") Long memberId) {
+        if(memberId == null) {
+            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
+        }
         var command = CreateTodoCommand.builder()
+                .memberId(memberId)
                 .title(createReq.title())
-                .author(createReq.author())
-                .password(createReq.password())
                 .content(createReq.content())
                 .build();
         var createdTodo = todoUseCaseFacade.createTodo(command);

@@ -4,9 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record CreateTodoCommand(
+    long memberId,
     String title,
-    String content,
-    String author,
-    String password
+    String content
 ) {
 }

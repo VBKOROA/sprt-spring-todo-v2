@@ -6,7 +6,7 @@ import lombok.Builder;
 public record AddCommentCommand(
     Long todoId,
     String content,
-    String author,
-    String password
+    Long authorId,
+    String authorName
 ) {
 }

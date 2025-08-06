@@ -5,8 +5,6 @@ import lombok.Builder;
 @Builder
 public record UpdateTodoCommand(
     Long id,
-    String title,
-    String author,
-    String password
+    String content
 ) {
 } 

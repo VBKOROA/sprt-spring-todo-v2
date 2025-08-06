@@ -44,7 +44,7 @@ class UpdateTodoUseCaseTest {
                 .id(1L)
                 .password(passwordVO)
                 .title(new TodoTitleVO("original title"))
-                .author("original author")
+                .authorName("original author")
                 .build();
 
         given(todoRepository.findAggregate(command.id())).willReturn(Optional.of(todo));
@@ -57,7 +57,7 @@ class UpdateTodoUseCaseTest {
         // then
         verify(todoRepository).save(any(Todo.class));
         assertThat(result.getTitle().getTitle()).isEqualTo(command.title());
-        assertThat(result.getAuthor()).isEqualTo(command.author());
+        assertThat(result.getAuthorName()).isEqualTo(command.author());
     }
 
     @Test

@@ -19,8 +19,10 @@ public class CommentJpaEntity extends BaseTimeJpaEntity {
     // 댓글 내용
     private String content;
 
+    private Long authorId;
+
     // 작성자명
-    private String author;
+    private String authorName;
 
     // 비밀번호
     private String password;

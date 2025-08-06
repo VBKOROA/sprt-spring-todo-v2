@@ -44,7 +44,7 @@ class CreateTodoUseCaseTest {
 
         // then
         verify(todoRepository).save(any(Todo.class));
-        assertThat(result.getAuthor()).isEqualTo(command.author());
+        assertThat(result.getAuthorName()).isEqualTo(command.author());
         assertThat(result.getTitle().getTitle()).isEqualTo(command.title());
         assertThat(result.getContent().getContent()).isEqualTo(command.content());
         assertThat(result.getPassword()).isEqualTo(encodedPassword);

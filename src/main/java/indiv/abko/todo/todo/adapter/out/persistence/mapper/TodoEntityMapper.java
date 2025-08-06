@@ -2,6 +2,7 @@ package indiv.abko.todo.todo.adapter.out.persistence.mapper;
 
 import indiv.abko.todo.todo.adapter.out.persistence.entity.TodoJpaEntity;
 import indiv.abko.todo.todo.domain.Todo;
+import indiv.abko.todo.todo.domain.vo.AuthorVO;
 import indiv.abko.todo.todo.domain.vo.ContentVO;
 import indiv.abko.todo.todo.domain.vo.PasswordVO;
 import indiv.abko.todo.todo.domain.vo.TodoTitleVO;
@@ -16,11 +17,12 @@ public class TodoEntityMapper {
     private final CommentEntityMapper commentEntityMapper;
 
     public Todo toSummary(final TodoJpaEntity todoJpaEntity) {
+        var author = AuthorVO.reconstitute(todoJpaEntity.getAuthorId(), todoJpaEntity.getAuthorName());
         return Todo.builder()
                 .id(todoJpaEntity.getId())
                 .title(new TodoTitleVO(todoJpaEntity.getTitle()))
                 .content(new ContentVO(todoJpaEntity.getContent()))
-                .author(todoJpaEntity.getAuthor())
+                .author(author)
                 .password(new PasswordVO(todoJpaEntity.getPassword()))
                 .createdAt(todoJpaEntity.getCreatedAt())
                 .modifiedAt(todoJpaEntity.getModifiedAt())
@@ -40,7 +42,8 @@ public class TodoEntityMapper {
                 .id(todo.getId())
                 .title(todo.getTitle().getTitle())
                 .comments(todo.getComments().stream().map(commentEntityMapper::toEntity).collect(Collectors.toList()))
-                .author(todo.getAuthor())
+                .authorId(todo.getAuthor().getId())
+                .authorName(todo.getAuthor().getName())
                 .password(todo.getPassword().getPassword())
                 .content(todo.getContent().getContent())
                 .createdAt(todo.getCreatedAt())

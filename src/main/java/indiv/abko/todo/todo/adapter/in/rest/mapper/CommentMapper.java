@@ -20,7 +20,7 @@ public class CommentMapper {
     public CommentResp toCommentResp(final Comment comment) {
         return CommentResp.builder()
                 .id(comment.getId())
-                .author(comment.getAuthor())
+                .author(comment.getAuthorName())
                 .content(comment.getContent().getContent())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())

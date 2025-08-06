@@ -57,7 +57,7 @@ class AddCommentUseCaseTest {
         verify(todoRepository).findAggregate(command.todoId());
         verify(todoRepository).saveComment(any(Todo.class));
         assertThat(result).isNotNull();
-        assertThat(result.getAuthor()).isEqualTo(command.author());
+        assertThat(result.getAuthorName()).isEqualTo(command.author());
         assertThat(result.getContent().getContent()).isEqualTo(command.content());
         assertThat(result.getPassword()).isEqualTo(encodedPassword);
     }
