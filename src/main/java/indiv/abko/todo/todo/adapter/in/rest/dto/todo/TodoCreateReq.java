@@ -17,15 +17,7 @@ public record TodoCreateReq(
     @ValidTodoContent
     @NotBlank
     @Schema(description = "Todo 내용 / 1~200자 이내", example = "테스트", requiredMode = Schema.RequiredMode.REQUIRED)
-    String content,
-
-    @NotBlank
-    @Schema(description = "Todo 작성자", example = "테스트", requiredMode = Schema.RequiredMode.REQUIRED)
-    String author,
-
-    @NotBlank
-    @Schema(description = "Todo 비밀번호", example = "테스트", requiredMode = Schema.RequiredMode.REQUIRED)
-    String password
+    String content
 ) {
 
 }
