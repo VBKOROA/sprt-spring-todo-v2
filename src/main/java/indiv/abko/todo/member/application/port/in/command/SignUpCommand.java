@@ -8,7 +8,7 @@ import indiv.abko.todo.member.domain.vo.NameVO;
 import lombok.Builder;
 
 @Builder
-public record SignUpMemberCommand(
+public record SignUpCommand(
         String name,
         String email,
         String password

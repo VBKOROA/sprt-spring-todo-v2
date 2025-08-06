@@ -33,4 +33,8 @@ public class EncodedPasswordVO {
     public static EncodedPasswordVO reconstitute(final String password) {
         return new EncodedPasswordVO(password);
     }
+
+    public boolean matches(String rawPassword, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(rawPassword, this.value);
+    }
 }

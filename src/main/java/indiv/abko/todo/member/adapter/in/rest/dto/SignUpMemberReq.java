@@ -1,14 +1,14 @@
 package indiv.abko.todo.member.adapter.in.rest.dto;
 
-import indiv.abko.todo.member.application.port.in.command.SignUpMemberCommand;
+import indiv.abko.todo.member.application.port.in.command.SignUpCommand;
 
 public record SignUpMemberReq(
         String name,
         String email,
         String password
 ) {
-    public SignUpMemberCommand toCommand() {
-        return SignUpMemberCommand.builder()
+    public SignUpCommand toCommand() {
+        return SignUpCommand.builder()
                 .name(name)
                 .email(email)
                 .password(password)

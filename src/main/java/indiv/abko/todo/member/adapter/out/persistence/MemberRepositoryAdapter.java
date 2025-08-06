@@ -29,4 +29,10 @@ public class MemberRepositoryAdapter implements MemberRepository{
         final MemberJpaEntity savedEntity = memberJpaRepo.save(memberJpaEntity);
         return savedEntity.toDomain();
     }
+
+    @Override
+    public Optional<Member> findByEmail(String email) {
+        final var memberEntity = memberJpaRepo.findByEmail(email);
+        return memberEntity.map(MemberJpaEntity::toDomain);
+    }
 }

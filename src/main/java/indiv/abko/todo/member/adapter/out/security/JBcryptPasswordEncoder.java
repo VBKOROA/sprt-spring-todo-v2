@@ -1,4 +1,4 @@
-package indiv.abko.todo.member.adapter.out.persistence.security;
+package indiv.abko.todo.member.adapter.out.security;
 
 import indiv.abko.todo.member.domain.port.out.PasswordEncoder;
 import indiv.abko.todo.member.domain.vo.EncodedPasswordVO;
@@ -13,7 +13,7 @@ public class JBcryptPasswordEncoder implements PasswordEncoder {
     }
 
     @Override
-    public boolean matches(final String rawPassword, final EncodedPasswordVO encodedPassword) {
-        return BCrypt.checkpw(rawPassword, encodedPassword.getValue());
+    public boolean matches(final String rawPassword, final String encodedPassword) {
+        return BCrypt.checkpw(rawPassword, encodedPassword);
     }
 }
