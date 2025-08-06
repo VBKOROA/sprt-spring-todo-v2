@@ -5,7 +5,7 @@ import indiv.abko.todo.member.domain.vo.EncodedPasswordVO;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("MemberPasswordEncoder")
 public class JBcryptPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(final String rawPassword) {
