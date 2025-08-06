@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetMemberUseCaseImpl implements GetMemberUseCase {
+public class DefaultGetMemberUseCase implements GetMemberUseCase {
     private final MemberRepository memberRepo;
 
     @Override
