@@ -15,4 +15,5 @@ public class Member {
     private String email; // 이메일 (로그인용 ID)
     private LocalDateTime modifiedAt; // 수정 시간
     private LocalDateTime createdAt; // 생성 시간
+    private String password;
 }
