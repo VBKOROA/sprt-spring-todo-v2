@@ -25,7 +25,7 @@ public class MemberRepositoryAdapter implements MemberRepository{
 
     @Override
     public Member create(final Member member) {
-        final MemberJpaEntity memberJpaEntity = MemberJpaEntity.fromSignUpDomain(member);
+        final MemberJpaEntity memberJpaEntity = MemberJpaEntity.fromDomain(member);
         final MemberJpaEntity savedEntity = memberJpaRepo.save(memberJpaEntity);
         return savedEntity.toDomain();
     }

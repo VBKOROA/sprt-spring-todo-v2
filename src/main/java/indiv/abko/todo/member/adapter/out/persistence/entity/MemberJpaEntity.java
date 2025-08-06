@@ -30,7 +30,7 @@ public class MemberJpaEntity extends BaseTimeJpaEntity {
 
     private String password; // 패스워드
 
-    public static MemberJpaEntity fromSignUpDomain(Member member) {
+    public static MemberJpaEntity fromDomain(Member member) {
         return MemberJpaEntity.builder()
                 .id(member.getId())
                 .email(member.getEmail().getValue())
