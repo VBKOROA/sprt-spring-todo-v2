@@ -23,7 +23,6 @@ public class TodoEntityMapper {
                 .title(new TodoTitleVO(todoJpaEntity.getTitle()))
                 .content(new ContentVO(todoJpaEntity.getContent()))
                 .author(author)
-                .password(new PasswordVO(todoJpaEntity.getPassword()))
                 .createdAt(todoJpaEntity.getCreatedAt())
                 .modifiedAt(todoJpaEntity.getModifiedAt())
                 .build();
@@ -44,7 +43,6 @@ public class TodoEntityMapper {
                 .comments(todo.getComments().stream().map(commentEntityMapper::toEntity).collect(Collectors.toList()))
                 .authorId(todo.getAuthor().getId())
                 .authorName(todo.getAuthor().getName())
-                .password(todo.getPassword().getPassword())
                 .content(todo.getContent().getContent())
                 .createdAt(todo.getCreatedAt())
                 .modifiedAt(todo.getModifiedAt())

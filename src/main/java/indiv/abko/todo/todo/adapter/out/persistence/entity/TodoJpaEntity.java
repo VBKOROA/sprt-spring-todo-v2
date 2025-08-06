@@ -29,8 +29,6 @@ public class TodoJpaEntity extends BaseTimeJpaEntity {
 
     private String authorName; // 작성자 이름
 
-    private String password; // 비밀번호
-
     // Todo 엔티티와 댓글 엔티티 간의 연관관계 설정
     @Builder.Default
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)

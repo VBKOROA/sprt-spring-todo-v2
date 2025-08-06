@@ -20,7 +20,6 @@ public class CommentEntityMapper {
                 .todo(todo)
                 .author(author)
                 .content(new ContentVO(commentJpaEntity.getContent()))
-                .password(new PasswordVO(commentJpaEntity.getPassword()))
                 .build();
     }
 
@@ -30,7 +29,6 @@ public class CommentEntityMapper {
                 .authorId(comment.getAuthor().getId())
                 .authorName(comment.getAuthor().getName())
                 .content(comment.getContent().getContent())
-                .password(comment.getPassword().getPassword())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())
                 .build();
