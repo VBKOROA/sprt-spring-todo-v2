@@ -1,0 +1,69 @@
+###
+### 성공 (200 Ok)
+###
+
+POST http://localhost:8080/api/v1/members HTTP/1.1
+content-type: application/json
+
+{
+  "name": "abko",
+  "email": "abko@abko.com",
+  "password": "abko"
+}
+
+###
+### 실패 (400 Bad Request)
+###
+
+POST http://localhost:8080/api/v1/members HTTP/1.1
+content-type: application/json
+
+{
+  "name": "abko",
+  "email": "",
+  "password": "abko"
+}
+
+###
+
+POST http://localhost:8080/api/v1/members HTTP/1.1
+content-type: application/json
+
+{
+  "name": "",
+  "email": "fafsda@afasf.com",
+  "password": "abko"
+}
+
+###
+
+POST http://localhost:8080/api/v1/members HTTP/1.1
+content-type: application/json
+
+{
+  "name": "fdafsdf",
+  "email": "fafsda@afasf.com",
+  "password": ""
+}
+
+###
+
+POST http://localhost:8080/api/v1/members HTTP/1.1
+content-type: application/json
+
+{
+  "name": "f",
+  "email": "fafsda@afasf.com",
+  "password": "fdfsafafsd"
+}
+
+###
+
+POST http://localhost:8080/api/v1/members HTTP/1.1
+content-type: application/json
+
+{
+  "name": "ffsdafdsf",
+  "email": "fafsdafsadfsdf",
+  "password": "fdfsafafsd"
+}
