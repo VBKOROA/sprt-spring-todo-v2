@@ -9,10 +9,6 @@ public record CommentWriteReq(
     @ValidCommentContent
     @NotBlank
     @Schema(description = "댓글 내용 / 1~200자 이내", example = "테스트 내용", requiredMode = Schema.RequiredMode.REQUIRED)
-    String content,
-
-    @NotBlank
-    @Schema(description = "비밀번호", example = "테스트 비밀번호", requiredMode = Schema.RequiredMode.REQUIRED)
-    String password
+    String content
 ) {
 }
