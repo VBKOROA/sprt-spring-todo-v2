@@ -17,13 +17,13 @@ public class JwtAuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        resolveTokenFromCookie(httpServletRequest).ifPresent(token -> {
-            Claim memberIdClaim = jwtUtil.getClaim(token, AuthClaim.MEMBER_ID);
-            if(memberIdClaim.isNull() == false) {
-                request.setAttribute(AuthClaim.MEMBER_ID.getKey(), memberIdClaim.asLong());
-                System.out.println("Auth!");
-            }
-        });
+        var tokenOpt = resolveTokenFromCookie(httpServletRequest);
+        tokenOpt.filter(jwtUtil::validate)
+                .map(token -> jwtUtil.getClaim(token, AuthClaim.MEMBER_ID))
+                .filter(claim -> claim.isNull() == false)
+                .ifPresent(memberIdClaim -> {
+                    request.setAttribute(AuthClaim.MEMBER_ID.getKey(), memberIdClaim.asLong());
+                });
         chain.doFilter(request, response);
     }
 
