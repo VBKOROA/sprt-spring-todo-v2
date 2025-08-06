@@ -22,6 +22,7 @@ public class MemberJpaEntity extends BaseTimeJpaEntity {
 
     private String name; // 이름
 
+    @Column(unique = true)
     private String email; // 이메일 (로그인용 ID)
 
     private String password; // 패스워드
