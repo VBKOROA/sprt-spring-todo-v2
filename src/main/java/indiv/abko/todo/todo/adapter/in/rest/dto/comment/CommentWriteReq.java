@@ -12,10 +12,6 @@ public record CommentWriteReq(
     String content,
 
     @NotBlank
-    @Schema(description = "작성자", example = "테스트 작성자", requiredMode = Schema.RequiredMode.REQUIRED)
-    String author,
-
-    @NotBlank
     @Schema(description = "비밀번호", example = "테스트 비밀번호", requiredMode = Schema.RequiredMode.REQUIRED)
     String password
 ) {

@@ -1,13 +1,13 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
+import indiv.abko.todo.global.exception.BusinessException;
+import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.todo.adapter.in.rest.dto.comment.CommentResp;
 import indiv.abko.todo.todo.adapter.in.rest.dto.comment.CommentWriteReq;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.CommentMapper;
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.AddCommentCommand;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import indiv.abko.todo.global.dto.ApiResp;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,9 +20,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -50,12 +47,16 @@ public class CommentController {
         long todoId,
         @RequestBody
         @Valid
-        CommentWriteReq req) {
+        CommentWriteReq req,
+        @RequestAttribute("memberId")
+        Long authorId) {
+        if(authorId == null) {
+            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
+        }
         var command = AddCommentCommand.builder()
                 .todoId(todoId)
-                .author(req.author())
+                .authorId(authorId)
                 .content(req.content())
-                .password(req.password())
                 .build();
         var addedComment = todoUseCaseFacade.addComment(command);
         return ApiResp.created(commentMapper.toCommentResp(addedComment));

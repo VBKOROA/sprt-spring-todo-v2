@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
+import indiv.abko.todo.todo.domain.port.out.GetAuthorPort;
 import indiv.abko.todo.todo.domain.port.out.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class AddCommentUseCase {
     private final TodoRepository todoRepo;
     private final PasswordEncoder passwordEncoder;
+    private final GetAuthorPort getAuthorPort;
 
     /**
      * 지정된 Todo 항목에 새로운 댓글을 추가한다.
@@ -33,11 +35,10 @@ public class AddCommentUseCase {
     public Comment execute(AddCommentCommand command) {
         final Todo todo = todoRepo.findAggregate(command.todoId())
             .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
-        final var encodedPassword = passwordEncoder.encode(command.password());
+        final var author = getAuthorPort.getAuthor(command.authorId());
         final Comment comment = Comment.builder()
             .content(new ContentVO(command.content()))
-            .authorName(command.author())
-            .password(encodedPassword)
+            .author(author)
             .build();
         todo.addComment(comment);
         final Todo savedTodo = todoRepo.saveComment(todo);
