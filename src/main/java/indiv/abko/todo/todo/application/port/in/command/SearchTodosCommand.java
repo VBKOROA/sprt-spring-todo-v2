@@ -8,14 +8,14 @@ public record SearchTodosCommand(
     String orderBy,
     String title,
     String content,
-    String author
+    String authorName
 ) {
     public SearchTodosCriteria toCriteria() {
         return SearchTodosCriteria.builder()
                 .orderBy(orderBy)
                 .title(title)
                 .content(content)
-                .author(author)
+                .authorName(authorName)
                 .build();
     }
 }

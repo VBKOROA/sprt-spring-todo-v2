@@ -48,7 +48,7 @@ public class CommentController {
         @RequestBody
         @Valid
         CommentWriteReq req,
-        @RequestAttribute("memberId")
+        @RequestAttribute(name = "memberId", required = false)
         Long authorId) {
         if(authorId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);

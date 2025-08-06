@@ -2,7 +2,6 @@ package indiv.abko.todo.todo.adapter.in.rest;
 
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
-import indiv.abko.todo.global.security.AuthClaim;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.CommentMapper;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
@@ -16,7 +15,6 @@ import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoResp;
 import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoSearchCondition;
 import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoUpdateReq;
 import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoWithCommentsResp;
-import indiv.abko.todo.todo.adapter.in.rest.validation.ShouldBase64;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -54,7 +52,7 @@ public class TodoController {
             ))
     })
     public ApiResp<TodoResp> createTodo(@RequestBody @Valid TodoCreateReq createReq,
-                                        @RequestAttribute("memberId") Long memberId) {
+                                        @RequestAttribute(name = "memberId", required = false) Long memberId) {
         if(memberId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
@@ -84,7 +82,7 @@ public class TodoController {
             TodoSearchCondition condition) {
         var command = SearchTodosCommand.builder()
                 .title(condition.title())
-                .author(condition.author())
+                .authorName(condition.authorName())
                 .content(condition.content())
                 .orderBy(condition.orderBy())
                 .build();
@@ -143,7 +141,7 @@ public class TodoController {
         @RequestBody 
         @Valid 
         TodoUpdateReq updateReq,
-        @RequestAttribute("memberId")
+        @RequestAttribute(name = "memberId", required = false)
         Long requesterId) {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
@@ -181,7 +179,7 @@ public class TodoController {
             in = ParameterIn.HEADER, 
             description = "Todo 삭제를 위한 인증 비밀번호 / base64로 인코딩되어야 함.", 
             required = true)
-        @RequestAttribute("memberId")
+        @RequestAttribute(name = "memberId", required = false)
         Long requesterId) {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
