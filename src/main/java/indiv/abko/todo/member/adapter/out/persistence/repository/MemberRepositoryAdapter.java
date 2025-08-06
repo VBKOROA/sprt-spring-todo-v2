@@ -1,6 +1,6 @@
-package indiv.abko.todo.member.adapter.out.persistence;
+package indiv.abko.todo.member.adapter.out.persistence.repository;
 
-import indiv.abko.todo.member.adapter.out.persistence.entity.MemberJpaEntity;
+import indiv.abko.todo.member.adapter.out.persistence.MemberJpaEntity;
 import indiv.abko.todo.member.domain.Member;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
 import lombok.RequiredArgsConstructor;

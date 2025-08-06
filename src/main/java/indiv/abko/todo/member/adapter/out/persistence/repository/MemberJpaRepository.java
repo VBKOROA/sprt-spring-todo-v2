@@ -1,6 +1,6 @@
-package indiv.abko.todo.member.adapter.out.persistence;
+package indiv.abko.todo.member.adapter.out.persistence.repository;
 
-import indiv.abko.todo.member.adapter.out.persistence.entity.MemberJpaEntity;
+import indiv.abko.todo.member.adapter.out.persistence.MemberJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package indiv.abko.todo.member.adapter.out.persistence.entity;
+package indiv.abko.todo.member.adapter.out.persistence;
 
 import indiv.abko.todo.global.entity.BaseTimeJpaEntity;
 import indiv.abko.todo.member.domain.Member;
