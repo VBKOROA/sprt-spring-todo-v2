@@ -17,4 +17,9 @@ public class MemberRepositoryAdapter implements MemberRepository{
     public Optional<Member> findByIdForPublic(long id) {
         return memberJpaRepo.findById(id).map(MemberJpaEntity::toDomainForPublic);
     }
+
+    @Override
+    public boolean isExistsByEmail(String email) {
+        return memberJpaRepo.existsByEmail(email);
+    }
 }
