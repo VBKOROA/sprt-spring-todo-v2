@@ -5,6 +5,8 @@ import indiv.abko.todo.member.domain.Member;
 import java.util.Optional;
 
 public interface MemberRepository {
-    Optional<Member> findByIdForPublic(long id);
+    Optional<Member> findById(long id);
     boolean isExistsByEmail(String email);
+
+    Member create(Member member);
 }
