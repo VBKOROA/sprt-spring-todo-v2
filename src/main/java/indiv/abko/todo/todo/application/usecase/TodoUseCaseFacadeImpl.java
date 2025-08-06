@@ -4,10 +4,9 @@ import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
 import indiv.abko.todo.todo.domain.Comment;
 import indiv.abko.todo.todo.domain.Todo;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +37,7 @@ public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
     public Todo updateTodo(UpdateTodoCommand command) { return updateTodoUseCase.execute(command); }
 
     @Override
-    public List<Todo> searchTodos(SearchTodosCommand command) { return searchTodosUseCase.execute(command); }
+    public Page<Todo> searchTodos(SearchTodosCommand command) { return searchTodosUseCase.execute(command); }
 
     @Override
     public Todo getTodo(GetTodoCommand command) { return getTodoUseCase.execute(command); }

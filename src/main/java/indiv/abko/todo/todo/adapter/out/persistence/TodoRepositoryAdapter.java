@@ -6,9 +6,10 @@ import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,9 +25,8 @@ public class TodoRepositoryAdapter implements TodoRepository {
     }
 
     @Override
-    public List<Todo> searchSummaries(final SearchTodosCriteria searchCriteria) {
-        final var todoEntities = todoQDSLRepository.search(searchCriteria);
-        return todoEntities.stream().map(todoEntityMapper::toSummary).toList();
+    public Page<Todo> searchSummaries(final SearchTodosCriteria searchCriteria, final Pageable pageable) {
+        return todoQDSLRepository.search(searchCriteria, pageable);
     }
 
     @Override

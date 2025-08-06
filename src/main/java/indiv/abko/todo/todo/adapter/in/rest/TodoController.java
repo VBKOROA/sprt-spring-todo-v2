@@ -6,6 +6,8 @@ import indiv.abko.todo.todo.adapter.in.rest.mapper.CommentMapper;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import indiv.abko.todo.global.dto.ApiResp;
@@ -79,16 +81,24 @@ public class TodoController {
     public ApiResp<TodoListResp> getTodos(
             @ModelAttribute 
             @ParameterObject
-            TodoSearchCondition condition) {
+            TodoSearchCondition condition,
+            @ParameterObject
+            @PageableDefault(size = 5)
+            Pageable pageable) {
         var command = SearchTodosCommand.builder()
                 .title(condition.title())
                 .authorName(condition.authorName())
                 .content(condition.content())
                 .orderBy(condition.orderBy())
+                .pageable(pageable)
                 .build();
         var todos = todoUseCaseFacade.searchTodos(command);
-        var responseTodos = todoMapper.toTodoResps(todos);
-        var responseData = new TodoListResp(responseTodos);
+        var responseTodos = todos.map(todoMapper::toTodoResp).getContent();
+        var responseData = TodoListResp.builder()
+                .todos(responseTodos)
+                .pageNumber(todos.getNumber())
+                .totalPages(todos.getTotalPages())
+                .build();
         return ApiResp.ok(responseData);
     }
 

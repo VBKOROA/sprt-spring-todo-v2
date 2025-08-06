@@ -6,12 +6,15 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import indiv.abko.todo.todo.adapter.out.persistence.entity.TodoJpaEntity;
+import indiv.abko.todo.todo.adapter.out.persistence.mapper.TodoEntityMapper;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
+import indiv.abko.todo.todo.domain.Todo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
 
 import static indiv.abko.todo.todo.adapter.out.persistence.entity.QTodoJpaEntity.todoJpaEntity;
 
@@ -25,17 +28,36 @@ public class TodoQDSLRepository {
     private static final OrderSpecifier<?> DEFAULT_ORDER = new OrderSpecifier<>(Order.DESC, todoJpaEntity.modifiedAt);
 
     private final JPAQueryFactory queryFactory;
+    private final TodoEntityMapper todoEntityMapper;
 
-    public List<TodoJpaEntity> search(final SearchTodosCriteria searchCriteria) {
-        return queryFactory
+    public Page<Todo> search(final SearchTodosCriteria searchCriteria, final Pageable pageable) {
+        final var authorExpression = authorNameLike(searchCriteria.authorName());
+        final var titleExpression = titleLike(searchCriteria.title());
+        final var contentExpression = contentLike(searchCriteria.content());
+
+        final var content = queryFactory
                 .selectFrom(todoJpaEntity)
                 .where(
-                        authorNameLike(searchCriteria.authorName()),
-                        titleLike(searchCriteria.title()),
-                        contentLike(searchCriteria.content())
+                        authorExpression,
+                        titleExpression,
+                        contentExpression
                 )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .orderBy(getOrderBy(searchCriteria.orderBy()))
                 .fetch();
+
+        final var countQuery = queryFactory
+                .select(todoJpaEntity.count())
+                .from(todoJpaEntity)
+                .where(
+                        authorExpression,
+                        titleExpression,
+                        contentExpression
+                );
+
+        var page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+        return page.map(todoEntityMapper::toSummary);
     }
 
     private static String makeLikePattern(final String value) {
