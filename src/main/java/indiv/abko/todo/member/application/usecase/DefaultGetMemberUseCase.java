@@ -15,7 +15,7 @@ public class DefaultGetMemberUseCase implements GetMemberUseCase {
 
     @Override
     public Member get(long id) {
-        return memberRepo.findById(id)
+        return memberRepo.findByIdForPublic(id)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
     }
 }

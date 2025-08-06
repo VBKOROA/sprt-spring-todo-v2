@@ -5,5 +5,5 @@ import indiv.abko.todo.member.domain.Member;
 import java.util.Optional;
 
 public interface MemberRepository {
-    Optional<Member> findById(long id);
+    Optional<Member> findByIdForPublic(long id);
 }

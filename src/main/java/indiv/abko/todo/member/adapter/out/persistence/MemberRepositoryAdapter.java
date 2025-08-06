@@ -14,7 +14,7 @@ public class MemberRepositoryAdapter implements MemberRepository{
     private final MemberJpaRepository memberJpaRepo;
 
     @Override
-    public Optional<Member> findById(long id) {
+    public Optional<Member> findByIdForPublic(long id) {
         return memberJpaRepo.findById(id).map(MemberJpaEntity::toDomainForPublic);
     }
 }
