@@ -30,7 +30,7 @@ public class TodoQDSLRepository {
         return queryFactory
                 .selectFrom(todoJpaEntity)
                 .where(
-                        authorLike(searchCriteria.author()),
+                        authorNameLike(searchCriteria.authorName()),
                         titleLike(searchCriteria.title()),
                         contentLike(searchCriteria.content())
                 )
@@ -42,8 +42,8 @@ public class TodoQDSLRepository {
         return "%" + value + "%";
     }
 
-    private BooleanExpression authorLike(final String author) {
-        return StringUtils.hasText(author) ? todoJpaEntity.author.like(makeLikePattern(author)) : null;
+    private BooleanExpression authorNameLike(final String authorName) {
+        return StringUtils.hasText(authorName) ? todoJpaEntity.authorName.like(makeLikePattern(authorName)) : null;
     }
 
     private BooleanExpression titleLike(final String title) {
@@ -82,7 +82,7 @@ public class TodoQDSLRepository {
             case "id" -> todoJpaEntity.id;
             case "title" -> todoJpaEntity.title;
             case "content" -> todoJpaEntity.content;
-            case "authorName" -> todoJpaEntity.author;
+            case "authorName" -> todoJpaEntity.authorName;
             case "createdAt" -> todoJpaEntity.createdAt;
             case "modifiedAt" -> todoJpaEntity.modifiedAt;
             default -> null;

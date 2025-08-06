@@ -7,6 +7,6 @@ public record SearchTodosCriteria(
         String orderBy,
         String title,
         String content,
-        String author
+        String authorName
 ) {
 }

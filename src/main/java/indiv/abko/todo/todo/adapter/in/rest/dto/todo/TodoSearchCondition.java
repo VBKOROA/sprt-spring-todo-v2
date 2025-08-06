@@ -10,7 +10,7 @@ public record TodoSearchCondition(
     String title,
     @Schema(description = "내용", example = "Todo 내용")
     String content,
-    @Schema(description = "작성자", example = "Todo 작성자")
-    String author
+    @Schema(description = "작성자 이름", example = "Todo 작성자")
+    String authorName
 ) {
 }
