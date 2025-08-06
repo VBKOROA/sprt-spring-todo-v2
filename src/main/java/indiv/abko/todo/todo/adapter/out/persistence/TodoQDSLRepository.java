@@ -82,7 +82,7 @@ public class TodoQDSLRepository {
             case "id" -> todoJpaEntity.id;
             case "title" -> todoJpaEntity.title;
             case "content" -> todoJpaEntity.content;
-            case "author" -> todoJpaEntity.author;
+            case "authorName" -> todoJpaEntity.author;
             case "createdAt" -> todoJpaEntity.createdAt;
             case "modifiedAt" -> todoJpaEntity.modifiedAt;
             default -> null;

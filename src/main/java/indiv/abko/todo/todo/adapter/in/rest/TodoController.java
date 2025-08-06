@@ -142,12 +142,13 @@ public class TodoController {
         long id,
         @RequestBody 
         @Valid 
-        TodoUpdateReq updateReq) {
+        TodoUpdateReq updateReq,
+        @RequestAttribute("memberId")
+        Long memberId) {
         var command =  UpdateTodoCommand.builder()
-                .id(id)
-                .title(updateReq.title())
-                .author(updateReq.author())
-                .password(updateReq.password())
+                .requesterId(memberId)
+                .todoId(id)
+                .content(updateReq.content())
                 .build();
         var updatedTodo = todoUseCaseFacade.updateTodo(command);
         return ApiResp.ok(todoMapper.toTodoResp(updatedTodo));

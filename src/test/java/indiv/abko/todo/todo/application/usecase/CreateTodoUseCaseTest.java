@@ -33,7 +33,7 @@ class CreateTodoUseCaseTest {
     @DisplayName("할일 생성 - 성공")
     void 할일을_성공적으로_생성해야한다() {
         // given
-        CreateTodoCommand command = new CreateTodoCommand("title", "content", "author", "password");
+        CreateTodoCommand command = new CreateTodoCommand("title", "content", "authorName", "password");
         PasswordVO encodedPassword = new PasswordVO("encodedPassword");
 
         given(passwordEncoder.encode(command.password())).willReturn(encodedPassword);

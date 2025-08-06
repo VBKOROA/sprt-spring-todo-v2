@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import indiv.abko.todo.todo.domain.port.out.PasswordEncoder;
 import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
 import indiv.abko.todo.todo.domain.vo.AuthorVO;
 import indiv.abko.todo.todo.domain.vo.ContentVO;
@@ -34,10 +33,9 @@ public class Todo {
         this.comments = new ArrayList<>(comments);
     }
 
-    public void updatePresented(final String title) {
-        if (title != null) {
-            this.title = new TodoTitleVO(title);
-        }
+    public void updateContent(final String content, final long requester) {
+        shouldHaveAuth(requester);
+        this.content = new ContentVO(content);
     }
 
     public void addComment(final Comment comment) {
@@ -53,8 +51,8 @@ public class Todo {
         return comments.get(lastIdx);
     }
 
-    public void shouldHaveAuth(final String rawPassword, final PasswordEncoder passwordEncoder) {
-        if(password.matches(rawPassword, passwordEncoder) == false) {
+    private void shouldHaveAuth(final long memberId) {
+        if (author.getId().equals(memberId) == false) {
             throw new BusinessException(TodoExceptionEnum.TODO_PERMISSION_DENIED);
         }
     }

@@ -31,7 +31,7 @@ class SearchTodosUseCaseTest {
     @DisplayName("할일 목록 검색 - 성공")
     void 할일_목록을_성공적으로_검색해야한다() {
         // given
-        SearchTodosCommand command = new SearchTodosCommand("createdAt", "title", "content", "author");
+        SearchTodosCommand command = new SearchTodosCommand("createdAt", "title", "content", "authorName");
         SearchTodosCriteria criteria = command.toCriteria();
         List<Todo> todos = Collections.singletonList(Todo.builder().build());
         given(todoRepository.searchSummaries(criteria)).willReturn(todos);

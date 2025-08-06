@@ -18,7 +18,7 @@ public class GetTodoUseCase {
      * 주어진 ID를 사용하여 Todo 항목을 조회한다.
      *
      * @param getCommand 조회할 Todo의 ID를 포함한 명령 객체
-     *                   - {@code id}: 조회할 Todo의 고유 식별자
+     *                   - {@code todoId}: 조회할 Todo의 고유 식별자
      * @return 조회된 Todo 엔티티
      * @throws BusinessException Todo 항목을 찾을 수 없는 경우 {@code TODO_NOT_FOUND} 예외를 발생
      */

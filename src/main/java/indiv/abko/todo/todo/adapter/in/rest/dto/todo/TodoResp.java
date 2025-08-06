@@ -13,8 +13,8 @@ public record TodoResp(
     String title,
     @Schema(description = "Todo 내용", example = "테스트")
     String content,
-    @Schema(description = "Todo 작성자", example = "테스트")
-    String author,
+    @Schema(description = "Todo 작성자 이름", example = "테스트")
+    String authorName,
     @Schema(description = "Todo 생성 날짜/시간", example = "2025-01-01T00:00:00")
     LocalDateTime createdAt,
     @Schema(description = "Todo 수정 날짜/시간", example = "2025-01-01T00:00:00")

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AuthClaim {
-    MEMBER_ID("memberId");
+    MEMBER_ID("requesterId");
 
     private final String key;
 }

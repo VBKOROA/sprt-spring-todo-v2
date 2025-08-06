@@ -24,7 +24,7 @@ public class AddCommentUseCase {
      * @param command 댓글이 추가될 Todo의 ID, 내용, 작성자, 비밀번호를 포함한 명령 객체
      *                - {@code todoId}: 댓글이 추가될 Todo의 고유 식별자
      *                - {@code content}: 댓글 내용
-     *                - {@code author}: 댓글 작성자
+     *                - {@code authorName}: 댓글 작성자
      *                - {@code password}: 댓글 비밀번호
      * @return 생성된 댓글 엔티티
      * @throws BusinessException Todo 항목을 찾을 수 없거나 댓글 제한을 초과한 경우 {@code TODO_NOT_FOUND} 또는 기타 예외 발생

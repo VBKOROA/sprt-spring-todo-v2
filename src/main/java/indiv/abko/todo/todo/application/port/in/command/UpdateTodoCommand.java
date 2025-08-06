@@ -4,7 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record UpdateTodoCommand(
-    Long id,
+    long requesterId,
+    long todoId,
     String content
 ) {
 } 

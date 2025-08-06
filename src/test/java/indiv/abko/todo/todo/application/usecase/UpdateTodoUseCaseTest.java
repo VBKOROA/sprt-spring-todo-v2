@@ -38,16 +38,16 @@ class UpdateTodoUseCaseTest {
     @DisplayName("할일 수정 - 성공")
     void updateTodo_success() {
         // given
-        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated author", "password");
+        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "password");
         PasswordVO passwordVO = new PasswordVO("encodedPassword");
         Todo todo = Todo.builder()
                 .id(1L)
                 .password(passwordVO)
                 .title(new TodoTitleVO("original title"))
-                .authorName("original author")
+                .authorName("original authorName")
                 .build();
 
-        given(todoRepository.findAggregate(command.id())).willReturn(Optional.of(todo));
+        given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.of(todo));
         given(passwordEncoder.matches(command.password(), passwordVO)).willReturn(true);
         given(todoRepository.save(any(Todo.class))).willAnswer(invocation -> invocation.getArgument(0));
 
@@ -64,8 +64,8 @@ class UpdateTodoUseCaseTest {
     @DisplayName("할일 수정 - 실패: 할일을 찾을 수 없음")
     void updateTodo_fail_todoNotFound() {
         // given
-        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated author", "password");
-        given(todoRepository.findAggregate(command.id())).willReturn(Optional.empty());
+        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "password");
+        given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.empty());
 
         // when & then
         assertThatThrownBy(() -> updateTodoUseCase.execute(command))
@@ -76,11 +76,11 @@ class UpdateTodoUseCaseTest {
     @DisplayName("할일 수정 - 실패: 비밀번호 불일치")
     void 수정시_비밀번호가_일치하지_않으면_예외가_발생해야한다() {
         // given
-        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated author", "wrong_password");
+        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "wrong_password");
         PasswordVO passwordVO = new PasswordVO("encodedPassword");
         Todo todo = Todo.builder().id(1L).password(passwordVO).build();
 
-        given(todoRepository.findAggregate(command.id())).willReturn(Optional.of(todo));
+        given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.of(todo));
         given(passwordEncoder.matches(command.password(), passwordVO)).willReturn(false);
 
         // when & then

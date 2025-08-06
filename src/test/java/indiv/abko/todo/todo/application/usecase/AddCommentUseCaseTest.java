@@ -39,7 +39,7 @@ class AddCommentUseCaseTest {
     @DisplayName("댓글 추가 - 성공")
     void addComment_success() {
         // given
-        AddCommentCommand command = new AddCommentCommand(1L, "content", "author", "password");
+        AddCommentCommand command = new AddCommentCommand(1L, "content", "authorName", "password");
         Todo todo = Todo.builder().id(1L).build();
         PasswordVO encodedPassword = new PasswordVO("encodedPassword");
 
@@ -66,7 +66,7 @@ class AddCommentUseCaseTest {
     @DisplayName("댓글 추가 - 실패: 할일을 찾을 수 없음")
     void 할일을_찾지못하면_댓글추가시_예외가_발생해야한다() {
         // given
-        AddCommentCommand command = new AddCommentCommand(1L, "content", "author", "password");
+        AddCommentCommand command = new AddCommentCommand(1L, "content", "authorName", "password");
         given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.empty());
 
         // when & then

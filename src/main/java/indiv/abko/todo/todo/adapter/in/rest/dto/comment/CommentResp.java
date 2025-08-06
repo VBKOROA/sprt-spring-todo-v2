@@ -11,8 +11,8 @@ public record CommentResp(
     Long id,
     @Schema(description = "댓글 내용", example = "테스트")
     String content,
-    @Schema(description = "댓글 작성자", example = "테스트")
-    String author,
+    @Schema(description = "댓글 작성자 이름", example = "테스트")
+    String authorName,
     @Schema(description = "댓글 작성일", example = "2025-01-01T12:00:00")
     LocalDateTime createdAt,
     @Schema(description = "댓글 수정일", example = "2025-01-01T12:00:00")

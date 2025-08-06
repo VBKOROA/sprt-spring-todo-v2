@@ -16,7 +16,7 @@ public class TodoMapper {
                 .id(todo.getId())
                 .title(todo.getTitle().getTitle())
                 .content(todo.getContent().getContent())
-                .author(todo.getAuthorName())
+                .authorName(todo.getAuthor().getName())
                 .createdAt(todo.getCreatedAt())
                 .modifiedAt(todo.getModifiedAt())
                 .build();
