@@ -1,6 +1,7 @@
 package indiv.abko.todo.member.adapter.in.rest;
 
 import indiv.abko.todo.global.dto.ApiResp;
+import indiv.abko.todo.global.security.JwtAuthFilter;
 import indiv.abko.todo.member.adapter.in.rest.dto.LoginReq;
 import indiv.abko.todo.member.adapter.in.rest.dto.MemberResp;
 import indiv.abko.todo.member.adapter.in.rest.dto.SignUpReq;
@@ -8,6 +9,8 @@ import indiv.abko.todo.member.adapter.in.rest.dto.SignUpResp;
 import indiv.abko.todo.member.application.port.in.GetMemberUseCase;
 import indiv.abko.todo.member.application.port.in.LoginUseCase;
 import indiv.abko.todo.member.application.port.in.SignUpUseCase;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +39,13 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ApiResp<String> login(@RequestBody LoginReq loginReq) {
-        var response = ApiResp.ok(loginUseCase.login(loginReq.email(), loginReq.password()));
-        return response;
+    public ApiResp<String> login(@RequestBody LoginReq loginReq, HttpServletResponse response) {
+        String token = loginUseCase.login(loginReq.email(), loginReq.password());
+        var apiResponse = ApiResp.ok(token);
+        Cookie cookie = new Cookie(JwtAuthFilter.AUTH_HEADER, token);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        return apiResponse;
     }
 }

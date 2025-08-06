@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum GlobalExceptionEnum implements BusinessExceptionEnum{
-    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "원인 불명의 오류가 발생했습니다.");
+    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "원인 불명의 오류가 발생했습니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다.");
 
     private final HttpStatus status;
     private final String message;
