@@ -35,7 +35,6 @@ import org.springframework.validation.annotation.Validated;
 public class TodoController {
     private final TodoUseCaseFacade todoUseCaseFacade;
     private final TodoMapper todoMapper;
-    private final GetCommentsByTodoIdUseCase getCommentsByTodoIdUseCase;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -94,29 +93,6 @@ public class TodoController {
                 .pageNumber(todos.getNumber())
                 .totalPages(todos.getTotalPages())
                 .build();
-        return ApiResp.ok(responseData);
-    }
-
-
-    @GetMapping("/{id}")
-    @Operation(summary = "Todo 조회", description = "Todo를 조회함. 해당 Todo와 연결된 댓글 목록도 함께 조회함.")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Todo가 성공적으로 조회됨"),
-        @ApiResponse(responseCode = "404", description = "Todo를 찾을 수 없음",
-            content = @Content(
-                schema = @Schema(implementation = ApiResp.class),
-                examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"Todo를 찾을 수 없습니다.\",\"data\":null}")
-            ))
-    })
-    public ApiResp<TodoWithCommentsResp> getTodo(
-        @PathVariable("id") 
-        @Parameter(name = "id", description = "Todo ID") 
-        long id) {
-        var todo = todoUseCaseFacade.getTodo(new GetTodoCommand(id));
-        var comments = getCommentsByTodoIdUseCase.execute(id);
-        var responseTodo = todoMapper.toTodoResp(todo);
-        var responseComments = CommentResp.from(comments);
-        var responseData = new TodoWithCommentsResp(responseTodo, responseComments);
         return ApiResp.ok(responseData);
     }
 
