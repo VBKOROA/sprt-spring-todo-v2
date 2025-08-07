@@ -1,14 +1,15 @@
 package indiv.abko.todo.member.adapter.in.rest;
 
 import indiv.abko.todo.global.dto.ApiResp;
+import indiv.abko.todo.global.exception.BusinessException;
+import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.JwtAuthFilter;
-import indiv.abko.todo.member.adapter.in.rest.dto.LoginReq;
-import indiv.abko.todo.member.adapter.in.rest.dto.MemberResp;
-import indiv.abko.todo.member.adapter.in.rest.dto.SignUpReq;
-import indiv.abko.todo.member.adapter.in.rest.dto.SignUpResp;
+import indiv.abko.todo.member.adapter.in.rest.dto.*;
 import indiv.abko.todo.member.application.port.in.GetMemberUseCase;
 import indiv.abko.todo.member.application.port.in.LoginUseCase;
 import indiv.abko.todo.member.application.port.in.SignUpUseCase;
+import indiv.abko.todo.member.application.port.in.UpdateMemberUseCase;
+import indiv.abko.todo.member.domain.Member;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class MemberController {
     private final GetMemberUseCase getMemberUseCase;
     private final SignUpUseCase signUpUseCase;
     private final LoginUseCase loginUseCase;
+    private final UpdateMemberUseCase updateMemberUseCase;
 
     @GetMapping("/{id}")
     public ApiResp<MemberResp> getMember(@PathVariable long id) {
@@ -47,5 +49,17 @@ public class MemberController {
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return apiResponse;
+    }
+
+    @PostMapping("/{id}")
+    public ApiResp<MemberResp> update(@RequestBody UpdateMemberReq updateReq,
+                                      @RequestAttribute(name = "memberId", required = false)
+                                      Long requesterId) {
+        if(requesterId == null) {
+            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
+        }
+        Member member = updateMemberUseCase.update(requesterId, updateReq.name());
+        var responseMember = MemberResp.of(member);
+        return ApiResp.ok(responseMember);
     }
 }

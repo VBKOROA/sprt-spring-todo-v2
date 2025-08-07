@@ -24,6 +24,6 @@ public class DefaultSignUpUseCase implements SignUpUseCase {
             throw new BusinessException(MemberExceptionEnum.MEMBER_EMAIL_DUPLICATE);
         }
         final Member member = signUpCommand.toDomain(passwordEncoder);
-        return memberRepo.create(member);
+        return memberRepo.save(member);
     }
 }

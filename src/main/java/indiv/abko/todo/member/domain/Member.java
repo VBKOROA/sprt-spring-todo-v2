@@ -28,4 +28,8 @@ public class Member {
             throw new BusinessException(MemberExceptionEnum.MEMBER_LOGIN_FAILED);
         };
     }
+
+    public void update(String name) {
+        this.name = NameVO.fromRawName(name);
+    }
 }
