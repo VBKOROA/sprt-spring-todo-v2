@@ -2,7 +2,6 @@ package indiv.abko.todo.todo.application.usecase;
 
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
-import indiv.abko.todo.todo.domain.Comment;
 import indiv.abko.todo.todo.domain.Todo;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

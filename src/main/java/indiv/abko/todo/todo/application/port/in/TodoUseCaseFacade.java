@@ -1,7 +1,6 @@
 package indiv.abko.todo.todo.application.port.in;
 
 import indiv.abko.todo.todo.application.port.in.command.*;
-import indiv.abko.todo.todo.domain.Comment;
 import indiv.abko.todo.todo.domain.Todo;
 import org.springframework.data.domain.Page;
 

@@ -24,31 +24,12 @@ public class Todo {
     private ContentVO content; // 일정 내용
     private AuthorVO author;
     private PasswordVO password; // 비밀번호
-    @Builder.Default
-    private List<Comment> comments = new ArrayList<>(); // 댓글 목록
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
-    public void initCommentsViaRepository(List<Comment> comments) {
-        this.comments = new ArrayList<>(comments);
-    }
 
     public void updateContent(final String content, final long requester) {
         shouldHaveAuth(requester);
         this.content = ContentVO.fromRawContent(content);
-    }
-
-    public void addComment(final Comment comment) {
-        if (comments.size() == COMMENT_LIMIT) {
-            throw new BusinessException(TodoExceptionEnum.COMMENT_LIMIT_EXCEEDED);
-        }
-        comments.add(comment);
-        comment.atTodo(this);
-    }
-
-    public Comment getLastComment() {
-        final int lastIdx = comments.size() - 1;
-        return comments.get(lastIdx);
     }
 
     public void shouldHaveAuth(final long memberId) {
