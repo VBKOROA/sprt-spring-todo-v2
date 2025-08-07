@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
+import indiv.abko.todo.todo.application.port.in.TodoDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.global.exception.BusinessException;
@@ -25,10 +26,11 @@ public class UpdateTodoUseCase {
      * @throws BusinessException Todo 항목을 찾을 수 없거나 권한이 없을 경우
      */
     @Transactional
-    public Todo execute(UpdateTodoCommand updateCommand) {
+    public TodoDto execute(UpdateTodoCommand updateCommand) {
         final Todo todo = todoRepo.findBy(updateCommand.todoId())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.updateContent(updateCommand.content(), updateCommand.requesterId());
-        return todoRepo.save(todo);
+        final var saved = todoRepo.save(todo);
+        return TodoDto.from(saved);
     }
 }

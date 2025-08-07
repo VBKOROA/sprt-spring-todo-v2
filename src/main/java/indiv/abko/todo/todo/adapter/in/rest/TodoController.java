@@ -58,7 +58,7 @@ public class TodoController {
                 .content(createReq.content())
                 .build();
         var createdTodo = todoUseCaseFacade.createTodo(command);
-        return ApiResp.created(todoMapper.toTodoResp(createdTodo));
+        return ApiResp.created(TodoResp.from(createdTodo));
     }
 
     // @ModelAttribute: 여러 개의 파라미터를 객체로 바인딩 할 수 있음
@@ -87,7 +87,7 @@ public class TodoController {
                 .pageable(pageable)
                 .build();
         var todos = todoUseCaseFacade.searchTodos(command);
-        var responseTodos = todos.map(todoMapper::toTodoResp).getContent();
+        var responseTodos = todos.map(TodoResp::from).getContent();
         var responseData = TodoListResp.builder()
                 .todos(responseTodos)
                 .pageNumber(todos.getNumber())
@@ -134,7 +134,7 @@ public class TodoController {
                 .content(updateReq.content())
                 .build();
         var updatedTodo = todoUseCaseFacade.updateTodo(command);
-        return ApiResp.ok(todoMapper.toTodoResp(updatedTodo));
+        return ApiResp.ok(TodoResp.from(updatedTodo));
     }
 
     @DeleteMapping("/{id}")

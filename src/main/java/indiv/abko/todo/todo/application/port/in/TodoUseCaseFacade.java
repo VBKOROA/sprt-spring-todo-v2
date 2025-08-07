@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 public interface TodoUseCaseFacade {
     public void deleteTodo(DeleteTodoCommand command);
 
-    public Todo createTodo(CreateTodoCommand command);
+    public TodoDto createTodo(CreateTodoCommand command);
 
-    public Todo updateTodo(UpdateTodoCommand command);
+    public TodoDto updateTodo(UpdateTodoCommand command);
 
-    public Page<Todo> searchTodos(SearchTodosCommand command);
+    public Page<TodoDto> searchTodos(SearchTodosCommand command);
 
-    public Todo getTodo(GetTodoCommand command);
+    public TodoDto getTodo(GetTodoCommand command);
 }

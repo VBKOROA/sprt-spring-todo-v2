@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
+import indiv.abko.todo.todo.application.port.in.TodoDto;
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
 import indiv.abko.todo.todo.domain.Todo;
@@ -22,16 +23,16 @@ public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
     }
 
     @Override
-    public Todo createTodo(CreateTodoCommand command) {
+    public TodoDto createTodo(CreateTodoCommand command) {
         return createTodoUseCase.execute(command);
     }
 
     @Override
-    public Todo updateTodo(UpdateTodoCommand command) { return updateTodoUseCase.execute(command); }
+    public TodoDto updateTodo(UpdateTodoCommand command) { return updateTodoUseCase.execute(command); }
 
     @Override
-    public Page<Todo> searchTodos(SearchTodosCommand command) { return searchTodosUseCase.execute(command); }
+    public Page<TodoDto> searchTodos(SearchTodosCommand command) { return searchTodosUseCase.execute(command); }
 
     @Override
-    public Todo getTodo(GetTodoCommand command) { return getTodoUseCase.execute(command); }
+    public TodoDto getTodo(GetTodoCommand command) { return getTodoUseCase.execute(command); }
 }

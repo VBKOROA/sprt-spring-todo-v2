@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
+import indiv.abko.todo.todo.application.port.in.TodoDto;
 import indiv.abko.todo.todo.application.port.out.TodoAuthorPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,13 +25,14 @@ public class CreateTodoUseCase {
      * @return 저장된 Todo 엔티티
      */
     @Transactional
-    public Todo execute(final CreateTodoCommand createCommand) {
+    public TodoDto execute(final CreateTodoCommand createCommand) {
         final var author = todoAuthorPort.getAuthor(createCommand.memberId());
         final Todo todo = Todo.builder()
                 .author(author)
                 .content(ContentVO.fromRawContent(createCommand.content()))
                 .title(new TodoTitleVO(createCommand.title()))
                 .build();
-        return todoRepo.save(todo);
+        final var saved = todoRepo.save(todo);
+        return TodoDto.from(saved);
     }
 }
