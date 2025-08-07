@@ -51,7 +51,7 @@ public class MemberController {
         return apiResponse;
     }
 
-    @PostMapping("/{id}")
+    @PatchMapping("/{id}")
     public ApiResp<MemberResp> update(@RequestBody UpdateMemberReq updateReq,
                                       @RequestAttribute(name = "memberId", required = false)
                                       Long requesterId) {
