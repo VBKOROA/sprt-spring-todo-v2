@@ -1,6 +1,6 @@
 package indiv.abko.todo.todo.adapter.in.rest.mapper;
 
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoResp;
+import indiv.abko.todo.todo.adapter.in.rest.dto.TodoResp;
 import indiv.abko.todo.todo.domain.Todo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

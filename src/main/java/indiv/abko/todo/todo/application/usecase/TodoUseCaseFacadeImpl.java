@@ -11,17 +11,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
-    private final AddCommentUseCase addCommentUseCase;
     private final DeleteTodoUseCase deleteTodoUseCase;
     private final CreateTodoUseCase createTodoUseCase;
     private final UpdateTodoUseCase updateTodoUseCase;
     private final SearchTodosUseCase searchTodosUseCase;
     private final GetTodoUseCase getTodoUseCase;
-
-    @Override
-    public Comment addComment(AddCommentCommand command) {
-        return addCommentUseCase.execute(command);
-    }
 
     @Override
     public void deleteTodo(DeleteTodoCommand command) {

@@ -1,5 +1,5 @@
 package indiv.abko.todo.member.application.port.in;
 
 public interface GetAuthorUseCase {
-    GetAuthorDTO getAuthor(Long id);
+    GetAuthorDTO getAuthor(long id);
 }

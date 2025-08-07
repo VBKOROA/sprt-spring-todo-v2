@@ -33,13 +33,13 @@ class GetTodoUseCaseTest {
         // given
         GetTodoCommand command = new GetTodoCommand(1L);
         Todo todo = Todo.builder().id(1L).build();
-        given(todoRepository.findAggregate(command.id())).willReturn(Optional.of(todo));
+        given(todoRepository.findBy(command.id())).willReturn(Optional.of(todo));
 
         // when
         Todo result = getTodoUseCase.execute(command);
 
         // then
-        verify(todoRepository).findAggregate(command.id());
+        verify(todoRepository).findBy(command.id());
         assertThat(result).isEqualTo(todo);
     }
 
@@ -48,7 +48,7 @@ class GetTodoUseCaseTest {
     void 조회할_할일을_찾지못하면_예외가_발생해야한다() {
         // given
         GetTodoCommand command = new GetTodoCommand(1L);
-        given(todoRepository.findAggregate(command.id())).willReturn(Optional.empty());
+        given(todoRepository.findBy(command.id())).willReturn(Optional.empty());
 
         // when & then
         assertThatThrownBy(() -> getTodoUseCase.execute(command))

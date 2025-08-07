@@ -47,7 +47,7 @@ class UpdateTodoUseCaseTest {
                 .authorName("original authorName")
                 .build();
 
-        given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.of(todo));
+        given(todoRepository.findBy(command.todoId())).willReturn(Optional.of(todo));
         given(passwordEncoder.matches(command.password(), passwordVO)).willReturn(true);
         given(todoRepository.save(any(Todo.class))).willAnswer(invocation -> invocation.getArgument(0));
 
@@ -65,7 +65,7 @@ class UpdateTodoUseCaseTest {
     void updateTodo_fail_todoNotFound() {
         // given
         UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "password");
-        given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.empty());
+        given(todoRepository.findBy(command.todoId())).willReturn(Optional.empty());
 
         // when & then
         assertThatThrownBy(() -> updateTodoUseCase.execute(command))
@@ -80,7 +80,7 @@ class UpdateTodoUseCaseTest {
         PasswordVO passwordVO = new PasswordVO("encodedPassword");
         Todo todo = Todo.builder().id(1L).password(passwordVO).build();
 
-        given(todoRepository.findAggregate(command.todoId())).willReturn(Optional.of(todo));
+        given(todoRepository.findBy(command.todoId())).willReturn(Optional.of(todo));
         given(passwordEncoder.matches(command.password(), passwordVO)).willReturn(false);
 
         // when & then

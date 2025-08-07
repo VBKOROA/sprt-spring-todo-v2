@@ -19,9 +19,9 @@ public class TodoRepositoryAdapter implements TodoRepository {
     private final TodoQDSLRepository todoQDSLRepository;
     private final TodoEntityMapper todoEntityMapper;
 
-    public Optional<Todo> findAggregate(final Long id) {
-        return todoJpaRepository.findByIdWithComments(id)
-                .map(todoEntityMapper::toAggregate);
+    public Optional<Todo> findBy(final Long id) {
+        return todoJpaRepository.findById(id)
+                .map(todoEntityMapper::toDomain);
     }
 
     @Override
@@ -32,23 +32,28 @@ public class TodoRepositoryAdapter implements TodoRepository {
     @Override
     public Todo save(final Todo todo) {
         final TodoJpaEntity todoEntity = todoJpaRepository.save(todoEntityMapper.toEntity(todo));
-        return todoEntityMapper.toSummary(todoEntity);
+        return todoEntityMapper.toDomain(todoEntity);
     }
 
     @Override
     public Todo saveComment(final Todo todo) {
         final TodoJpaEntity todoEntity = todoJpaRepository.save(todoEntityMapper.toEntity(todo));
-        return todoEntityMapper.toAggregate(todoEntity);
+        return todoEntityMapper.toDomain(todoEntity);
     }
 
     @Override
     public Optional<Todo> findSummary(final Long id) {
-        return todoJpaRepository.findById(id).map(todoEntityMapper::toSummary);
+        return todoJpaRepository.findById(id).map(todoEntityMapper::toDomain);
     }
 
     @Override
     public void delete(final Todo todo) {
         final TodoJpaEntity todoEntity = todoEntityMapper.toEntity(todo);
         todoJpaRepository.delete(todoEntity);
+    }
+
+    @Override
+    public boolean isExistBy(long todoId) {
+        return todoJpaRepository.existsById(todoId);
     }
 }

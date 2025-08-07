@@ -1,8 +1,9 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
+import indiv.abko.todo.comment.domain.in.GetCommentsByTodoIdUseCase;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
-import indiv.abko.todo.todo.adapter.in.rest.mapper.CommentMapper;
+import indiv.abko.todo.todo.adapter.in.rest.dto.*;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
@@ -11,12 +12,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import indiv.abko.todo.global.dto.ApiResp;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoCreateReq;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoListResp;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoResp;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoSearchCondition;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoUpdateReq;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoWithCommentsResp;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -40,7 +35,7 @@ import org.springframework.validation.annotation.Validated;
 public class TodoController {
     private final TodoUseCaseFacade todoUseCaseFacade;
     private final TodoMapper todoMapper;
-    private final CommentMapper commentMapper;
+    private final GetCommentsByTodoIdUseCase getCommentsByTodoIdUseCase;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -118,8 +113,9 @@ public class TodoController {
         @Parameter(name = "id", description = "Todo ID") 
         long id) {
         var todo = todoUseCaseFacade.getTodo(new GetTodoCommand(id));
+        var comments = getCommentsByTodoIdUseCase.execute(id);
         var responseTodo = todoMapper.toTodoResp(todo);
-        var responseComments = commentMapper.toCommentResps(todo.getComments());
+        var responseComments = CommentResp.from(comments);
         var responseData = new TodoWithCommentsResp(responseTodo, responseComments);
         return ApiResp.ok(responseData);
     }

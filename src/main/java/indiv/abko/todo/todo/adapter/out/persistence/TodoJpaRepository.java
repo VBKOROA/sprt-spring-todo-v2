@@ -7,8 +7,4 @@ import indiv.abko.todo.todo.adapter.out.persistence.entity.TodoJpaEntity;
 import java.util.Optional;
 
 public interface TodoJpaRepository extends JpaRepository<TodoJpaEntity,Long> {
-    @Query("""
-        SELECT t FROM TodoJpaEntity t LEFT JOIN FETCH t.comments c
-        WHERE t.id = :id
-    """)
-    Optional<TodoJpaEntity> findByIdWithComments(@Param("id") Long id);}
+}

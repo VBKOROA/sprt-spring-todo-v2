@@ -19,8 +19,6 @@ public class TodoJpaEntity extends BaseTimeJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long memberId;
-
     private String title; // 일정 제목
 
     private String content; // 일정 내용
@@ -28,9 +26,4 @@ public class TodoJpaEntity extends BaseTimeJpaEntity {
     private Long authorId; // 작성자 고유키
 
     private String authorName; // 작성자 이름
-
-    // Todo 엔티티와 댓글 엔티티 간의 연관관계 설정
-    @Builder.Default
-    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommentJpaEntity> comments = new ArrayList<>(); // 댓글 목록
 }

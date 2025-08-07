@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
+import indiv.abko.todo.todo.application.port.out.CommentPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.global.exception.BusinessException;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeleteTodoUseCase {
     private final TodoRepository todoRepo;
+    private final CommentPort commentPort;
 
     /**
      * 주어진 Todo ID와 요청자 ID를 사용하여 Todo를 삭제합니다.
@@ -26,5 +28,6 @@ public class DeleteTodoUseCase {
             .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.shouldHaveAuth(command.requesterId());
         todoRepo.delete(todo);
+        commentPort.deleteAllByTodoId(command.todoId());
     }
 }

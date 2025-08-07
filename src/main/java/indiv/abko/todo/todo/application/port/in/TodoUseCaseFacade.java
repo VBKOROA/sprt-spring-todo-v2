@@ -6,8 +6,6 @@ import indiv.abko.todo.todo.domain.Todo;
 import org.springframework.data.domain.Page;
 
 public interface TodoUseCaseFacade {
-    public Comment addComment(AddCommentCommand command);
-
     public void deleteTodo(DeleteTodoCommand command);
 
     public Todo createTodo(CreateTodoCommand command);

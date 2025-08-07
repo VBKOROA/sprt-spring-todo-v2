@@ -1,0 +1,15 @@
+package indiv.abko.todo.comment.domain.out;
+
+import indiv.abko.todo.comment.domain.Comment;
+
+import java.util.List;
+
+public interface CommentRepository {
+    Comment save(Comment comment);
+
+    int countByTodoId(long todoId);
+
+    List<Comment> findAllBy(long todoId);
+
+    void deleteAllBy(long todoId);
+}

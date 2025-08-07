@@ -5,7 +5,6 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import indiv.abko.todo.todo.adapter.out.persistence.entity.TodoJpaEntity;
 import indiv.abko.todo.todo.adapter.out.persistence.mapper.TodoEntityMapper;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import indiv.abko.todo.todo.domain.Todo;
@@ -57,7 +56,7 @@ public class TodoQDSLRepository {
                 );
 
         var page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
-        return page.map(todoEntityMapper::toSummary);
+        return page.map(todoEntityMapper::toDomain);
     }
 
     private static String makeLikePattern(final String value) {

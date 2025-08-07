@@ -16,7 +16,7 @@ public class DefaultGetAuthorUseCase implements GetAuthorUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public GetAuthorDTO getAuthor(Long id) {
+    public GetAuthorDTO getAuthor(long id) {
         final var member = memberRepo.findById(id)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
         return new GetAuthorDTO(member.getName().getValue());

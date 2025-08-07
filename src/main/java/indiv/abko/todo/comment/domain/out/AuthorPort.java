@@ -1,7 +1,7 @@
-package indiv.abko.todo.todo.domain.port.out;
+package indiv.abko.todo.comment.domain.out;
 
 import indiv.abko.todo.global.vo.AuthorVO;
 
-public interface GetAuthorPort {
+public interface AuthorPort {
     AuthorVO getAuthor(long authorId);
 }

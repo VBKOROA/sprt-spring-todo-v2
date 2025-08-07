@@ -26,7 +26,7 @@ public class UpdateTodoUseCase {
      */
     @Transactional
     public Todo execute(UpdateTodoCommand updateCommand) {
-        final Todo todo = todoRepo.findAggregate(updateCommand.todoId())
+        final Todo todo = todoRepo.findBy(updateCommand.todoId())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.updateContent(updateCommand.content(), updateCommand.requesterId());
         return todoRepo.save(todo);

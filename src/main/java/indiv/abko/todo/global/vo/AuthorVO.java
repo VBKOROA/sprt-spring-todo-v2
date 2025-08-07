@@ -1,18 +1,16 @@
-package indiv.abko.todo.todo.domain.vo;
+package indiv.abko.todo.global.vo;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Builder
+@EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AuthorVO {
     private Long id;
     private String name;
 
-    public static AuthorVO reconstitute(Long id, String name) {
+    public static AuthorVO reconstitute(long id, String name) {
         return AuthorVO.builder()
                 .id(id)
                 .name(name)

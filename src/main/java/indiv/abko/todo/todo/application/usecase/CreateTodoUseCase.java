@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.todo.application.port.in.command.CreateTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.vo.ContentVO;
+import indiv.abko.todo.global.vo.ContentVO;
 import indiv.abko.todo.todo.domain.vo.TodoTitleVO;
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +28,7 @@ public class CreateTodoUseCase {
         final var author = getAuthorPort.getAuthor(createCommand.memberId());
         final Todo todo = Todo.builder()
                 .author(author)
-                .content(new ContentVO(createCommand.content()))
+                .content(ContentVO.fromRawContent(createCommand.content()))
                 .title(new TodoTitleVO(createCommand.title()))
                 .build();
         return todoRepo.save(todo);

@@ -1,4 +1,4 @@
-package indiv.abko.todo.todo.adapter.in.rest.dto.todo;
+package indiv.abko.todo.todo.adapter.in.rest.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

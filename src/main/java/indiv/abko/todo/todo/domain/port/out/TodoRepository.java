@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface TodoRepository {
-    Optional<Todo> findAggregate(Long id);
+    Optional<Todo> findBy(Long id);
     Page<Todo> searchSummaries(SearchTodosCriteria searchCriteria, Pageable pageable);
 
     Todo save(Todo todo);
@@ -17,4 +17,6 @@ public interface TodoRepository {
     Optional<Todo> findSummary(Long id);
 
     void delete(Todo todo);
+
+    boolean isExistBy(long todoId);
 }

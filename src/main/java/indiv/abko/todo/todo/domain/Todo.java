@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
-import indiv.abko.todo.todo.domain.vo.AuthorVO;
-import indiv.abko.todo.todo.domain.vo.ContentVO;
+import indiv.abko.todo.global.vo.AuthorVO;
+import indiv.abko.todo.global.vo.ContentVO;
 import indiv.abko.todo.todo.domain.vo.PasswordVO;
 import indiv.abko.todo.todo.domain.vo.TodoTitleVO;
 import indiv.abko.todo.global.exception.BusinessException;
@@ -35,7 +35,7 @@ public class Todo {
 
     public void updateContent(final String content, final long requester) {
         shouldHaveAuth(requester);
-        this.content = new ContentVO(content);
+        this.content = ContentVO.fromRawContent(content);
     }
 
     public void addComment(final Comment comment) {

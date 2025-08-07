@@ -24,7 +24,7 @@ public class GetTodoUseCase {
      */
     @Transactional(readOnly = true)
     public Todo execute(GetTodoCommand getCommand) {
-        return todoRepo.findAggregate(getCommand.id())
+        return todoRepo.findBy(getCommand.id())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
     }
 }

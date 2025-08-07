@@ -1,14 +1,12 @@
-package indiv.abko.todo.todo.adapter.in.rest;
+package indiv.abko.todo.comment.adapter.in.rest;
 
+import indiv.abko.todo.comment.adapter.in.rest.dto.CommentResp;
+import indiv.abko.todo.comment.adapter.in.rest.dto.CommentWriteReq;
+import indiv.abko.todo.comment.domain.in.AddCommentCommand;
+import indiv.abko.todo.comment.domain.in.AddCommentUseCase;
+import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
-import indiv.abko.todo.todo.adapter.in.rest.dto.comment.CommentResp;
-import indiv.abko.todo.todo.adapter.in.rest.dto.comment.CommentWriteReq;
-import indiv.abko.todo.todo.adapter.in.rest.mapper.CommentMapper;
-import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
-import indiv.abko.todo.todo.application.port.in.command.AddCommentCommand;
-import org.springframework.web.bind.annotation.*;
-import indiv.abko.todo.global.dto.ApiResp;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,6 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -27,8 +26,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 @Tag(name = "Comment API", description = "할일 관리 시스템의 댓글 관련 API")
 public class CommentController {
-    private final TodoUseCaseFacade todoUseCaseFacade;
-    private final CommentMapper commentMapper;
+    private final AddCommentUseCase addCommentUseCase;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,7 +56,7 @@ public class CommentController {
                 .authorId(authorId)
                 .content(req.content())
                 .build();
-        var addedComment = todoUseCaseFacade.addComment(command);
-        return ApiResp.created(commentMapper.toCommentResp(addedComment));
+        var addedComment = addCommentUseCase.execute(command);
+        return ApiResp.created(CommentResp.from(addedComment));
     }
 }

@@ -1,25 +1,26 @@
-package indiv.abko.todo.todo.domain.vo;
+package indiv.abko.todo.global.vo;
 
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.util.StringUtils;
 
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ContentVO {
     private String content;
 
-    public ContentVO(final String content) {
+    public static ContentVO fromRawContent(final String content) {
         shouldValid(content);
-        this.content = content;
+        return new ContentVO(content);
     }
 
-    private void shouldValid(final String content) {
+    public static ContentVO reconstitute(final String content) {
+        return new ContentVO(content);
+    }
+
+    private static void shouldValid(final String content) {
         if(StringUtils.hasText(content) == false)  {
             throw new BusinessException(TodoExceptionEnum.CONTENT_REQUIRED);
         }
