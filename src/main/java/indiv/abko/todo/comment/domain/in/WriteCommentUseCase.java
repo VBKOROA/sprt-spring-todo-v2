@@ -2,6 +2,6 @@ package indiv.abko.todo.comment.domain.in;
 
 import indiv.abko.todo.comment.domain.Comment;
 
-public interface AddCommentUseCase {
-    Comment execute(AddCommentCommand command);
+public interface WriteCommentUseCase {
+    Comment execute(WriteCommentCommand command);
 }

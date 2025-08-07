@@ -6,7 +6,7 @@ import indiv.abko.todo.global.vo.ContentVO;
 import lombok.Builder;
 
 @Builder
-public record AddCommentCommand(
+public record WriteCommentCommand(
     Long todoId,
     String content,
     Long authorId

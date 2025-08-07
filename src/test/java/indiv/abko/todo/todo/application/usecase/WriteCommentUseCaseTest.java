@@ -23,7 +23,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class AddCommentUseCaseTest {
+class WriteCommentUseCaseTest {
 
     @InjectMocks
     private AddCommentUseCase addCommentUseCase;
