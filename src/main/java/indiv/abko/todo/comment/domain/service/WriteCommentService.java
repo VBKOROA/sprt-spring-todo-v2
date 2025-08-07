@@ -2,6 +2,7 @@ package indiv.abko.todo.comment.domain.service;
 
 import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.CommentExceptionEnum;
+import indiv.abko.todo.comment.domain.in.CommentDto;
 import indiv.abko.todo.comment.domain.in.WriteCommentCommand;
 import indiv.abko.todo.comment.domain.in.WriteCommentUseCase;
 import indiv.abko.todo.comment.domain.out.AuthorPort;
@@ -22,13 +23,14 @@ public class WriteCommentService implements WriteCommentUseCase {
 
     @Override
     @Transactional
-    public Comment execute(final WriteCommentCommand command) {
+    public CommentDto execute(final WriteCommentCommand command) {
         todoPort.shouldExistBy(command.todoId());
         if(commentRepo.countByTodoId(command.todoId()) == COMMENT_LIMIT) {
             throw new BusinessException(CommentExceptionEnum.COMMENT_LIMIT_EXCEEDED);
         }
         var author = authorPort.getAuthor(command.todoId());
         var comment = command.toDomain(author);
-        return commentRepo.save(comment);
+        var savedComment = commentRepo.save(comment);
+        return CommentDto.from(savedComment);
     }
 }

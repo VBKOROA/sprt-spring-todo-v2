@@ -65,7 +65,7 @@ public class CommentController {
 
     @GetMapping("/{id}")
     public ApiResp<CommentResp> getComment(@PathVariable("id") long id) {
-        Comment comment = getCommentByIdUseCase.execute(id);
+        var comment = getCommentByIdUseCase.execute(id);
         return ApiResp.ok(CommentResp.from(comment));
     }
 
@@ -78,7 +78,7 @@ public class CommentController {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
         UpdateCommentCommand command = updateReq.toCommand(id, requesterId);
-        Comment comment = updateCommentUseCase.execute(command);
+        var comment = updateCommentUseCase.execute(command);
         return ApiResp.ok(CommentResp.from(comment));
     }
 }

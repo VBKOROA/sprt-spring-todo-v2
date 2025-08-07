@@ -2,6 +2,7 @@ package indiv.abko.todo.comment.domain.service;
 
 import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.CommentExceptionEnum;
+import indiv.abko.todo.comment.domain.in.CommentDto;
 import indiv.abko.todo.comment.domain.in.UpdateCommentCommand;
 import indiv.abko.todo.comment.domain.in.UpdateCommentUseCase;
 import indiv.abko.todo.comment.domain.out.CommentRepository;
@@ -17,11 +18,11 @@ public class UpdateCommentUseCaseService implements UpdateCommentUseCase {
 
     @Override
     @Transactional
-    public Comment execute(UpdateCommentCommand command) {
+    public CommentDto execute(UpdateCommentCommand command) {
         var comment = commentRepo.findById(command.commentId())
                 .orElseThrow(() -> new BusinessException(CommentExceptionEnum.COMMENT_NOT_FOUND));
         comment.updateContent(command.content(), command.requesterId());
         var savedComment = commentRepo.save(comment);
-        return savedComment;
+        return CommentDto.from(savedComment);
     }
 }
