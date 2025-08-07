@@ -1,6 +1,7 @@
 package indiv.abko.todo.tododetail.adapter.out;
 
 import indiv.abko.todo.comment.domain.Comment;
+import indiv.abko.todo.comment.domain.in.CommentDto;
 import indiv.abko.todo.comment.domain.in.GetCommentsByTodoIdUseCase;
 import indiv.abko.todo.tododetail.domain.out.CommentSpec;
 import indiv.abko.todo.tododetail.domain.out.TodoDetailCommentPort;
@@ -17,17 +18,17 @@ public class TodoDetailCommentPortService implements TodoDetailCommentPort {
     @Override
     public List<CommentSpec> getCommentsByTodoId(long todoId) {
         var comments = getCommentsByTodoIdUseCase.execute(todoId);
-        return comments.stream().map(this::toSpec).toList();
+        return comments.stream().map(comment -> toSpec(comment)).toList();
     }
 
-    private CommentSpec toSpec(Comment comment) {
+    private CommentSpec toSpec(CommentDto comment) {
         return CommentSpec.builder()
-                .id(comment.getId())
-                .authorId(comment.getAuthor().getId())
-                .authorName(comment.getAuthor().getName())
-                .createdAt(comment.getCreatedAt())
-                .modifiedAt(comment.getModifiedAt())
-                .content(comment.getContent().getContent())
+                .id(comment.id())
+                .authorId(comment.authorId())
+                .authorName(comment.authorName())
+                .createdAt(comment.createdAt())
+                .modifiedAt(comment.modifiedAt())
+                .content(comment.content())
                 .build();
     }
 }

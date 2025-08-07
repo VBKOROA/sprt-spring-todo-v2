@@ -2,7 +2,6 @@ package indiv.abko.todo.tododetail.adapter.out;
 
 import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.GetTodoCommand;
-import indiv.abko.todo.todo.application.usecase.GetTodoUseCase;
 import indiv.abko.todo.tododetail.domain.out.TodoDetailTodoPort;
 import indiv.abko.todo.tododetail.domain.out.TodoSpec;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +17,13 @@ public class TodoDetailTodoAdapter implements TodoDetailTodoPort {
         GetTodoCommand getTodoCommand = new GetTodoCommand(todoId);
         var todo = todoUseCaseFacade.getTodo(getTodoCommand);
         return TodoSpec.builder()
-                .id(todo.getId())
-                .title(todo.getTitle().getTitle())
-                .authorName(todo.getAuthor().getName())
-                .modifiedAt(todo.getModifiedAt())
-                .content(todo.getContent().getContent())
-                .createdAt(todo.getCreatedAt())
-                .authorId(todo.getAuthor().getId())
+                .id(todo.id())
+                .title(todo.title())
+                .authorName(todo.authorName())
+                .modifiedAt(todo.modifiedAt())
+                .content(todo.content())
+                .createdAt(todo.createdAt())
+                .authorId(todo.authorId())
                 .build();
     }
 }
