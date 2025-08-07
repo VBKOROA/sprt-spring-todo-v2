@@ -42,4 +42,9 @@ public class CommentRepositoryAdapter implements CommentRepository {
         var entity = commentJpaRepo.findById(id);
         return entity.map(CommentJpaEntity::toDomain);
     }
+
+    @Override
+    public void deleteAllByAuthorId(long authorId) {
+        commentJpaRepo.deleteAllByAuthorId(authorId);
+    }
 }

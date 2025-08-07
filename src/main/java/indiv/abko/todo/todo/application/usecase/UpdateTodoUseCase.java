@@ -19,7 +19,7 @@ public class UpdateTodoUseCase {
      * 주어진 ID에 해당하는 Todo 항목을 업데이트합니다.
      *
      * @param updateCommand 업데이트할 Todo의 ID, 작성자 ID, 내용이 포함된 명령 객체
-     *                      - {@code todoId}: 업데이트할 Todo의 고유 식별자
+     *                      - {@code id}: 업데이트할 Todo의 고유 식별자
      *                      - {@code requesterId}: 인증 및 권한 확인에 사용할 작성자 ID
      *                      - {@code content}: 변경할 내용
      * @return 업데이트된 Todo 엔티티

@@ -15,4 +15,6 @@ public interface CommentRepository {
     void deleteAllBy(long todoId);
 
     Optional<Comment> findById(long id);
+
+    void deleteAllByAuthorId(long authorId);
 }

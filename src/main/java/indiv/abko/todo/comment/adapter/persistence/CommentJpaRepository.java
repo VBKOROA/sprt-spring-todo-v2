@@ -10,4 +10,6 @@ public interface CommentJpaRepository extends JpaRepository<CommentJpaEntity, Lo
     List<CommentJpaEntity> findAllByTodoId(Long todoId);
 
     void deleteAllByTodoId(Long todoId);
+
+    void deleteAllByAuthorId(Long authorId);
 }

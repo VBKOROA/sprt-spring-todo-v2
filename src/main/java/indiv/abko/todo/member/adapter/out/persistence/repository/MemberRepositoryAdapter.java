@@ -35,4 +35,14 @@ public class MemberRepositoryAdapter implements MemberRepository{
         final var memberEntity = memberJpaRepo.findByEmail(email);
         return memberEntity.map(MemberJpaEntity::toDomain);
     }
+
+    @Override
+    public void deleteById(long requesterId) {
+        memberJpaRepo.deleteById(requesterId);
+    }
+
+    @Override
+    public boolean isExistsById(long requesterId) {
+        return memberJpaRepo.existsById(requesterId);
+    }
 }

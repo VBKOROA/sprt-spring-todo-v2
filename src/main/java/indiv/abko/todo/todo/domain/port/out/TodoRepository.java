@@ -5,6 +5,7 @@ import indiv.abko.todo.todo.domain.Todo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TodoRepository {
@@ -19,4 +20,8 @@ public interface TodoRepository {
     void delete(Todo todo);
 
     boolean isExistBy(long todoId);
+
+    List<Long> findTodoIdsByAuthorId(long authorId);
+
+    void deleteById(long todoId);
 }

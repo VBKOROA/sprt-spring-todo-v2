@@ -5,11 +5,7 @@ import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.JwtAuthFilter;
 import indiv.abko.todo.member.adapter.in.rest.dto.*;
-import indiv.abko.todo.member.application.port.in.GetMemberUseCase;
-import indiv.abko.todo.member.application.port.in.LoginUseCase;
-import indiv.abko.todo.member.application.port.in.SignUpUseCase;
-import indiv.abko.todo.member.application.port.in.UpdateMemberUseCase;
-import indiv.abko.todo.member.domain.Member;
+import indiv.abko.todo.member.application.port.in.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +20,7 @@ public class MemberController {
     private final SignUpUseCase signUpUseCase;
     private final LoginUseCase loginUseCase;
     private final UpdateMemberUseCase updateMemberUseCase;
+    private final DeleteMemberUseCase deleteMemberUseCase;
 
     @GetMapping("/{id}")
     public ApiResp<MemberResp> getMember(@PathVariable long id) {
@@ -61,5 +58,15 @@ public class MemberController {
         var member = updateMemberUseCase.update(requesterId, updateReq.name());
         var responseMember = MemberResp.from(member);
         return ApiResp.ok(responseMember);
+    }
+
+    @DeleteMapping("")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@RequestAttribute(name = "memberId", required = false)
+                                      Long requesterId) {
+        if(requesterId == null) {
+            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
+        }
+        deleteMemberUseCase.execute(requesterId);
     }
 }

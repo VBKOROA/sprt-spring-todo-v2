@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -55,5 +56,16 @@ public class TodoRepositoryAdapter implements TodoRepository {
     @Override
     public boolean isExistBy(long todoId) {
         return todoJpaRepository.existsById(todoId);
+    }
+
+    @Override
+    public List<Long> findTodoIdsByAuthorId(long authorId) {
+        var todoIds = todoJpaRepository.findAllByAuthorId(authorId);
+        return todoIds.stream().map(TodoIdProjection::id).toList();
+    }
+
+    @Override
+    public void deleteById(long todoId) {
+        todoJpaRepository.deleteById(todoId);
     }
 }

@@ -11,4 +11,8 @@ public interface MemberRepository {
     Member save(Member member);
 
     Optional<Member> findByEmail(String email);
+
+    void deleteById(long requesterId);
+
+    boolean isExistsById(long requesterId);
 }

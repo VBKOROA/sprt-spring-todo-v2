@@ -44,7 +44,7 @@ public class CommentController {
     })
     public ApiResp<CommentResp> writeComment(
             @PathVariable("todoId")
-            @Parameter(name = "todoId", description = "할일 ID")
+            @Parameter(name = "id", description = "할일 ID")
             long todoId,
             @RequestBody
             @Valid
