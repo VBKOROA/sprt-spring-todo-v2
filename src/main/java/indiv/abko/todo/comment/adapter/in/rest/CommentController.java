@@ -2,8 +2,10 @@ package indiv.abko.todo.comment.adapter.in.rest;
 
 import indiv.abko.todo.comment.adapter.in.rest.dto.CommentResp;
 import indiv.abko.todo.comment.adapter.in.rest.dto.CommentWriteReq;
-import indiv.abko.todo.comment.domain.in.AddCommentCommand;
-import indiv.abko.todo.comment.domain.in.AddCommentUseCase;
+import indiv.abko.todo.comment.domain.Comment;
+import indiv.abko.todo.comment.domain.in.WriteCommentCommand;
+import indiv.abko.todo.comment.domain.in.WriteCommentUseCase;
+import indiv.abko.todo.comment.domain.in.GetCommentByIdUseCase;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
@@ -26,7 +28,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "Comment API", description = "할일 관리 시스템의 댓글 관련 API")
 public class CommentController {
-    private final AddCommentUseCase addCommentUseCase;
+    private final WriteCommentUseCase writeCommentUseCase;
+    private final GetCommentByIdUseCase getCommentByIdUseCase;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -51,12 +54,18 @@ public class CommentController {
         if(authorId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command = AddCommentCommand.builder()
+        var command = WriteCommentCommand.builder()
                 .todoId(todoId)
                 .authorId(authorId)
                 .content(req.content())
                 .build();
-        var addedComment = addCommentUseCase.execute(command);
+        var addedComment = writeCommentUseCase.execute(command);
         return ApiResp.created(CommentResp.from(addedComment));
+    }
+
+    @GetMapping("/{id}")
+    public ApiResp<CommentResp> getComment(@PathVariable("id") long id) {
+        Comment comment = getCommentByIdUseCase.execute(id);
+        return ApiResp.ok(CommentResp.from(comment));
     }
 }

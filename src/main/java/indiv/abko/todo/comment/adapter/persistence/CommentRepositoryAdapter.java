@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -34,5 +35,11 @@ public class CommentRepositoryAdapter implements CommentRepository {
     @Override
     public void deleteAllBy(long todoId) {
         commentJpaRepo.deleteAllByTodoId(todoId);
+    }
+
+    @Override
+    public Optional<Comment> findById(long id) {
+        var entity = commentJpaRepo.findById(id);
+        return entity.map(CommentJpaEntity::toDomain);
     }
 }
