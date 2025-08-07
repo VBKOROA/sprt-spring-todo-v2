@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.application.port.in;
 
-import indiv.abko.todo.member.domain.Member;
+import indiv.abko.todo.member.application.port.in.dto.MemberDto;
 
 public interface GetMemberUseCase {
-    Member get(long id);
+    MemberDto get(long id);
 }

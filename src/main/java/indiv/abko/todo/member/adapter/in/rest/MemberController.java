@@ -28,7 +28,7 @@ public class MemberController {
     @GetMapping("/{id}")
     public ApiResp<MemberResp> getMember(@PathVariable long id) {
         var member = getMemberUseCase.get(id);
-        return ApiResp.ok(MemberResp.of(member));
+        return ApiResp.ok(MemberResp.from(member));
     }
 
     @PostMapping("")
@@ -58,8 +58,8 @@ public class MemberController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        Member member = updateMemberUseCase.update(requesterId, updateReq.name());
-        var responseMember = MemberResp.of(member);
+        var member = updateMemberUseCase.update(requesterId, updateReq.name());
+        var responseMember = MemberResp.from(member);
         return ApiResp.ok(responseMember);
     }
 }

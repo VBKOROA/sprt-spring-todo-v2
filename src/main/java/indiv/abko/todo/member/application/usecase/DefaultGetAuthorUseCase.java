@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.application.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.application.port.in.GetAuthorDTO;
+import indiv.abko.todo.member.application.port.in.dto.GetAuthorDto;
 import indiv.abko.todo.member.application.port.in.GetAuthorUseCase;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
@@ -16,9 +16,9 @@ public class DefaultGetAuthorUseCase implements GetAuthorUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public GetAuthorDTO getAuthor(long id) {
+    public GetAuthorDto getAuthor(long id) {
         final var member = memberRepo.findById(id)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
-        return new GetAuthorDTO(member.getName().getValue());
+        return new GetAuthorDto(member.getName().getValue());
     }
 }
