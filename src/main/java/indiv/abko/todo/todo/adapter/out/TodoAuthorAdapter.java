@@ -1,14 +1,14 @@
 package indiv.abko.todo.todo.adapter.out;
 
 import indiv.abko.todo.member.application.port.in.GetAuthorUseCase;
-import indiv.abko.todo.todo.domain.port.out.GetAuthorPort;
+import indiv.abko.todo.todo.application.port.out.TodoAuthorPort;
 import indiv.abko.todo.global.vo.AuthorVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class GetAuthorAdapter implements GetAuthorPort {
+public class TodoAuthorAdapter implements TodoAuthorPort {
     private final GetAuthorUseCase getAuthorUseCase;
 
     @Override

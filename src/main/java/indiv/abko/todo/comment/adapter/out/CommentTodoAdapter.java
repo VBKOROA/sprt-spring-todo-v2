@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class TodoAdapter implements TodoPort {
+public class CommentTodoAdapter implements TodoPort {
     private final TodoIdShouldExistUseCase todoIdShouldExistUseCase;
 
     @Override

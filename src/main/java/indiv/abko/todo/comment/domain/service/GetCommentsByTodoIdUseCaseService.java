@@ -1,7 +1,8 @@
-package indiv.abko.todo.comment.domain.out;
+package indiv.abko.todo.comment.domain.service;
 
 import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.in.GetCommentsByTodoIdUseCase;
+import indiv.abko.todo.comment.domain.out.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,13 +1,13 @@
 package indiv.abko.todo.todo.adapter.out;
 
 import indiv.abko.todo.comment.domain.in.DeleteCommentsByTodoIdUseCase;
-import indiv.abko.todo.todo.application.port.out.CommentPort;
+import indiv.abko.todo.todo.application.port.out.TodoCommentPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommentAdapter implements CommentPort {
+public class TodoCommentAdapter implements TodoCommentPort {
     private final DeleteCommentsByTodoIdUseCase deleteCommentsByTodoIdUseCase;
 
     @Override

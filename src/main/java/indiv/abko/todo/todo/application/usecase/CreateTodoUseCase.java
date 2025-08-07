@@ -1,6 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
-import indiv.abko.todo.todo.domain.port.out.GetAuthorPort;
+import indiv.abko.todo.todo.application.port.out.TodoAuthorPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.todo.application.port.in.command.CreateTodoCommand;
@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateTodoUseCase {
     private final TodoRepository todoRepo;
-    private final GetAuthorPort getAuthorPort;
+    private final TodoAuthorPort todoAuthorPort;
 
     /**
      * 주어진 명령 객체를 기반으로 새로운 Todo 항목을 생성하여 저장소에 저장합니다.
@@ -25,7 +25,7 @@ public class CreateTodoUseCase {
      */
     @Transactional
     public Todo execute(final CreateTodoCommand createCommand) {
-        final var author = getAuthorPort.getAuthor(createCommand.memberId());
+        final var author = todoAuthorPort.getAuthor(createCommand.memberId());
         final Todo todo = Todo.builder()
                 .author(author)
                 .content(ContentVO.fromRawContent(createCommand.content()))

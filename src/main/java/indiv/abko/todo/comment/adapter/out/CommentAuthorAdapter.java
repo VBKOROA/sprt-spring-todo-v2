@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AuthorAdapter implements AuthorPort {
+public class CommentAuthorAdapter implements AuthorPort {
     private final GetAuthorUseCase getAuthorUseCase;
 
     @Override
