@@ -15,12 +15,12 @@ public class TodoDetailCommentPortService implements TodoDetailCommentPort {
     private final GetCommentsByTodoIdUseCase  getCommentsByTodoIdUseCase;
 
     @Override
-    public List<CommentSpec> getCommentsByTodoId(long todoId) {
-        var comments = getCommentsByTodoIdUseCase.execute(todoId);
+    public List<CommentSpec> getCommentsByTodoId(final long todoId) {
+        final var comments = getCommentsByTodoIdUseCase.execute(todoId);
         return comments.stream().map(this::toSpec).toList();
     }
 
-    private CommentSpec toSpec(Comment comment) {
+    private CommentSpec toSpec(final Comment comment) {
         return CommentSpec.builder()
                 .id(comment.getId())
                 .authorId(comment.getAuthor().getId())

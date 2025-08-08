@@ -1,12 +1,10 @@
 package indiv.abko.todo.tododetail.adapter.in.rest.dto;
 
-import indiv.abko.todo.comment.domain.Comment;
-import indiv.abko.todo.tododetail.domain.in.CommentDto;
+import indiv.abko.todo.tododetail.domain.out.CommentSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Schema(description = "댓글 응답 DTO")
 @Builder
@@ -24,14 +22,14 @@ public record CommentResp(
     @Schema(description = "댓글 수정일", example = "2025-01-01T12:00:00")
     LocalDateTime modifiedAt
 ) {
-    public static CommentResp of(CommentDto dto) {
+    public static CommentResp from(CommentSpec comment) {
         return CommentResp.builder()
-                .id(dto.id())
-                .content(dto.content())
-                .authorId(dto.authorId())
-                .authorName(dto.authorName())
-                .createdAt(dto.createdAt())
-                .modifiedAt(dto.modifiedAt())
+                .id(comment.id())
+                .content(comment.content())
+                .authorId(comment.authorId())
+                .authorName(comment.authorName())
+                .createdAt(comment.createdAt())
+                .modifiedAt(comment.modifiedAt())
                 .build();
     }
 }

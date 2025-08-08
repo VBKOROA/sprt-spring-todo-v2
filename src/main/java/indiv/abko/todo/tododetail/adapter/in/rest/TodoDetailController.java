@@ -43,10 +43,10 @@ public class TodoDetailController {
             @PathVariable("id")
             @Parameter(name = "id", description = "Todo ID")
             long id) {
-        TodoWithCommentsDto dto = getTodoWithCommentsByIdUseCase.execute(id);
-        var todoResp = TodoResp.of(dto.todo());
-        var commentResps = dto.comments().stream().map(CommentResp::of).toList();
-        var responseData = new TodoWithCommentsResp(todoResp, commentResps);
+        final var todoWithComments = getTodoWithCommentsByIdUseCase.execute(id);
+        final var todoResp = TodoResp.from(todoWithComments.todo());
+        final var commentResps = todoWithComments.comments().stream().map(CommentResp::from).toList();
+        final var responseData = new TodoWithCommentsResp(todoResp, commentResps);
         return ApiResp.ok(responseData);
     }
 }
