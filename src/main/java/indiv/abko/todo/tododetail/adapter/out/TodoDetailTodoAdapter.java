@@ -17,13 +17,13 @@ public class TodoDetailTodoAdapter implements TodoDetailTodoPort {
         final var getTodoCommand = new GetTodoCommand(todoId);
         final var todo = todoUseCaseFacade.getTodo(getTodoCommand);
         return TodoSpec.builder()
-                .id(todo.id())
-                .title(todo.title())
-                .authorName(todo.authorName())
-                .modifiedAt(todo.modifiedAt())
-                .content(todo.content())
-                .createdAt(todo.createdAt())
-                .authorId(todo.authorId())
+                .id(todo.getId())
+                .title(todo.getTitle().getTitle())
+                .authorName(todo.getAuthor().getName())
+                .modifiedAt(todo.getModifiedAt())
+                .content(todo.getContent().getContent())
+                .createdAt(todo.getCreatedAt())
+                .authorId(todo.getAuthor().getId())
                 .build();
     }
 }
