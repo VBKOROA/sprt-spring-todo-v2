@@ -14,7 +14,7 @@ public class ReadCommentByIdUseCaseService implements ReadCommentByIdUseCase {
     private final CommentRepository commentRepo;
 
     @Override
-    public Comment execute(long id) {
+    public Comment execute(final long id) {
         return commentRepo.findById(id)
                 .orElseThrow(() -> new BusinessException(CommentExceptionEnum.COMMENT_NOT_FOUND));
     }
