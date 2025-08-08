@@ -20,7 +20,7 @@ public class DefaultSignUpUseCase implements SignUpUseCase {
 
     @Override
     @Transactional
-    public Member signUp(final SignUpCommand signUpCommand) {
+    public Member execute(final SignUpCommand signUpCommand) {
         if(memberRepo.isExistsByEmail(signUpCommand.email())) {
             throw new BusinessException(MemberExceptionEnum.MEMBER_EMAIL_DUPLICATE);
         }

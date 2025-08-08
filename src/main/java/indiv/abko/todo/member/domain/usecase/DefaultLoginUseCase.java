@@ -19,7 +19,7 @@ public class DefaultLoginUseCase implements LoginUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public String login(String email, String password) {
+    public String execute(String email, String password) {
         var member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_LOGIN_FAILED));
         member.auth(password, passwordEncoder);

@@ -17,7 +17,7 @@ public class DefaultUpdateMemberUseCase implements UpdateMyInfoUseCase {
 
     @Override
     @Transactional
-    public Member update(final long requesterId, final String name) {
+    public Member execute(final long requesterId, final String name) {
         Member requester = memberRepo.findById(requesterId)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
         requester.update(name);

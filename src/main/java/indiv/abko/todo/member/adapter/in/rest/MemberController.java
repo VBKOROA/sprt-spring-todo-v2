@@ -24,7 +24,7 @@ public class MemberController {
 
     @GetMapping("/{id}")
     public ApiResp<MemberResp> getMember(@PathVariable long id) {
-        final var member = readMemberInfoUseCase.get(id);
+        final var member = readMemberInfoUseCase.execute(id);
         return ApiResp.ok(MemberResp.from(member));
     }
 
@@ -32,14 +32,14 @@ public class MemberController {
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResp<SignUpResp> signUp(@RequestBody SignUpReq signUpReq) {
         final var command = signUpReq.toCommand();
-        final var createdMember = signUpUseCase.signUp(command);
+        final var createdMember = signUpUseCase.execute(command);
         final var response = SignUpResp.from(createdMember);
         return ApiResp.created(response);
     }
 
     @PostMapping("/login")
     public ApiResp<String> login(@RequestBody LoginReq loginReq, HttpServletResponse response) {
-        final var token = loginUseCase.login(loginReq.email(), loginReq.password());
+        final var token = loginUseCase.execute(loginReq.email(), loginReq.password());
         final var apiResponse = ApiResp.ok(token);
         final var cookie = new Cookie(JwtAuthFilter.AUTH_HEADER, token);
         cookie.setPath("/");
@@ -55,7 +55,7 @@ public class MemberController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        final var member = updateMyInfoUseCase.update(requesterId, updateReq.name());
+        final var member = updateMyInfoUseCase.execute(requesterId, updateReq.name());
         final var responseMember = MemberResp.from(member);
         return ApiResp.ok(responseMember);
     }

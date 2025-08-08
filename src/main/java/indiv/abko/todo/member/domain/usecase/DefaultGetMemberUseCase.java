@@ -16,7 +16,7 @@ public class DefaultGetMemberUseCase implements ReadMemberInfoUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public Member get(long id) {
+    public Member execute(long id) {
         return memberRepo.findById(id)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
     }
