@@ -1,4 +1,4 @@
-package indiv.abko.todo.member.application.port.out;
+package indiv.abko.todo.member.domain.port.out;
 
 import indiv.abko.todo.member.domain.Member;
 

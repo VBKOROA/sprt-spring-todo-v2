@@ -1,8 +1,8 @@
-package indiv.abko.todo.member.application.usecase;
+package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.application.port.in.LoginUseCase;
-import indiv.abko.todo.member.application.port.out.TodoJwtUtilPort;
+import indiv.abko.todo.member.domain.port.in.LoginUseCase;
+import indiv.abko.todo.member.domain.port.out.TodoJwtUtilPort;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
 import indiv.abko.todo.member.domain.port.out.PasswordEncoder;

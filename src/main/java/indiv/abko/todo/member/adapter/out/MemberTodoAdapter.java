@@ -1,6 +1,6 @@
 package indiv.abko.todo.member.adapter.out;
 
-import indiv.abko.todo.member.application.port.out.MemberTodoPort;
+import indiv.abko.todo.member.domain.port.out.MemberTodoPort;
 import indiv.abko.todo.todo.application.port.in.DeleteTodosByAuthorId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

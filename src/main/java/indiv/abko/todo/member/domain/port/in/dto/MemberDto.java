@@ -1,4 +1,4 @@
-package indiv.abko.todo.member.application.port.in.dto;
+package indiv.abko.todo.member.domain.port.in.dto;
 
 import indiv.abko.todo.member.domain.Member;
 import lombok.Builder;

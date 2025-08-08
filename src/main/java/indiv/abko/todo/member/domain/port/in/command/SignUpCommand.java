@@ -1,4 +1,4 @@
-package indiv.abko.todo.member.application.port.in.command;
+package indiv.abko.todo.member.domain.port.in.command;
 
 import indiv.abko.todo.member.domain.Member;
 import indiv.abko.todo.member.domain.port.out.PasswordEncoder;

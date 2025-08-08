@@ -1,7 +1,6 @@
 package indiv.abko.todo.member.adapter.in.rest.dto;
 
-import indiv.abko.todo.member.application.port.in.dto.MemberDto;
-import indiv.abko.todo.member.domain.Member;
+import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

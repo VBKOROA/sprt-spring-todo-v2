@@ -1,8 +1,7 @@
-package indiv.abko.todo.member.application.usecase;
+package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.application.port.in.dto.GetAuthorDto;
-import indiv.abko.todo.member.application.port.in.GetNameByMemberIdUseCase;
+import indiv.abko.todo.member.domain.port.in.GetNameByMemberIdUseCase;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
 import lombok.RequiredArgsConstructor;

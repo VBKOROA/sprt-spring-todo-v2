@@ -5,7 +5,7 @@ import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.JwtAuthFilter;
 import indiv.abko.todo.member.adapter.in.rest.dto.*;
-import indiv.abko.todo.member.application.port.in.*;
+import indiv.abko.todo.member.domain.port.in.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

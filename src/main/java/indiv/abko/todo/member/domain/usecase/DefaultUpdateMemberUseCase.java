@@ -1,8 +1,8 @@
-package indiv.abko.todo.member.application.usecase;
+package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.application.port.in.GetMemberUseCase;
-import indiv.abko.todo.member.application.port.in.dto.MemberDto;
+import indiv.abko.todo.member.domain.port.in.UpdateMemberUseCase;
+import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
 import indiv.abko.todo.member.domain.Member;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
@@ -12,14 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultGetMemberUseCase implements GetMemberUseCase {
+public class DefaultUpdateMemberUseCase implements UpdateMemberUseCase {
     private final MemberRepository memberRepo;
 
     @Override
-    @Transactional(readOnly = true)
-    public MemberDto get(long id) {
-        var member = memberRepo.findById(id)
+    @Transactional
+    public MemberDto update(final long requesterId, final String name) {
+        Member requester = memberRepo.findById(requesterId)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
-        return MemberDto.from(member);
+        requester.update(name);
+        Member updatedMember = memberRepo.save(requester);
+        return MemberDto.from(updatedMember);
     }
 }

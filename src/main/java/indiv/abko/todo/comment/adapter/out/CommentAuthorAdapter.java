@@ -2,7 +2,7 @@ package indiv.abko.todo.comment.adapter.out;
 
 import indiv.abko.todo.comment.domain.out.CommentAuthorPort;
 import indiv.abko.todo.global.vo.AuthorVO;
-import indiv.abko.todo.member.application.port.in.GetNameByMemberIdUseCase;
+import indiv.abko.todo.member.domain.port.in.GetNameByMemberIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.adapter.out;
 
 import indiv.abko.todo.comment.domain.in.DeleteCommentsByAuthorId;
-import indiv.abko.todo.member.application.port.out.CommentPort;
+import indiv.abko.todo.member.domain.port.out.CommentPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
-package indiv.abko.todo.member.application.usecase;
+package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.application.port.in.SignUpUseCase;
-import indiv.abko.todo.member.application.port.in.command.SignUpCommand;
-import indiv.abko.todo.member.application.port.in.dto.MemberDto;
+import indiv.abko.todo.member.domain.port.in.SignUpUseCase;
+import indiv.abko.todo.member.domain.port.in.command.SignUpCommand;
+import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
 import indiv.abko.todo.member.domain.Member;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
