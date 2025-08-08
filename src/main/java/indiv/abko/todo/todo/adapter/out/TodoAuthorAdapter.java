@@ -1,6 +1,6 @@
 package indiv.abko.todo.todo.adapter.out;
 
-import indiv.abko.todo.member.application.port.in.GetNameByMemberIdUseCase;
+import indiv.abko.todo.member.domain.port.in.GetNameByMemberIdUseCase;
 import indiv.abko.todo.todo.application.port.out.TodoAuthorPort;
 import indiv.abko.todo.global.vo.AuthorVO;
 import lombok.RequiredArgsConstructor;

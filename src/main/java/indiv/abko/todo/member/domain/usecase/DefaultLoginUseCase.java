@@ -1,11 +1,11 @@
-package indiv.abko.todo.member.application.usecase;
+package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.application.port.in.LoginUseCase;
-import indiv.abko.todo.member.application.port.out.TodoJwtUtilPort;
+import indiv.abko.todo.member.domain.port.in.LoginUseCase;
+import indiv.abko.todo.member.domain.port.out.MemberJwtUtilPort;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
-import indiv.abko.todo.member.domain.port.out.PasswordEncoder;
+import indiv.abko.todo.member.domain.port.out.MemberPasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class DefaultLoginUseCase implements LoginUseCase {
-    private final TodoJwtUtilPort todoJwtUtilPort;
+    private final MemberJwtUtilPort todoJwtUtilPort;
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final MemberPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
-    public String login(String email, String password) {
-        var member = memberRepository.findByEmail(email)
+    public String execute(final String email, final String password) {
+        final var member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_LOGIN_FAILED));
-        member.auth(password, passwordEncoder);
-        String token = todoJwtUtilPort.createToken(member);
-        return token;
+        member.shouldHaveAuth(password, passwordEncoder);
+        return todoJwtUtilPort.createToken(member);
     }
 }

@@ -1,6 +1,6 @@
 package indiv.abko.todo.member.adapter.in.rest.dto;
 
-import indiv.abko.todo.member.application.port.in.dto.MemberDto;
+import indiv.abko.todo.member.domain.Member;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
@@ -13,13 +13,13 @@ public record MemberResp(
         LocalDateTime modifiedAt,
         LocalDateTime createdAt
 ) {
-    public static MemberResp from(MemberDto memberDto) {
+    public static MemberResp from(final Member member) {
         return MemberResp.builder()
-                .id(memberDto.id())
-                .name(memberDto.name())
-                .email(memberDto.email())
-                .modifiedAt(memberDto.modifiedAt())
-                .createdAt(memberDto.createdAt())
+                .id(member.getId())
+                .name(member.getName().getValue())
+                .email(member.getEmail().getValue())
+                .modifiedAt(member.getModifiedAt())
+                .createdAt(member.getCreatedAt())
                 .build();
     }
 }

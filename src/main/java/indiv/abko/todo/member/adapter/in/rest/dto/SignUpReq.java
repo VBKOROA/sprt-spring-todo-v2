@@ -1,6 +1,6 @@
 package indiv.abko.todo.member.adapter.in.rest.dto;
 
-import indiv.abko.todo.member.application.port.in.command.SignUpCommand;
+import indiv.abko.todo.member.domain.port.in.command.SignUpCommand;
 
 public record SignUpReq(
         String name,
