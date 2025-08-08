@@ -13,9 +13,9 @@ public class TodoDetailTodoAdapter implements TodoDetailTodoPort {
     private final TodoUseCaseFacade todoUseCaseFacade;
 
     @Override
-    public TodoSpec getTodoById(long todoId) {
-        GetTodoCommand getTodoCommand = new GetTodoCommand(todoId);
-        var todo = todoUseCaseFacade.getTodo(getTodoCommand);
+    public TodoSpec getTodoById(final long todoId) {
+        final var getTodoCommand = new GetTodoCommand(todoId);
+        final var todo = todoUseCaseFacade.getTodo(getTodoCommand);
         return TodoSpec.builder()
                 .id(todo.id())
                 .title(todo.title())
