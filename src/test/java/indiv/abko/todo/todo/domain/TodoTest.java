@@ -1,7 +1,6 @@
 package indiv.abko.todo.todo.domain;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
 import indiv.abko.todo.todo.domain.vo.ContentVO;
 import indiv.abko.todo.todo.domain.vo.TodoTitleVO;
 import org.junit.jupiter.api.DisplayName;

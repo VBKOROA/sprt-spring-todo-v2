@@ -1,12 +1,13 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
-import indiv.abko.todo.comment.domain.in.GetCommentsByTodoIdUseCase;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
-import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
-import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
-import indiv.abko.todo.todo.application.port.in.command.*;
+import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
+import indiv.abko.todo.todo.domain.port.in.command.CreateTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.DeleteMyTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.SearchTodosCommand;
+import indiv.abko.todo.todo.domain.port.in.command.UpdateMyTodoCommand;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,6 @@ import org.springframework.validation.annotation.Validated;
 @Tag(name = "Todo API", description = "할일 관리 시스템의 Todo 관련 API")
 public class TodoController {
     private final TodoUseCaseFacade todoUseCaseFacade;
-    private final TodoMapper todoMapper;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,12 +52,12 @@ public class TodoController {
         if(memberId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command = CreateTodoCommand.builder()
+        final var command = CreateTodoCommand.builder()
                 .memberId(memberId)
                 .title(createReq.title())
                 .content(createReq.content())
                 .build();
-        var createdTodo = todoUseCaseFacade.createTodo(command);
+        final var createdTodo = todoUseCaseFacade.createTodo(command);
         return ApiResp.created(TodoResp.from(createdTodo));
     }
 
@@ -72,23 +72,23 @@ public class TodoController {
                 examples = @ExampleObject(value = "{\"status\":\"BAD_REQUEST\",\"message\":\"요청이 잘못되었습니다.\",\"data\":null}")
             ))
     })
-    public ApiResp<TodoListResp> getTodos(
+    public ApiResp<TodoListResp> searchTodos(
             @ModelAttribute 
             @ParameterObject
             TodoSearchCondition condition,
             @ParameterObject
             @PageableDefault(size = 10)
             Pageable pageable) {
-        var command = SearchTodosCommand.builder()
+        final var command = SearchTodosCommand.builder()
                 .title(condition.title())
                 .authorName(condition.authorName())
                 .content(condition.content())
                 .orderBy(condition.orderBy())
                 .pageable(pageable)
                 .build();
-        var todos = todoUseCaseFacade.searchTodos(command);
-        var responseTodos = todos.map(TodoResp::from).getContent();
-        var responseData = TodoListResp.builder()
+        final var todos = todoUseCaseFacade.searchTodos(command);
+        final var responseTodos = todos.map(TodoResp::from).getContent();
+        final var responseData = TodoListResp.builder()
                 .todos(responseTodos)
                 .pageNumber(todos.getNumber())
                 .totalPages(todos.getTotalPages())
@@ -116,7 +116,7 @@ public class TodoController {
                 examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"Todo를 찾을 수 없습니다.\",\"data\":null}")
             ))
     })
-    public ApiResp<TodoResp> updateTodo(
+    public ApiResp<TodoResp> updateMyTodo(
         @PathVariable("id") 
         @Parameter(name = "id", description = "Todo ID") 
         long id,
@@ -128,12 +128,12 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command =  UpdateTodoCommand.builder()
+        final var command =  UpdateMyTodoCommand.builder()
                 .requesterId(requesterId)
                 .todoId(id)
                 .content(updateReq.content())
                 .build();
-        var updatedTodo = todoUseCaseFacade.updateTodo(command);
+        final var updatedTodo = todoUseCaseFacade.updateMyTodo(command);
         return ApiResp.ok(TodoResp.from(updatedTodo));
     }
 
@@ -153,7 +153,7 @@ public class TodoController {
                 examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"Todo를 찾을 수 없습니다.\",\"data\":null}")
             ))
     })
-    public void deleteTodo(
+    public void deleteMyTodo(
         @Parameter(name = "id", description = "Todo ID")
         @PathVariable("id") 
         long id,
@@ -166,10 +166,10 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command =   DeleteTodoCommand.builder()
+        final var command = DeleteMyTodoCommand.builder()
                 .todoId(id)
                 .requesterId(requesterId)
                 .build();
-        todoUseCaseFacade.deleteTodo(command);
+        todoUseCaseFacade.deleteMyTodo(command);
     }
 }

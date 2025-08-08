@@ -5,7 +5,6 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import indiv.abko.todo.todo.adapter.out.persistence.mapper.TodoEntityMapper;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import indiv.abko.todo.todo.domain.Todo;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import static indiv.abko.todo.todo.adapter.out.persistence.entity.QTodoJpaEntity.todoJpaEntity;
+import static indiv.abko.todo.todo.adapter.out.persistence.QTodoJpaEntity.todoJpaEntity;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,7 +26,6 @@ public class TodoQDSLRepository {
     private static final OrderSpecifier<?> DEFAULT_ORDER = new OrderSpecifier<>(Order.DESC, todoJpaEntity.modifiedAt);
 
     private final JPAQueryFactory queryFactory;
-    private final TodoEntityMapper todoEntityMapper;
 
     public Page<Todo> search(final SearchTodosCriteria searchCriteria, final Pageable pageable) {
         final var authorExpression = authorNameLike(searchCriteria.authorName());
@@ -55,8 +53,8 @@ public class TodoQDSLRepository {
                         contentExpression
                 );
 
-        var page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
-        return page.map(todoEntityMapper::toDomain);
+        final var page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+        return page.map(TodoJpaEntity::toDomain);
     }
 
     private static String makeLikePattern(final String value) {
@@ -80,19 +78,19 @@ public class TodoQDSLRepository {
             return DEFAULT_ORDER;
         }
 
-        final String[] sortCondition = sort.split(ORDER_SEPARATOR);
+        final var sortCondition = sort.split(ORDER_SEPARATOR);
         if (sortCondition.length != VALID_SORT_CONDITION_LENGTH) {
             return DEFAULT_ORDER;
         }
 
-        final String property = sortCondition[PROPERTY_IDX];
-        final ComparableExpressionBase<?> path = getPath(property);
+        final var property = sortCondition[PROPERTY_IDX];
+        final var path = getPath(property);
 
         if (path == null) {
             return DEFAULT_ORDER;
         }
 
-        final Order direction = "desc".equalsIgnoreCase(sortCondition[ORDER_IDX]) ?
+        final var direction = "desc".equalsIgnoreCase(sortCondition[ORDER_IDX]) ?
                 Order.DESC : Order.ASC;
 
         return new OrderSpecifier<>(direction, path);

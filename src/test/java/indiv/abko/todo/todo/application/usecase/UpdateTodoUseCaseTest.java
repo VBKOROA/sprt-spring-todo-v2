@@ -1,9 +1,10 @@
 package indiv.abko.todo.todo.application.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.application.port.in.command.UpdateTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.UpdateMyTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
+import indiv.abko.todo.todo.domain.usecase.UpdateMyTodoUseCaseService;
 import indiv.abko.todo.todo.domain.vo.TodoTitleVO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.verify;
 class UpdateTodoUseCaseTest {
 
     @InjectMocks
-    private UpdateTodoUseCase updateTodoUseCase;
+    private UpdateMyTodoUseCaseService updateTodoUseCase;
 
     @Mock
     private TodoRepository todoRepository;
@@ -36,7 +37,7 @@ class UpdateTodoUseCaseTest {
     @DisplayName("할일 수정 - 성공")
     void updateTodo_success() {
         // given
-        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "password");
+        UpdateMyTodoCommand command = new UpdateMyTodoCommand(1L, "updated title", "updated authorName", "password");
         PasswordVO passwordVO = new PasswordVO("encodedPassword");
         Todo todo = Todo.builder()
                 .id(1L)
@@ -62,7 +63,7 @@ class UpdateTodoUseCaseTest {
     @DisplayName("할일 수정 - 실패: 할일을 찾을 수 없음")
     void updateTodo_fail_todoNotFound() {
         // given
-        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "password");
+        UpdateMyTodoCommand command = new UpdateMyTodoCommand(1L, "updated title", "updated authorName", "password");
         given(todoRepository.findBy(command.todoId())).willReturn(Optional.empty());
 
         // when & then
@@ -74,7 +75,7 @@ class UpdateTodoUseCaseTest {
     @DisplayName("할일 수정 - 실패: 비밀번호 불일치")
     void 수정시_비밀번호가_일치하지_않으면_예외가_발생해야한다() {
         // given
-        UpdateTodoCommand command = new UpdateTodoCommand(1L, "updated title", "updated authorName", "wrong_password");
+        UpdateMyTodoCommand command = new UpdateMyTodoCommand(1L, "updated title", "updated authorName", "wrong_password");
         PasswordVO passwordVO = new PasswordVO("encodedPassword");
         Todo todo = Todo.builder().id(1L).password(passwordVO).build();
 

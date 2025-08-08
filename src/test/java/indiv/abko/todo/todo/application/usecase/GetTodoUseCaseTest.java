@@ -1,9 +1,10 @@
 package indiv.abko.todo.todo.application.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.application.port.in.command.GetTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.GetTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
+import indiv.abko.todo.todo.domain.usecase.GetTodoUseCaseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.verify;
 class GetTodoUseCaseTest {
 
     @InjectMocks
-    private GetTodoUseCase getTodoUseCase;
+    private GetTodoUseCaseService getTodoUseCase;
 
     @Mock
     private TodoRepository todoRepository;

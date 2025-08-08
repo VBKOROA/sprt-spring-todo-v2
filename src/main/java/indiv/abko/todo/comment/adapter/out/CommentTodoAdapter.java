@@ -1,7 +1,7 @@
 package indiv.abko.todo.comment.adapter.out;
 
 import indiv.abko.todo.comment.domain.out.CommentTodoPort;
-import indiv.abko.todo.todo.application.port.in.TodoIdShouldExistUseCase;
+import indiv.abko.todo.todo.domain.port.in.TodoIdShouldExistUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

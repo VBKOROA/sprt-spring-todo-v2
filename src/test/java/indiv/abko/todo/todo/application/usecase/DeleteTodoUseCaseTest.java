@@ -1,9 +1,10 @@
 package indiv.abko.todo.todo.application.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.application.port.in.command.DeleteTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.DeleteMyTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
+import indiv.abko.todo.todo.domain.usecase.DeleteMyTodoUseCaseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.verify;
 class DeleteTodoUseCaseTest {
 
     @InjectMocks
-    private DeleteTodoUseCase deleteTodoUseCase;
+    private DeleteMyTodoUseCaseService deleteTodoUseCase;
 
     @Mock
     private PasswordDecoder passwordDecoder;
@@ -36,7 +37,7 @@ class DeleteTodoUseCaseTest {
     @DisplayName("할일 삭제 - 성공")
     void deleteTodo_success() {
         // given
-        DeleteTodoCommand command = new DeleteTodoCommand(1L, "encodedPassword");
+        DeleteMyTodoCommand command = new DeleteMyTodoCommand(1L, "encodedPassword");
         String decodedPassword = "password";
         PasswordVO passwordVO = new PasswordVO("encodedPasswordValue"); // 실제 인코딩된 값
         Todo todo = Todo.builder().password(passwordVO).build();
@@ -56,7 +57,7 @@ class DeleteTodoUseCaseTest {
     @DisplayName("할일 삭제 - 실패: 할일을 찾을 수 없음")
     void deleteTodo_fail_todoNotFound() {
         // given
-        DeleteTodoCommand command = new DeleteTodoCommand(1L, "encodedPassword");
+        DeleteMyTodoCommand command = new DeleteMyTodoCommand(1L, "encodedPassword");
         given(passwordDecoder.decode(command.encodedPassword())).willReturn("password");
         given(todoRepository.findSummary(command.id())).willReturn(Optional.empty());
 
@@ -69,7 +70,7 @@ class DeleteTodoUseCaseTest {
     @DisplayName("할일 삭제 - 실패: 비밀번호 불일치")
     void 삭제시_비밀번호가_일치하지_않으면_예외가_발생해야한다() {
         // given
-        DeleteTodoCommand command = new DeleteTodoCommand(1L, "encodedPassword");
+        DeleteMyTodoCommand command = new DeleteMyTodoCommand(1L, "encodedPassword");
         String decodedPassword = "wrong_password";
         PasswordVO passwordVO = new PasswordVO("encodedPasswordValue");
         Todo todo = Todo.builder().password(passwordVO).build();

@@ -2,7 +2,6 @@ package indiv.abko.todo.todo.domain;
 
 import java.time.LocalDateTime;
 
-import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
 import indiv.abko.todo.global.vo.AuthorVO;
 import indiv.abko.todo.global.vo.ContentVO;
 import indiv.abko.todo.todo.domain.vo.TodoTitleVO;
