@@ -1,12 +1,14 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
-import indiv.abko.todo.comment.domain.in.GetCommentsByTodoIdUseCase;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
 import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
-import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
-import indiv.abko.todo.todo.application.port.in.command.*;
+import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
+import indiv.abko.todo.todo.domain.port.in.command.CreateTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.DeleteTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.SearchTodosCommand;
+import indiv.abko.todo.todo.domain.port.in.command.UpdateTodoCommand;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;

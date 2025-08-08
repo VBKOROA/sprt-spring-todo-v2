@@ -1,7 +1,7 @@
 package indiv.abko.todo.tododetail.adapter.out;
 
-import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
-import indiv.abko.todo.todo.application.port.in.command.GetTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
+import indiv.abko.todo.todo.domain.port.in.command.GetTodoCommand;
 import indiv.abko.todo.tododetail.domain.out.TodoDetailTodoPort;
 import indiv.abko.todo.tododetail.domain.out.TodoSpec;
 import lombok.RequiredArgsConstructor;

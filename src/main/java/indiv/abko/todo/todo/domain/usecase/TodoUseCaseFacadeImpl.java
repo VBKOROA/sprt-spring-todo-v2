@@ -1,9 +1,9 @@
-package indiv.abko.todo.todo.application.usecase;
+package indiv.abko.todo.todo.domain.usecase;
 
-import indiv.abko.todo.todo.application.port.in.TodoDto;
-import indiv.abko.todo.todo.application.port.in.TodoUseCaseFacade;
+import indiv.abko.todo.todo.domain.port.in.TodoDto;
+import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.application.port.in.command.*;
-import indiv.abko.todo.todo.domain.Todo;
+import indiv.abko.todo.todo.domain.port.in.command.*;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package indiv.abko.todo.todo.adapter.in.rest.dto;
 
 import java.time.LocalDateTime;
 
-import indiv.abko.todo.todo.application.port.in.TodoDto;
+import indiv.abko.todo.todo.domain.port.in.TodoDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 

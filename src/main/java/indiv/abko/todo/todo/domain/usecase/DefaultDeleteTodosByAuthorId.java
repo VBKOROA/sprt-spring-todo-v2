@@ -1,7 +1,7 @@
-package indiv.abko.todo.todo.application.usecase;
+package indiv.abko.todo.todo.domain.usecase;
 
-import indiv.abko.todo.todo.application.port.in.DeleteTodosByAuthorId;
-import indiv.abko.todo.todo.application.port.out.TodoCommentPort;
+import indiv.abko.todo.todo.domain.port.in.DeleteTodosByAuthorId;
+import indiv.abko.todo.todo.domain.port.out.TodoCommentPort;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

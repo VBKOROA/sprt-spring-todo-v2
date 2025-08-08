@@ -1,10 +1,10 @@
-package indiv.abko.todo.todo.application.usecase;
+package indiv.abko.todo.todo.domain.usecase;
 
-import indiv.abko.todo.todo.application.port.out.TodoCommentPort;
+import indiv.abko.todo.todo.domain.port.out.TodoCommentPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.application.port.in.command.DeleteTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.DeleteTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;

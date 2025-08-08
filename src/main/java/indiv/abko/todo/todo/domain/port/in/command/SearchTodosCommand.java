@@ -1,4 +1,4 @@
-package indiv.abko.todo.todo.application.port.in.command;
+package indiv.abko.todo.todo.domain.port.in.command;
 
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import lombok.Builder;
