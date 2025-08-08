@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.domain.port.in;
 
-import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
+import indiv.abko.todo.member.domain.Member;
 
 public interface ReadMemberInfoUseCase {
-    MemberDto get(long id);
+    Member get(long id);
 }

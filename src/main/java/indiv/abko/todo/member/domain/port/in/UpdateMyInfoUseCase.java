@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.domain.port.in;
 
-import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
+import indiv.abko.todo.member.domain.Member;
 
 public interface UpdateMyInfoUseCase {
-    MemberDto update(long requesterId, String name);
+    Member update(long requesterId, String name);
 }

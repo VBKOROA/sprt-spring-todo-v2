@@ -17,11 +17,10 @@ public class DefaultUpdateMemberUseCase implements UpdateMyInfoUseCase {
 
     @Override
     @Transactional
-    public MemberDto update(final long requesterId, final String name) {
+    public Member update(final long requesterId, final String name) {
         Member requester = memberRepo.findById(requesterId)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
         requester.update(name);
-        Member updatedMember = memberRepo.save(requester);
-        return MemberDto.from(updatedMember);
+        return memberRepo.save(requester);
     }
 }

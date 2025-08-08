@@ -1,8 +1,8 @@
 package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
+import indiv.abko.todo.member.domain.Member;
 import indiv.abko.todo.member.domain.port.in.ReadMemberInfoUseCase;
-import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,8 @@ public class DefaultGetMemberUseCase implements ReadMemberInfoUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public MemberDto get(long id) {
-        var member = memberRepo.findById(id)
+    public Member get(long id) {
+        return memberRepo.findById(id)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
-        return MemberDto.from(member);
     }
 }

@@ -20,12 +20,11 @@ public class DefaultSignUpUseCase implements SignUpUseCase {
 
     @Override
     @Transactional
-    public MemberDto signUp(final SignUpCommand signUpCommand) {
+    public Member signUp(final SignUpCommand signUpCommand) {
         if(memberRepo.isExistsByEmail(signUpCommand.email())) {
             throw new BusinessException(MemberExceptionEnum.MEMBER_EMAIL_DUPLICATE);
         }
         final Member member = signUpCommand.toDomain(passwordEncoder);
-        final var savedMember = memberRepo.save(member);
-        return MemberDto.from(savedMember);
+        return memberRepo.save(member);
     }
 }
