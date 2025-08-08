@@ -1,6 +1,6 @@
 package indiv.abko.todo.comment.domain.service;
 
-import indiv.abko.todo.comment.domain.in.DeleteCommentUseCase;
+import indiv.abko.todo.comment.domain.in.DeleteMyCommentUseCase;
 import indiv.abko.todo.comment.domain.out.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteCommentUseCaseService implements DeleteCommentUseCase {
+public class DeleteMyCommentUseCaseService implements DeleteMyCommentUseCase {
     private final CommentRepository commentRepo;
 
     @Override

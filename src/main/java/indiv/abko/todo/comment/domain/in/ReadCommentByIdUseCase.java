@@ -1,5 +1,5 @@
 package indiv.abko.todo.comment.domain.in;
 
-public interface GetCommentByIdUseCase {
+public interface ReadCommentByIdUseCase {
     CommentDto execute(long id);
 }
