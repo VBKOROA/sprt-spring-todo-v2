@@ -13,8 +13,8 @@ public class CommentAuthorAdapter implements AuthorPort {
     private final GetNameByMemberIdUseCase getNameByMemberIdUseCase;
 
     @Override
-    public AuthorVO getAuthor(long authorId) {
-        String authorName = getNameByMemberIdUseCase.execute(authorId);
+    public AuthorVO getAuthor(final long authorId) {
+        final String authorName = getNameByMemberIdUseCase.execute(authorId);
         return AuthorVO.reconstitute(authorId, authorName);
     }
 }
