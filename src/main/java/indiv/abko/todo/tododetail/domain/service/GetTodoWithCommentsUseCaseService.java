@@ -1,8 +1,6 @@
 package indiv.abko.todo.tododetail.domain.service;
 
-import indiv.abko.todo.tododetail.domain.in.CommentDto;
 import indiv.abko.todo.tododetail.domain.in.GetTodoWithCommentsUseCase;
-import indiv.abko.todo.tododetail.domain.in.TodoDto;
 import indiv.abko.todo.tododetail.domain.in.TodoWithCommentsDto;
 import indiv.abko.todo.tododetail.domain.out.CommentSpec;
 import indiv.abko.todo.tododetail.domain.out.TodoDetailCommentPort;

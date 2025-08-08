@@ -1,6 +1,6 @@
 package indiv.abko.todo.tododetail.adapter.in.rest.dto;
 
-import indiv.abko.todo.tododetail.domain.in.TodoDto;
+import indiv.abko.todo.tododetail.domain.out.TodoSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
@@ -24,15 +24,15 @@ public record TodoResp(
     @Schema(description = "Todo 수정 날짜/시간", example = "2025-01-01T00:00:00")
     LocalDateTime modifiedAt
 ) {
-    public static TodoResp of(TodoDto todoDto) {
+    public static TodoResp from(TodoSpec todo) {
         return TodoResp.builder()
-                .id(todoDto.id())
-                .title(todoDto.title())
-                .content(todoDto.content())
-                .authorId(todoDto.authorId())
-                .authorName(todoDto.authorName())
-                .createdAt(todoDto.createdAt())
-                .modifiedAt(todoDto.modifiedAt())
+                .id(todo.id())
+                .title(todo.title())
+                .content(todo.content())
+                .authorId(todo.authorId())
+                .authorName(todo.authorName())
+                .createdAt(todo.createdAt())
+                .modifiedAt(todo.modifiedAt())
                 .build();
     }
 }

@@ -44,8 +44,8 @@ public class TodoDetailController {
             @Parameter(name = "id", description = "Todo ID")
             long id) {
         TodoWithCommentsDto dto = getTodoWithCommentsByIdUseCase.execute(id);
-        var todoResp = TodoResp.of(dto.todo());
-        var commentResps = dto.comments().stream().map(CommentResp::of).toList();
+        var todoResp = TodoResp.from(dto.todo());
+        var commentResps = dto.comments().stream().map(CommentResp::from).toList();
         var responseData = new TodoWithCommentsResp(todoResp, commentResps);
         return ApiResp.ok(responseData);
     }
