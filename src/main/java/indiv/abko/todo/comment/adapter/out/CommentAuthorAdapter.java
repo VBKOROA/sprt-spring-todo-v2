@@ -1,15 +1,14 @@
 package indiv.abko.todo.comment.adapter.out;
 
-import indiv.abko.todo.comment.domain.out.AuthorPort;
+import indiv.abko.todo.comment.domain.out.CommentAuthorPort;
 import indiv.abko.todo.global.vo.AuthorVO;
-import indiv.abko.todo.member.application.port.in.dto.GetAuthorDto;
 import indiv.abko.todo.member.application.port.in.GetNameByMemberIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommentAuthorAdapter implements AuthorPort {
+public class CommentAuthorAdapter implements CommentAuthorPort {
     private final GetNameByMemberIdUseCase getNameByMemberIdUseCase;
 
     @Override

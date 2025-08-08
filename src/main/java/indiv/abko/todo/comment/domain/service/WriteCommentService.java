@@ -4,7 +4,7 @@ import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.CommentExceptionEnum;
 import indiv.abko.todo.comment.domain.in.WriteCommentCommand;
 import indiv.abko.todo.comment.domain.in.WriteCommentUseCase;
-import indiv.abko.todo.comment.domain.out.AuthorPort;
+import indiv.abko.todo.comment.domain.out.CommentAuthorPort;
 import indiv.abko.todo.comment.domain.out.CommentRepository;
 import indiv.abko.todo.comment.domain.out.CommentTodoPort;
 import indiv.abko.todo.global.exception.BusinessException;
@@ -18,7 +18,7 @@ public class WriteCommentService implements WriteCommentUseCase {
     private static final int COMMENT_LIMIT = 10;
     private final CommentRepository commentRepo;
     private final CommentTodoPort todoPort;
-    private final AuthorPort authorPort;
+    private final CommentAuthorPort authorPort;
 
     @Override
     @Transactional
