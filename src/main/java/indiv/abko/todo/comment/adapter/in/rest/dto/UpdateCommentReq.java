@@ -7,7 +7,7 @@ public record UpdateCommentReq(
         @NotBlank
         String content
 ) {
-    public UpdateMyCommentCommand toCommand(long id, long requesterId) {
+    public UpdateMyCommentCommand toCommand(final long id, final long requesterId) {
         return UpdateMyCommentCommand.builder()
                 .commentId(id)
                 .content(content)

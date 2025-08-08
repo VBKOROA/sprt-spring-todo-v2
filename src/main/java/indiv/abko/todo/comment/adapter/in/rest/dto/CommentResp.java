@@ -23,7 +23,7 @@ public record CommentResp(
     @Schema(description = "댓글 수정일", example = "2025-01-01T12:00:00")
     LocalDateTime modifiedAt
 ) {
-    public static CommentResp from(CommentDto comment) {
+    public static CommentResp from(final CommentDto comment) {
         return CommentResp.builder()
                 .id(comment.id())
                 .content(comment.content())
