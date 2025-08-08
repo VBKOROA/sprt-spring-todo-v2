@@ -15,4 +15,6 @@ public interface MemberRepository {
     void deleteById(long requesterId);
 
     boolean isExistsById(long requesterId);
+
+    Optional<String> findNameById(long id);
 }

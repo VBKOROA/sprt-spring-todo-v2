@@ -3,18 +3,18 @@ package indiv.abko.todo.comment.adapter.out;
 import indiv.abko.todo.comment.domain.out.AuthorPort;
 import indiv.abko.todo.global.vo.AuthorVO;
 import indiv.abko.todo.member.application.port.in.dto.GetAuthorDto;
-import indiv.abko.todo.member.application.port.in.GetAuthorUseCase;
+import indiv.abko.todo.member.application.port.in.GetNameByMemberIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class CommentAuthorAdapter implements AuthorPort {
-    private final GetAuthorUseCase getAuthorUseCase;
+    private final GetNameByMemberIdUseCase getNameByMemberIdUseCase;
 
     @Override
     public AuthorVO getAuthor(long authorId) {
-        GetAuthorDto getAuthorDTO = getAuthorUseCase.getAuthor(authorId);
-        return AuthorVO.reconstitute(authorId, getAuthorDTO.name());
+        String authorName = getNameByMemberIdUseCase.execute(authorId);
+        return AuthorVO.reconstitute(authorId, authorName);
     }
 }
