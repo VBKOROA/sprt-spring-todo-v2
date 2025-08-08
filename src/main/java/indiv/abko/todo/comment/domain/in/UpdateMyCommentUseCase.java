@@ -1,6 +1,7 @@
 package indiv.abko.todo.comment.domain.in;
 
-public interface UpdateMyCommentUseCase {
+import indiv.abko.todo.comment.domain.Comment;
 
-    CommentDto execute(UpdateMyCommentCommand command);
+public interface UpdateMyCommentUseCase {
+    Comment execute(UpdateMyCommentCommand command);
 }
