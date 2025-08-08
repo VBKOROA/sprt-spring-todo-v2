@@ -7,7 +7,7 @@ import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.todo.domain.port.in.command.DeleteTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
+import indiv.abko.todo.todo.domain.TodoExceptionEnum;
 import lombok.RequiredArgsConstructor;
 
 @Service

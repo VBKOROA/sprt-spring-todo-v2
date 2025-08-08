@@ -1,7 +1,7 @@
 package indiv.abko.todo.global.vo;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.domain.exception.TodoExceptionEnum;
+import indiv.abko.todo.todo.domain.TodoExceptionEnum;
 import lombok.*;
 import org.springframework.util.StringUtils;
 

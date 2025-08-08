@@ -1,4 +1,4 @@
-package indiv.abko.todo.todo.domain.exception;
+package indiv.abko.todo.todo.domain;
 
 import indiv.abko.todo.global.exception.BusinessExceptionEnum;
 import lombok.Getter;
