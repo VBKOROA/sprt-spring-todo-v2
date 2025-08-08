@@ -1,7 +1,9 @@
 package indiv.abko.todo.member.adapter.out.persistence.repository;
 
+import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.member.adapter.out.persistence.MemberJpaEntity;
 import indiv.abko.todo.member.domain.Member;
+import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -44,5 +46,10 @@ public class MemberRepositoryAdapter implements MemberRepository{
     @Override
     public boolean isExistsById(long requesterId) {
         return memberJpaRepo.existsById(requesterId);
+    }
+
+    @Override
+    public Optional<String> findNameById(long id) {
+        return memberJpaRepo.findNameById(id).map(NameProjection::name);
     }
 }

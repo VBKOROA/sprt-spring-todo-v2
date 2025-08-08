@@ -3,7 +3,7 @@ package indiv.abko.todo.comment.domain.in;
 import lombok.Builder;
 
 @Builder
-public record UpdateCommentCommand(
+public record UpdateMyCommentCommand(
         long commentId,
         long requesterId,
         String content

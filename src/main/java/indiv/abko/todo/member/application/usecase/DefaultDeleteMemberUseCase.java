@@ -1,9 +1,9 @@
 package indiv.abko.todo.member.application.usecase;
 
-import indiv.abko.todo.comment.domain.out.TodoPort;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.member.application.port.in.DeleteMemberUseCase;
 import indiv.abko.todo.member.application.port.out.CommentPort;
+import indiv.abko.todo.member.application.port.out.MemberTodoPort;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class DefaultDeleteMemberUseCase implements DeleteMemberUseCase {
     private final MemberRepository memberRepo;
-    private final TodoPort todoPort;
+    private final MemberTodoPort todoPort;
     private final CommentPort commentPort;
 
     @Override
@@ -26,7 +26,7 @@ public class DefaultDeleteMemberUseCase implements DeleteMemberUseCase {
         
         // Member 삭제 시,
         // 관련 정보 전부 말소
-        todoPort.deleteAllByMemberId(requesterId);
+        todoPort.deleteTodosByMemberId(requesterId);
         commentPort.deleteAllByMemberId(requesterId);
         memberRepo.deleteById(requesterId);
     }

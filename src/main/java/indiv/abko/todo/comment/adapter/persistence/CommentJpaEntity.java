@@ -34,7 +34,7 @@ public class CommentJpaEntity extends BaseTimeJpaEntity {
     // Todo 고유키
     private Long todoId;
 
-    public static CommentJpaEntity from(Comment comment) {
+    public static CommentJpaEntity from(final Comment comment) {
         return CommentJpaEntity.builder()
                 .id(comment.getId())
                 .content(comment.getContent().getContent())
@@ -47,7 +47,7 @@ public class CommentJpaEntity extends BaseTimeJpaEntity {
     }
 
     public Comment toDomain() {
-        AuthorVO author = AuthorVO.reconstitute(authorId, authorName);
+        final var author = AuthorVO.reconstitute(authorId, authorName);
         return Comment.builder()
                 .id(id)
                 .content(ContentVO.reconstitute(content))

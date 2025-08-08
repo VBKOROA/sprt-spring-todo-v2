@@ -13,7 +13,7 @@ public class DeleteCommentsByAuthorIdService implements DeleteCommentsByAuthorId
 
     @Override
     @Transactional
-    public void execute(long authorId) {
+    public void execute(final long authorId) {
         commentRepo.deleteAllByAuthorId(authorId);
     }
 }

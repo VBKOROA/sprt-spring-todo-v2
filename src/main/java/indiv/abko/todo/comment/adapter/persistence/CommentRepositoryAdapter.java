@@ -15,41 +15,41 @@ public class CommentRepositoryAdapter implements CommentRepository {
     private final CommentJpaRepository commentJpaRepo;
 
     @Override
-    public Comment save(Comment comment) {
-        var entity = CommentJpaEntity.from(comment);
-        var saved = commentJpaRepo.save(entity);
+    public Comment save(final Comment comment) {
+        final var entity = CommentJpaEntity.from(comment);
+        final var saved = commentJpaRepo.save(entity);
         return saved.toDomain();
     }
 
     @Override
-    public int countByTodoId(long todoId) {
+    public int countByTodoId(final long todoId) {
         return commentJpaRepo.countByTodoId(todoId);
     }
 
     @Override
-    public List<Comment> findAllBy(long todoId) {
-        var entities = commentJpaRepo.findAllByTodoId(todoId);
+    public List<Comment> findAllBy(final long todoId) {
+        final var entities = commentJpaRepo.findAllByTodoId(todoId);
         return entities.stream().map(CommentJpaEntity::toDomain).toList();
     }
 
     @Override
-    public void deleteAllBy(long todoId) {
+    public void deleteAllBy(final long todoId) {
         commentJpaRepo.deleteAllByTodoId(todoId);
     }
 
     @Override
-    public Optional<Comment> findById(long id) {
-        var entity = commentJpaRepo.findById(id);
+    public Optional<Comment> findById(final long id) {
+        final var entity = commentJpaRepo.findById(id);
         return entity.map(CommentJpaEntity::toDomain);
     }
 
     @Override
-    public void deleteAllByAuthorId(long authorId) {
+    public void deleteAllByAuthorId(final long authorId) {
         commentJpaRepo.deleteAllByAuthorId(authorId);
     }
 
     @Override
-    public void delete(long commentId) {
+    public void delete(final long commentId) {
         commentJpaRepo.deleteById(commentId);
     }
 }

@@ -3,7 +3,6 @@ package indiv.abko.todo.comment.adapter.in.rest;
 import indiv.abko.todo.comment.adapter.in.rest.dto.CommentResp;
 import indiv.abko.todo.comment.adapter.in.rest.dto.CommentWriteReq;
 import indiv.abko.todo.comment.adapter.in.rest.dto.UpdateCommentReq;
-import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.in.*;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
@@ -28,9 +27,9 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Comment API", description = "할일 관리 시스템의 댓글 관련 API")
 public class CommentController {
     private final WriteCommentUseCase writeCommentUseCase;
-    private final GetCommentByIdUseCase getCommentByIdUseCase;
-    private final UpdateCommentUseCase updateCommentUseCase;
-    private final DeleteCommentUseCase deleteCommentUseCase;
+    private final ReadCommentByIdUseCase readCommentByIdUseCase;
+    private final UpdateMyCommentUseCase updateMyCommentUseCase;
+    private final DeleteMyCommentUseCase deleteMyCommentUseCase;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -55,18 +54,18 @@ public class CommentController {
         if (authorId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command = WriteCommentCommand.builder()
+        final var command = WriteCommentCommand.builder()
                 .todoId(todoId)
                 .authorId(authorId)
                 .content(req.content())
                 .build();
-        var addedComment = writeCommentUseCase.execute(command);
+        final var addedComment = writeCommentUseCase.execute(command);
         return ApiResp.created(CommentResp.from(addedComment));
     }
 
     @GetMapping("/{id}")
-    public ApiResp<CommentResp> getComment(@PathVariable("id") long id) {
-        var comment = getCommentByIdUseCase.execute(id);
+    public ApiResp<CommentResp> readComment(@PathVariable("id") long id) {
+        final var comment = readCommentByIdUseCase.execute(id);
         return ApiResp.ok(CommentResp.from(comment));
     }
 
@@ -78,9 +77,9 @@ public class CommentController {
         if (requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        UpdateCommentCommand command = updateReq.toCommand(id, requesterId);
-        var comment = updateCommentUseCase.execute(command);
-        return ApiResp.ok(CommentResp.from(comment));
+        final var command = updateReq.toCommand(id, requesterId);
+        final var updatedComment = updateMyCommentUseCase.execute(command);
+        return ApiResp.ok(CommentResp.from(updatedComment));
     }
 
     @DeleteMapping("/{id}")
@@ -91,6 +90,6 @@ public class CommentController {
         if (requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        deleteCommentUseCase.execute(id, requesterId);
+        deleteMyCommentUseCase.execute(id, requesterId);
     }
 }

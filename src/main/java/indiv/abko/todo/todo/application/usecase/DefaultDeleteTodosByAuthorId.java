@@ -1,6 +1,6 @@
 package indiv.abko.todo.todo.application.usecase;
 
-import indiv.abko.todo.todo.application.port.in.DeleteAllByAuthorId;
+import indiv.abko.todo.todo.application.port.in.DeleteTodosByAuthorId;
 import indiv.abko.todo.todo.application.port.out.TodoCommentPort;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultDeleteAllByAuthorId implements DeleteAllByAuthorId {
+public class DefaultDeleteTodosByAuthorId implements DeleteTodosByAuthorId {
     private final TodoRepository todoRepo;
     private final TodoCommentPort todoCommentPort;
 

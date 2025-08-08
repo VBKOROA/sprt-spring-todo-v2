@@ -1,7 +1,6 @@
 package indiv.abko.todo.comment.adapter.in.rest.dto;
 
 import indiv.abko.todo.comment.domain.Comment;
-import indiv.abko.todo.comment.domain.in.CommentDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
@@ -23,14 +22,14 @@ public record CommentResp(
     @Schema(description = "댓글 수정일", example = "2025-01-01T12:00:00")
     LocalDateTime modifiedAt
 ) {
-    public static CommentResp from(CommentDto comment) {
+    public static CommentResp from(final Comment comment) {
         return CommentResp.builder()
-                .id(comment.id())
-                .content(comment.content())
-                .authorId(comment.authorId())
-                .authorName(comment.authorName())
-                .createdAt(comment.createdAt())
-                .modifiedAt(comment.modifiedAt())
+                .id(comment.getId())
+                .content(comment.getContent().getContent())
+                .authorId(comment.getAuthor().getId())
+                .authorName(comment.getAuthor().getName())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
                 .build();
     }
 }

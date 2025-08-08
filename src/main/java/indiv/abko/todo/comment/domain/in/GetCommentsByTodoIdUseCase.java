@@ -1,7 +1,9 @@
 package indiv.abko.todo.comment.domain.in;
 
+import indiv.abko.todo.comment.domain.Comment;
+
 import java.util.List;
 
 public interface GetCommentsByTodoIdUseCase {
-    List<CommentDto> execute(long id);
+    List<Comment> execute(long id);
 }
