@@ -14,7 +14,7 @@ public class GetCommentsByTodoIdUseCaseService implements GetCommentsByTodoIdUse
     private final CommentRepository commentRepo;
 
     @Override
-    public List<Comment> execute(long todoId) {
+    public List<Comment> execute(final long todoId) {
         return commentRepo.findAllBy(todoId);
     }
 }
