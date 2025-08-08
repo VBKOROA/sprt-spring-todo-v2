@@ -10,16 +10,24 @@ import org.springframework.util.StringUtils;
 
 @Getter
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TodoTitleVO {
     private String title;
 
     public TodoTitleVO(final String title) {
-        shouldValid(title);
         this.title = title;
     }
 
-    private void shouldValid(final String title) {
+    public static TodoTitleVO fromRaw(String title) {
+        shouldValid(title);
+        return new TodoTitleVO(title);
+    }
+
+    public static TodoTitleVO reconstitute(String title) {
+        return new TodoTitleVO(title);
+    }
+
+    private static void shouldValid(final String title) {
         if(StringUtils.hasText(title) == false)  {
             throw new BusinessException(TodoExceptionEnum.TODO_TITLE_REQUIRED);
         }

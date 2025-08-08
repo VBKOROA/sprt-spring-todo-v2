@@ -11,7 +11,7 @@ public class TodoCommentAdapter implements TodoCommentPort {
     private final DeleteCommentsByTodoIdUseCase deleteCommentsByTodoIdUseCase;
 
     @Override
-    public void deleteAllByTodoId(long todoId) {
+    public void deleteAllByTodoId(final long todoId) {
         deleteCommentsByTodoIdUseCase.execute(todoId);
     }
 }

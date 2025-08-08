@@ -13,7 +13,7 @@ public class TodoAuthorAdapter implements TodoAuthorPort {
 
     @Override
     public AuthorVO getAuthor(final long authorId) {
-        final var authorInfo =  getNameByMemberIdUseCase.getAuthor(authorId);
-        return AuthorVO.reconstitute(authorId, authorInfo.name());
+        final var authorName =  getNameByMemberIdUseCase.execute(authorId);
+        return AuthorVO.reconstitute(authorId, authorName);
     }
 }

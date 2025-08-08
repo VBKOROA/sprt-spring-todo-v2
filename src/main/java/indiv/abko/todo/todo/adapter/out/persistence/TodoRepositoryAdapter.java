@@ -1,7 +1,5 @@
 package indiv.abko.todo.todo.adapter.out.persistence;
 
-import indiv.abko.todo.todo.adapter.out.persistence.entity.TodoJpaEntity;
-import indiv.abko.todo.todo.adapter.out.persistence.mapper.TodoEntityMapper;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
@@ -18,11 +16,10 @@ import java.util.Optional;
 public class TodoRepositoryAdapter implements TodoRepository {
     private final TodoJpaRepository todoJpaRepository;
     private final TodoQDSLRepository todoQDSLRepository;
-    private final TodoEntityMapper todoEntityMapper;
 
     public Optional<Todo> findBy(final Long id) {
         return todoJpaRepository.findById(id)
-                .map(todoEntityMapper::toDomain);
+                .map(TodoJpaEntity::toDomain);
     }
 
     @Override
@@ -32,40 +29,40 @@ public class TodoRepositoryAdapter implements TodoRepository {
 
     @Override
     public Todo save(final Todo todo) {
-        final TodoJpaEntity todoEntity = todoJpaRepository.save(todoEntityMapper.toEntity(todo));
-        return todoEntityMapper.toDomain(todoEntity);
+        final var todoEntity = todoJpaRepository.save(TodoJpaEntity.from(todo));
+        return todoEntity.toDomain();
     }
 
     @Override
     public Todo saveComment(final Todo todo) {
-        final TodoJpaEntity todoEntity = todoJpaRepository.save(todoEntityMapper.toEntity(todo));
-        return todoEntityMapper.toDomain(todoEntity);
+        final var todoEntity = todoJpaRepository.save(TodoJpaEntity.from(todo));
+        return todoEntity.toDomain();
     }
 
     @Override
     public Optional<Todo> findSummary(final Long id) {
-        return todoJpaRepository.findById(id).map(todoEntityMapper::toDomain);
+        return todoJpaRepository.findById(id).map(TodoJpaEntity::toDomain);
     }
 
     @Override
     public void delete(final Todo todo) {
-        final TodoJpaEntity todoEntity = todoEntityMapper.toEntity(todo);
+        final var todoEntity = TodoJpaEntity.from(todo);
         todoJpaRepository.delete(todoEntity);
     }
 
     @Override
-    public boolean isExistBy(long todoId) {
+    public boolean isExistBy(final long todoId) {
         return todoJpaRepository.existsById(todoId);
     }
 
     @Override
-    public List<Long> findTodoIdsByAuthorId(long authorId) {
-        var todoIds = todoJpaRepository.findAllByAuthorId(authorId);
+    public List<Long> findTodoIdsByAuthorId(final long authorId) {
+        final var todoIds = todoJpaRepository.findAllByAuthorId(authorId);
         return todoIds.stream().map(TodoIdProjection::id).toList();
     }
 
     @Override
-    public void deleteById(long todoId) {
+    public void deleteById(final long todoId) {
         todoJpaRepository.deleteById(todoId);
     }
 }

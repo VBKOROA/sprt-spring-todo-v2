@@ -52,12 +52,12 @@ public class TodoController {
         if(memberId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command = CreateTodoCommand.builder()
+        final var command = CreateTodoCommand.builder()
                 .memberId(memberId)
                 .title(createReq.title())
                 .content(createReq.content())
                 .build();
-        var createdTodo = todoUseCaseFacade.createTodo(command);
+        final var createdTodo = todoUseCaseFacade.createTodo(command);
         return ApiResp.created(TodoResp.from(createdTodo));
     }
 
@@ -79,16 +79,16 @@ public class TodoController {
             @ParameterObject
             @PageableDefault(size = 10)
             Pageable pageable) {
-        var command = SearchTodosCommand.builder()
+        final var command = SearchTodosCommand.builder()
                 .title(condition.title())
                 .authorName(condition.authorName())
                 .content(condition.content())
                 .orderBy(condition.orderBy())
                 .pageable(pageable)
                 .build();
-        var todos = todoUseCaseFacade.searchTodos(command);
-        var responseTodos = todos.map(TodoResp::from).getContent();
-        var responseData = TodoListResp.builder()
+        final var todos = todoUseCaseFacade.searchTodos(command);
+        final var responseTodos = todos.map(TodoResp::from).getContent();
+        final var responseData = TodoListResp.builder()
                 .todos(responseTodos)
                 .pageNumber(todos.getNumber())
                 .totalPages(todos.getTotalPages())
@@ -128,12 +128,12 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command =  UpdateMyTodoCommand.builder()
+        final var command =  UpdateMyTodoCommand.builder()
                 .requesterId(requesterId)
                 .todoId(id)
                 .content(updateReq.content())
                 .build();
-        var updatedTodo = todoUseCaseFacade.updateMyTodo(command);
+        final var updatedTodo = todoUseCaseFacade.updateMyTodo(command);
         return ApiResp.ok(TodoResp.from(updatedTodo));
     }
 
@@ -166,7 +166,7 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command = DeleteMyTodoCommand.builder()
+        final var command = DeleteMyTodoCommand.builder()
                 .todoId(id)
                 .requesterId(requesterId)
                 .build();
