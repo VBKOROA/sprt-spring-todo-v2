@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.domain.usecase;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.domain.port.in.GetMemberUseCase;
+import indiv.abko.todo.member.domain.port.in.ReadMemberInfoUseCase;
 import indiv.abko.todo.member.domain.port.in.dto.MemberDto;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
 import indiv.abko.todo.member.domain.port.out.MemberRepository;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultGetMemberUseCase implements GetMemberUseCase {
+public class DefaultGetMemberUseCase implements ReadMemberInfoUseCase {
     private final MemberRepository memberRepo;
 
     @Override

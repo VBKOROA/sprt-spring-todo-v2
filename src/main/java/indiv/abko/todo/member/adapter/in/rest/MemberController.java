@@ -16,32 +16,32 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
 public class MemberController {
-    private final GetMemberUseCase getMemberUseCase;
+    private final ReadMemberInfoUseCase readMemberInfoUseCase;
     private final SignUpUseCase signUpUseCase;
     private final LoginUseCase loginUseCase;
-    private final UpdateMemberUseCase updateMemberUseCase;
-    private final DeleteMemberUseCase deleteMemberUseCase;
+    private final UpdateMyInfoUseCase updateMyInfoUseCase;
+    private final DeleteMeUseCase deleteMeUseCase;
 
     @GetMapping("/{id}")
     public ApiResp<MemberResp> getMember(@PathVariable long id) {
-        var member = getMemberUseCase.get(id);
+        final var member = readMemberInfoUseCase.get(id);
         return ApiResp.ok(MemberResp.from(member));
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResp<SignUpResp> signUp(@RequestBody SignUpReq signUpReq) {
-        var command = signUpReq.toCommand();
-        var createdMember = signUpUseCase.signUp(command);
-        var response = SignUpResp.from(createdMember);
+        final var command = signUpReq.toCommand();
+        final var createdMember = signUpUseCase.signUp(command);
+        final var response = SignUpResp.from(createdMember);
         return ApiResp.created(response);
     }
 
     @PostMapping("/login")
     public ApiResp<String> login(@RequestBody LoginReq loginReq, HttpServletResponse response) {
-        String token = loginUseCase.login(loginReq.email(), loginReq.password());
-        var apiResponse = ApiResp.ok(token);
-        Cookie cookie = new Cookie(JwtAuthFilter.AUTH_HEADER, token);
+        final var token = loginUseCase.login(loginReq.email(), loginReq.password());
+        final var apiResponse = ApiResp.ok(token);
+        final var cookie = new Cookie(JwtAuthFilter.AUTH_HEADER, token);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
@@ -55,8 +55,8 @@ public class MemberController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var member = updateMemberUseCase.update(requesterId, updateReq.name());
-        var responseMember = MemberResp.from(member);
+        final var member = updateMyInfoUseCase.update(requesterId, updateReq.name());
+        final var responseMember = MemberResp.from(member);
         return ApiResp.ok(responseMember);
     }
 
@@ -67,6 +67,6 @@ public class MemberController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        deleteMemberUseCase.execute(requesterId);
+        deleteMeUseCase.execute(requesterId);
     }
 }
