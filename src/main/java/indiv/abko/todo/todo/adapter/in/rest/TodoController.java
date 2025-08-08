@@ -3,7 +3,6 @@ package indiv.abko.todo.todo.adapter.in.rest;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
-import indiv.abko.todo.todo.adapter.in.rest.mapper.TodoMapper;
 import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.domain.port.in.command.CreateTodoCommand;
 import indiv.abko.todo.todo.domain.port.in.command.DeleteTodoCommand;
@@ -36,7 +35,6 @@ import org.springframework.validation.annotation.Validated;
 @Tag(name = "Todo API", description = "할일 관리 시스템의 Todo 관련 API")
 public class TodoController {
     private final TodoUseCaseFacade todoUseCaseFacade;
-    private final TodoMapper todoMapper;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -168,7 +166,7 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        var command =   DeleteTodoCommand.builder()
+        var command = DeleteTodoCommand.builder()
                 .todoId(id)
                 .requesterId(requesterId)
                 .build();

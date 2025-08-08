@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.domain.usecase;
 
+import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.port.in.TodoDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +24,8 @@ public class GetTodoUseCase {
      * @throws BusinessException Todo 항목을 찾을 수 없는 경우 {@code TODO_NOT_FOUND} 예외를 발생
      */
     @Transactional(readOnly = true)
-    public TodoDto execute(GetTodoCommand getCommand) {
-        final var todo = todoRepo.findBy(getCommand.id())
+    public Todo execute(GetTodoCommand getCommand) {
+        return todoRepo.findBy(getCommand.id())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
-        return TodoDto.from(todo);
     }
 }

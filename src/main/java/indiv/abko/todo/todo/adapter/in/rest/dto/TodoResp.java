@@ -2,6 +2,7 @@ package indiv.abko.todo.todo.adapter.in.rest.dto;
 
 import java.time.LocalDateTime;
 
+import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.port.in.TodoDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -24,15 +25,14 @@ public record TodoResp(
     @Schema(description = "Todo 수정 날짜/시간", example = "2025-01-01T00:00:00")
     LocalDateTime modifiedAt
 ) {
-    public static TodoResp from(TodoDto dto) {
+    public static TodoResp from(final Todo todo) {
         return TodoResp.builder()
-                .id(dto.id())
-                .title(dto.title())
-                .content(dto.content())
-                .authorId(dto.authorId())
-                .authorName(dto.authorName())
-                .createdAt(dto.createdAt())
-                .modifiedAt(dto.modifiedAt())
+                .id(todo.getId())
+                .title(todo.getTitle().getTitle())
+                .content(todo.getContent().getContent())
+                .authorName(todo.getAuthor().getName())
+                .createdAt(todo.getCreatedAt())
+                .modifiedAt(todo.getModifiedAt())
                 .build();
     }
 }

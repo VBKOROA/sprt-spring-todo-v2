@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.domain.usecase;
 
+import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.port.in.TodoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,7 @@ public class SearchTodosUseCase {
      * @throws BusinessException 조회 중 예외 발생 시 예외를 던짐
      */
     @Transactional(readOnly = true)
-    public Page<TodoDto> execute(SearchTodosCommand searchCommand) {
-        final var todoPage = todoRepo.searchSummaries(searchCommand.toCriteria(), searchCommand.pageable());
-        return todoPage.map(TodoDto::from);
+    public Page<Todo> execute(SearchTodosCommand searchCommand) {
+        return todoRepo.searchSummaries(searchCommand.toCriteria(), searchCommand.pageable());
     }
 }
