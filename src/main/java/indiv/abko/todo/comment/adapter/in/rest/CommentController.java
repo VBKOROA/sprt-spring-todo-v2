@@ -30,6 +30,7 @@ public class CommentController {
     private final WriteCommentUseCase writeCommentUseCase;
     private final GetCommentByIdUseCase getCommentByIdUseCase;
     private final UpdateCommentUseCase updateCommentUseCase;
+    private final DeleteCommentUseCase deleteCommentUseCase;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -80,5 +81,16 @@ public class CommentController {
         UpdateCommentCommand command = updateReq.toCommand(id, requesterId);
         var comment = updateCommentUseCase.execute(command);
         return ApiResp.ok(CommentResp.from(comment));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteComment(@PathVariable("id") long id,
+                                              @RequestAttribute(name = "memberId", required = false)
+                                              Long requesterId) {
+        if (requesterId == null) {
+            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
+        }
+        deleteCommentUseCase.execute(id, requesterId);
     }
 }

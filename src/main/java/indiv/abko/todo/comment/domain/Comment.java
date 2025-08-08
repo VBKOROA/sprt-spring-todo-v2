@@ -21,9 +21,13 @@ public class Comment {
     private LocalDateTime modifiedAt;
 
     public void updateContent(String content, long requesterId) {
+        shouldHaveAuth(requesterId);
+        this.content = ContentVO.fromRawContent(content);
+    }
+
+    public void shouldHaveAuth(long requesterId) {
         if(author.getId().equals(requesterId) == false) {
             throw new BusinessException(CommentExceptionEnum.PERMISSION_DENIED);
         }
-        this.content = ContentVO.fromRawContent(content);
     }
 }
