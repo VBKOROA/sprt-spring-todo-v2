@@ -4,7 +4,7 @@ import indiv.abko.todo.todo.domain.port.out.TodoCommentPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.domain.port.in.command.DeleteTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.DeleteMyTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.TodoExceptionEnum;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteTodoUseCaseService {
+public class DeleteMyTodoUseCaseService {
     private final TodoRepository todoRepo;
     private final TodoCommentPort todoCommentPort;
 
@@ -23,7 +23,7 @@ public class DeleteTodoUseCaseService {
      * @throws BusinessException Todo가 존재하지 않거나 권한이 없을 때 발생
      */
     @Transactional
-    public void execute(DeleteTodoCommand command) {
+    public void execute(DeleteMyTodoCommand command) {
         final Todo todo = todoRepo.findSummary(command.todoId())
             .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.shouldHaveAuth(command.requesterId());

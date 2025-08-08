@@ -5,11 +5,11 @@ import indiv.abko.todo.todo.domain.port.in.command.*;
 import org.springframework.data.domain.Page;
 
 public interface TodoUseCaseFacade {
-    public void deleteTodo(DeleteTodoCommand command);
+    public void deleteMyTodo(DeleteMyTodoCommand command);
 
     public Todo createTodo(CreateTodoCommand command);
 
-    public Todo updateTodo(UpdateTodoCommand command);
+    public Todo updateMyTodo(UpdateMyTodoCommand command);
 
     public Page<Todo> searchTodos(SearchTodosCommand command);
 

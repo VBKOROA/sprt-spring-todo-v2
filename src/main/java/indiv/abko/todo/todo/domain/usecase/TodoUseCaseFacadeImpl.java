@@ -10,15 +10,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
-    private final DeleteTodoUseCaseService deleteTodoUseCase;
+    private final DeleteMyTodoUseCaseService deleteMyTodoUseCase;
     private final CreateTodoUseCaseService createTodoUseCase;
-    private final UpdateTodoUseCaseService updateTodoUseCase;
+    private final UpdateMyTodoUseCaseService updateMyTodoUseCase;
     private final SearchTodosUseCaseService searchTodosUseCase;
     private final GetTodoUseCaseService getTodoUseCase;
 
     @Override
-    public void deleteTodo(DeleteTodoCommand command) {
-        deleteTodoUseCase.execute(command);
+    public void deleteMyTodo(DeleteMyTodoCommand command) {
+        deleteMyTodoUseCase.execute(command);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
     }
 
     @Override
-    public Todo updateTodo(UpdateTodoCommand command) { return updateTodoUseCase.execute(command); }
+    public Todo updateMyTodo(UpdateMyTodoCommand command) { return updateMyTodoUseCase.execute(command); }
 
     @Override
     public Page<Todo> searchTodos(SearchTodosCommand command) { return searchTodosUseCase.execute(command); }

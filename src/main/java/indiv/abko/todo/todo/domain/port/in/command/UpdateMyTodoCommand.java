@@ -3,9 +3,9 @@ package indiv.abko.todo.todo.domain.port.in.command;
 import lombok.Builder;
 
 @Builder
-public record DeleteTodoCommand(
+public record UpdateMyTodoCommand(
+    long requesterId,
     long todoId,
-    long requesterId
+    String content
 ) {
-    
-}
+} 

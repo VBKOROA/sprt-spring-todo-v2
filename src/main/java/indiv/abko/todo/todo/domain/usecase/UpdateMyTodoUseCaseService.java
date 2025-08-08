@@ -3,7 +3,7 @@ package indiv.abko.todo.todo.domain.usecase;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.todo.domain.port.in.command.UpdateTodoCommand;
+import indiv.abko.todo.todo.domain.port.in.command.UpdateMyTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.TodoExceptionEnum;
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateTodoUseCaseService {
+public class UpdateMyTodoUseCaseService {
     private final TodoRepository todoRepo;
 
     /**
@@ -25,7 +25,7 @@ public class UpdateTodoUseCaseService {
      * @throws BusinessException Todo 항목을 찾을 수 없거나 권한이 없을 경우
      */
     @Transactional
-    public Todo execute(UpdateTodoCommand updateCommand) {
+    public Todo execute(UpdateMyTodoCommand updateCommand) {
         final Todo todo = todoRepo.findBy(updateCommand.todoId())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.updateContent(updateCommand.content(), updateCommand.requesterId());
