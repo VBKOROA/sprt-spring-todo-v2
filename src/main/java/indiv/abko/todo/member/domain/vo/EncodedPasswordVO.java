@@ -2,7 +2,7 @@ package indiv.abko.todo.member.domain.vo;
 
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.member.domain.MemberExceptionEnum;
-import indiv.abko.todo.member.domain.port.out.PasswordEncoder;
+import indiv.abko.todo.member.domain.port.out.MemberPasswordEncoder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class EncodedPasswordVO {
     private static final int MAX = 20;
     private String value;
 
-    public static EncodedPasswordVO fromRawPassword(String password, PasswordEncoder passwordEncoder) {
+    public static EncodedPasswordVO fromRawPassword(String password, MemberPasswordEncoder passwordEncoder) {
         shouldValidOrThrow(password);
         return new EncodedPasswordVO(passwordEncoder.encode(password));
     }
@@ -34,7 +34,7 @@ public class EncodedPasswordVO {
         return new EncodedPasswordVO(password);
     }
 
-    public boolean matches(String rawPassword, PasswordEncoder passwordEncoder) {
+    public boolean matches(String rawPassword, MemberPasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(rawPassword, this.value);
     }
 }

@@ -1,7 +1,7 @@
 package indiv.abko.todo.member.domain;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.member.domain.port.out.PasswordEncoder;
+import indiv.abko.todo.member.domain.port.out.MemberPasswordEncoder;
 import indiv.abko.todo.member.domain.vo.EmailVO;
 import indiv.abko.todo.member.domain.vo.EncodedPasswordVO;
 import indiv.abko.todo.member.domain.vo.NameVO;
@@ -23,7 +23,7 @@ public class Member {
     private LocalDateTime createdAt; // 생성 시간
     private EncodedPasswordVO password;
 
-    public void auth(String rawPassword, PasswordEncoder passwordEncoder) {
+    public void shouldHaveAuth(String rawPassword, MemberPasswordEncoder passwordEncoder) {
         if(this.password.matches(rawPassword, passwordEncoder) == false) {
             throw new BusinessException(MemberExceptionEnum.MEMBER_LOGIN_FAILED);
         };
