@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.domain.usecase;
 
+import indiv.abko.todo.todo.domain.port.in.CreateTodoUseCase;
 import indiv.abko.todo.todo.domain.port.out.TodoAuthorPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CreateTodoUseCaseService {
+public class CreateTodoUseCaseService implements CreateTodoUseCase {
     private final TodoRepository todoRepo;
     private final TodoAuthorPort todoAuthorPort;
 
@@ -23,6 +24,7 @@ public class CreateTodoUseCaseService {
      * @param createCommand 생성할 Todo의 작성자 ID, 제목, 내용의 정보를 담은 명령 객체
      * @return 저장된 Todo 엔티티
      */
+    @Override
     @Transactional
     public Todo execute(final CreateTodoCommand createCommand) {
         final var author = todoAuthorPort.getAuthor(createCommand.memberId());

@@ -1,7 +1,7 @@
 package indiv.abko.todo.todo.domain.usecase;
 
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
+import indiv.abko.todo.todo.domain.port.in.*;
 import indiv.abko.todo.todo.domain.port.in.command.*;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
-    private final DeleteMyTodoUseCaseService deleteMyTodoUseCase;
-    private final CreateTodoUseCaseService createTodoUseCase;
-    private final UpdateMyTodoUseCaseService updateMyTodoUseCase;
-    private final SearchTodosUseCaseService searchTodosUseCase;
-    private final GetTodoUseCaseService getTodoUseCase;
+    private final DeleteMyTodoUseCase deleteMyTodoUseCase;
+    private final CreateTodoUseCase createTodoUseCase;
+    private final UpdateMyTodoUseCase updateMyTodoUseCase;
+    private final SearchTodosUseCase searchTodosUseCase;
+    private final GetTodoUseCase getTodoUseCase;
 
     @Override
     public void deleteMyTodo(DeleteMyTodoCommand command) {

@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.domain.usecase;
 
+import indiv.abko.todo.todo.domain.port.in.DeleteMyTodoUseCase;
 import indiv.abko.todo.todo.domain.port.out.TodoCommentPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteMyTodoUseCaseService {
+public class DeleteMyTodoUseCaseService implements DeleteMyTodoUseCase {
     private final TodoRepository todoRepo;
     private final TodoCommentPort todoCommentPort;
 
@@ -22,6 +23,7 @@ public class DeleteMyTodoUseCaseService {
      * @param command 삭제할 Todo의 ID와 요청자 ID를 포함한 명령 객체
      * @throws BusinessException Todo가 존재하지 않거나 권한이 없을 때 발생
      */
+    @Override
     @Transactional
     public void execute(DeleteMyTodoCommand command) {
         final Todo todo = todoRepo.findSummary(command.todoId())

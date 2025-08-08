@@ -1,6 +1,7 @@
 package indiv.abko.todo.todo.domain.usecase;
 
 import indiv.abko.todo.todo.domain.Todo;
+import indiv.abko.todo.todo.domain.port.in.SearchTodosUseCase;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class SearchTodosUseCaseService {
+public class SearchTodosUseCaseService implements SearchTodosUseCase {
     private final TodoRepository todoRepo;
 
     /**
@@ -21,6 +22,7 @@ public class SearchTodosUseCaseService {
      * @return 조건에 맞는 Todo Page
      * @throws BusinessException 조회 중 예외 발생 시 예외를 던짐
      */
+    @Override
     @Transactional(readOnly = true)
     public Page<Todo> execute(SearchTodosCommand searchCommand) {
         return todoRepo.searchSummaries(searchCommand.toCriteria(), searchCommand.pageable());
