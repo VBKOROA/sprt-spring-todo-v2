@@ -1,6 +1,5 @@
 package indiv.abko.todo.todo.domain.usecase;
 
-import indiv.abko.todo.todo.domain.port.in.TodoDto;
 import indiv.abko.todo.todo.domain.port.out.TodoAuthorPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CreateTodoUseCase {
+public class CreateTodoUseCaseService {
     private final TodoRepository todoRepo;
     private final TodoAuthorPort todoAuthorPort;
 

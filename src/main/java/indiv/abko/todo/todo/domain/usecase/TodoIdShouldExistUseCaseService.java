@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultTodoIdShouldExistUseCase implements TodoIdShouldExistUseCase {
+public class TodoIdShouldExistUseCaseService implements TodoIdShouldExistUseCase {
     private final TodoRepository todoRepo;
 
     @Override

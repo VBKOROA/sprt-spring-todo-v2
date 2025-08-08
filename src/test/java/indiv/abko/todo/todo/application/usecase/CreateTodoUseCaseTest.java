@@ -3,7 +3,7 @@ package indiv.abko.todo.todo.application.usecase;
 import indiv.abko.todo.todo.domain.port.in.command.CreateTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.usecase.CreateTodoUseCase;
+import indiv.abko.todo.todo.domain.usecase.CreateTodoUseCaseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 class CreateTodoUseCaseTest {
 
     @InjectMocks
-    private CreateTodoUseCase createTodoUseCase;
+    private CreateTodoUseCaseService createTodoUseCase;
 
     @Mock
     private TodoRepository todoRepository;

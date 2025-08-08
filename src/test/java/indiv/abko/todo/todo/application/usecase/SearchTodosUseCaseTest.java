@@ -4,7 +4,7 @@ import indiv.abko.todo.todo.domain.port.in.command.SearchTodosCommand;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.usecase.SearchTodosUseCase;
+import indiv.abko.todo.todo.domain.usecase.SearchTodosUseCaseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 class SearchTodosUseCaseTest {
 
     @InjectMocks
-    private SearchTodosUseCase searchTodosUseCase;
+    private SearchTodosUseCaseService searchTodosUseCase;
 
     @Mock
     private TodoRepository todoRepository;

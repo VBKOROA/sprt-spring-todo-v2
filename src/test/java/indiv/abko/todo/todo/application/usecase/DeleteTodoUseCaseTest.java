@@ -4,7 +4,7 @@ import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.todo.domain.port.in.command.DeleteTodoCommand;
 import indiv.abko.todo.todo.domain.port.out.TodoRepository;
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.usecase.DeleteTodoUseCase;
+import indiv.abko.todo.todo.domain.usecase.DeleteTodoUseCaseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 class DeleteTodoUseCaseTest {
 
     @InjectMocks
-    private DeleteTodoUseCase deleteTodoUseCase;
+    private DeleteTodoUseCaseService deleteTodoUseCase;
 
     @Mock
     private PasswordDecoder passwordDecoder;

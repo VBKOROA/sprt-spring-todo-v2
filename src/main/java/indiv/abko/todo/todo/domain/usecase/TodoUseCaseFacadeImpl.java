@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TodoUseCaseFacadeImpl implements TodoUseCaseFacade {
-    private final DeleteTodoUseCase deleteTodoUseCase;
-    private final CreateTodoUseCase createTodoUseCase;
-    private final UpdateTodoUseCase updateTodoUseCase;
-    private final SearchTodosUseCase searchTodosUseCase;
-    private final GetTodoUseCase getTodoUseCase;
+    private final DeleteTodoUseCaseService deleteTodoUseCase;
+    private final CreateTodoUseCaseService createTodoUseCase;
+    private final UpdateTodoUseCaseService updateTodoUseCase;
+    private final SearchTodosUseCaseService searchTodosUseCase;
+    private final GetTodoUseCaseService getTodoUseCase;
 
     @Override
     public void deleteTodo(DeleteTodoCommand command) {

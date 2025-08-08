@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultDeleteTodosByAuthorId implements DeleteTodosByAuthorId {
+public class DeleteTodosByAuthorIdService implements DeleteTodosByAuthorId {
     private final TodoRepository todoRepo;
     private final TodoCommentPort todoCommentPort;
 
