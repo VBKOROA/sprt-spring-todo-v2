@@ -13,13 +13,13 @@ public record MemberResp(
         LocalDateTime modifiedAt,
         LocalDateTime createdAt
 ) {
-    public static MemberResp from(Member memberDto) {
+    public static MemberResp from(final Member member) {
         return MemberResp.builder()
-                .id(memberDto.getId())
-                .name(memberDto.getName().getValue())
-                .email(memberDto.getEmail().getValue())
-                .modifiedAt(memberDto.getModifiedAt())
-                .createdAt(memberDto.getCreatedAt())
+                .id(member.getId())
+                .name(member.getName().getValue())
+                .email(member.getEmail().getValue())
+                .modifiedAt(member.getModifiedAt())
+                .createdAt(member.getCreatedAt())
                 .build();
     }
 }

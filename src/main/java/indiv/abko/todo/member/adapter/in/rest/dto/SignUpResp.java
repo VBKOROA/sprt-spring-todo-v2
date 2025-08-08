@@ -12,7 +12,7 @@ public record SignUpResp(
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static SignUpResp from(Member member) {
+    public static SignUpResp from(final Member member) {
         return SignUpResp.builder()
                 .id(member.getId())
                 .name(member.getName().getValue())
