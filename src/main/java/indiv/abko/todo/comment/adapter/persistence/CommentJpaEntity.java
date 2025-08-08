@@ -47,7 +47,7 @@ public class CommentJpaEntity extends BaseTimeJpaEntity {
     }
 
     public Comment toDomain() {
-        final AuthorVO author = AuthorVO.reconstitute(authorId, authorName);
+        final var author = AuthorVO.reconstitute(authorId, authorName);
         return Comment.builder()
                 .id(id)
                 .content(ContentVO.reconstitute(content))
