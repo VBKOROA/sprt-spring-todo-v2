@@ -1,4 +1,4 @@
-package indiv.abko.todo.comment.domain.service;
+package indiv.abko.todo.comment.domain.usecase;
 
 import indiv.abko.todo.comment.domain.in.DeleteMyCommentUseCase;
 import indiv.abko.todo.comment.domain.out.CommentRepository;
