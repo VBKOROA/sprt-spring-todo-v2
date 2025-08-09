@@ -1,6 +1,5 @@
 package indiv.abko.todo.global.security;
 
-import com.auth0.jwt.interfaces.Claim;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ public class JwtAuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        var tokenOpt = resolveTokenFromCookie(httpServletRequest);
+        Optional<String> tokenOpt = resolveTokenFromCookie(httpServletRequest);
         tokenOpt.filter(jwtUtil::validate)
                 .map(token -> jwtUtil.getClaim(token, AuthClaim.MEMBER_ID))
                 .filter(claim -> claim.isNull() == false)
