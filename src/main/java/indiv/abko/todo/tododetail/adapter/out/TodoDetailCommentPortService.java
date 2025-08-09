@@ -16,7 +16,7 @@ public class TodoDetailCommentPortService implements TodoDetailCommentPort {
 
     @Override
     public List<CommentSpec> getCommentsByTodoId(final long todoId) {
-        final var comments = getCommentsByTodoIdUseCase.execute(todoId);
+        final List<Comment> comments = getCommentsByTodoIdUseCase.execute(todoId);
         return comments.stream().map(this::toSpec).toList();
     }
 

@@ -1,5 +1,6 @@
 package indiv.abko.todo.tododetail.adapter.out;
 
+import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.domain.port.in.command.GetTodoCommand;
 import indiv.abko.todo.tododetail.domain.out.TodoDetailTodoPort;
@@ -15,7 +16,7 @@ public class TodoDetailTodoAdapter implements TodoDetailTodoPort {
     @Override
     public TodoSpec getTodoById(final long todoId) {
         final var getTodoCommand = new GetTodoCommand(todoId);
-        final var todo = todoUseCaseFacade.getTodo(getTodoCommand);
+        final Todo todo = todoUseCaseFacade.getTodo(getTodoCommand);
         return TodoSpec.builder()
                 .id(todo.getId())
                 .title(todo.getTitle().getTitle())
