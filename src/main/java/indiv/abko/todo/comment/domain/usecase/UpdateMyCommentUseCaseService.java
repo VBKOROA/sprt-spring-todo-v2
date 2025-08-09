@@ -18,7 +18,7 @@ public class UpdateMyCommentUseCaseService implements UpdateMyCommentUseCase {
     @Override
     @Transactional
     public Comment execute(final UpdateMyCommentCommand command) {
-        final var comment = commentRepo.findById(command.commentId())
+        final Comment comment = commentRepo.findById(command.commentId())
                 .orElseThrow(() -> new BusinessException(CommentExceptionEnum.COMMENT_NOT_FOUND));
         comment.updateContent(command.content(), command.requesterId());
         return commentRepo.save(comment);
