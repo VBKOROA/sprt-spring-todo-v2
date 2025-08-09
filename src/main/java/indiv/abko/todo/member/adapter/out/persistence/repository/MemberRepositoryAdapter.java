@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepositoryAdapter implements MemberRepository{
+public class MemberRepositoryAdapter implements MemberRepository {
     private final MemberJpaRepository memberJpaRepo;
 
     @Override
@@ -21,35 +21,35 @@ public class MemberRepositoryAdapter implements MemberRepository{
     }
 
     @Override
-    public boolean isExistsByEmail(String email) {
+    public boolean isExistsByEmail(final String email) {
         return memberJpaRepo.existsByEmail(email);
     }
 
     @Override
     public Member save(final Member member) {
-        final MemberJpaEntity memberJpaEntity = MemberJpaEntity.fromDomain(member);
+        final var memberJpaEntity = MemberJpaEntity.fromDomain(member);
         final MemberJpaEntity savedEntity = memberJpaRepo.save(memberJpaEntity);
         return savedEntity.toDomain();
     }
 
     @Override
-    public Optional<Member> findByEmail(String email) {
-        final var memberEntity = memberJpaRepo.findByEmail(email);
+    public Optional<Member> findByEmail(final String email) {
+        final Optional<MemberJpaEntity> memberEntity = memberJpaRepo.findByEmail(email);
         return memberEntity.map(MemberJpaEntity::toDomain);
     }
 
     @Override
-    public void deleteById(long requesterId) {
+    public void deleteById(final long requesterId) {
         memberJpaRepo.deleteById(requesterId);
     }
 
     @Override
-    public boolean isExistsById(long requesterId) {
+    public boolean isExistsById(final long requesterId) {
         return memberJpaRepo.existsById(requesterId);
     }
 
     @Override
-    public Optional<String> findNameById(long id) {
+    public Optional<String> findNameById(final long id) {
         return memberJpaRepo.findNameById(id).map(NameProjection::name);
     }
 }

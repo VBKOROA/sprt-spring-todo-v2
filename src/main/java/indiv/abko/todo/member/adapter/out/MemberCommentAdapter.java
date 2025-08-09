@@ -11,7 +11,7 @@ public class MemberCommentAdapter implements MemberCommentPort {
     private final DeleteCommentsByAuthorId deleteCommentsByAuthorId;
 
     @Override
-    public void deleteCommentsByMemberId(long requesterId) {
+    public void deleteCommentsByMemberId(final long requesterId) {
         deleteCommentsByAuthorId.execute(requesterId);
     }
 }

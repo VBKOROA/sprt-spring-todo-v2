@@ -5,7 +5,9 @@ import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.JwtAuthFilter;
 import indiv.abko.todo.member.adapter.in.rest.dto.*;
+import indiv.abko.todo.member.domain.Member;
 import indiv.abko.todo.member.domain.port.in.*;
+import indiv.abko.todo.member.domain.port.in.command.SignUpCommand;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,22 +26,22 @@ public class MemberController {
 
     @GetMapping("/{id}")
     public ApiResp<MemberResp> getMember(@PathVariable long id) {
-        final var member = readMemberInfoUseCase.execute(id);
+        final Member member = readMemberInfoUseCase.execute(id);
         return ApiResp.ok(MemberResp.from(member));
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResp<SignUpResp> signUp(@RequestBody SignUpReq signUpReq) {
-        final var command = signUpReq.toCommand();
-        final var createdMember = signUpUseCase.execute(command);
+        final SignUpCommand command = signUpReq.toCommand();
+        final Member createdMember = signUpUseCase.execute(command);
         final var response = SignUpResp.from(createdMember);
         return ApiResp.created(response);
     }
 
     @PostMapping("/login")
     public ApiResp<String> login(@RequestBody LoginReq loginReq, HttpServletResponse response) {
-        final var token = loginUseCase.execute(loginReq.email(), loginReq.password());
+        final String token = loginUseCase.execute(loginReq.email(), loginReq.password());
         final var apiResponse = ApiResp.ok(token);
         final var cookie = new Cookie(JwtAuthFilter.AUTH_HEADER, token);
         cookie.setPath("/");
@@ -55,7 +57,7 @@ public class MemberController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        final var member = updateMyInfoUseCase.execute(requesterId, updateReq.name());
+        final Member member = updateMyInfoUseCase.execute(requesterId, updateReq.name());
         final var responseMember = MemberResp.from(member);
         return ApiResp.ok(responseMember);
     }
