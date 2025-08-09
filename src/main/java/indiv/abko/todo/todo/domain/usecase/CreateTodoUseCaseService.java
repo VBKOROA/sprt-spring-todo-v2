@@ -1,5 +1,6 @@
 package indiv.abko.todo.todo.domain.usecase;
 
+import indiv.abko.todo.global.vo.AuthorVO;
 import indiv.abko.todo.todo.domain.port.in.CreateTodoUseCase;
 import indiv.abko.todo.todo.domain.port.out.TodoAuthorPort;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,11 @@ public class CreateTodoUseCaseService implements CreateTodoUseCase {
     @Override
     @Transactional
     public Todo execute(final CreateTodoCommand createCommand) {
-        final var author = todoAuthorPort.getAuthor(createCommand.memberId());
-        final Todo todo = Todo.builder()
+        final AuthorVO author = todoAuthorPort.getAuthor(createCommand.memberId());
+        final var todo = Todo.builder()
                 .author(author)
                 .content(ContentVO.fromRawContent(createCommand.content()))
-                .title(new TodoTitleVO(createCommand.title()))
+                .title(TodoTitleVO.fromRaw(createCommand.title()))
                 .build();
         return todoRepo.save(todo);
     }

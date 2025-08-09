@@ -18,7 +18,7 @@ public class TodoTitleVO {
         this.title = title;
     }
 
-    public static TodoTitleVO fromRaw(String title) {
+    public static TodoTitleVO fromRaw(final String title) {
         shouldValid(title);
         return new TodoTitleVO(title);
     }

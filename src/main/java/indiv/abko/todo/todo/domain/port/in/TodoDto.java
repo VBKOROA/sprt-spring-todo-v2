@@ -15,7 +15,7 @@ public record TodoDto (
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static TodoDto from(Todo todo) {
+    public static TodoDto from(final Todo todo) {
         return TodoDto.builder()
                 .id(todo.getId())
                 .title(todo.getTitle().getTitle())

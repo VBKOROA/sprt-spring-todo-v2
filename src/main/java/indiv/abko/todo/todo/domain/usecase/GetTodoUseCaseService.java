@@ -25,7 +25,7 @@ public class GetTodoUseCaseService implements GetTodoUseCase {
      */
     @Override
     @Transactional(readOnly = true)
-    public Todo execute(GetTodoCommand getCommand) {
+    public Todo execute(final GetTodoCommand getCommand) {
         return todoRepo.findBy(getCommand.id())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
     }
