@@ -13,7 +13,7 @@ public class CommentAuthorAdapter implements CommentAuthorPort {
 
     @Override
     public AuthorVO getAuthor(final long authorId) {
-        final var authorName = getNameByMemberIdUseCase.execute(authorId);
+        final String authorName = getNameByMemberIdUseCase.execute(authorId);
         return AuthorVO.reconstitute(authorId, authorName);
     }
 }

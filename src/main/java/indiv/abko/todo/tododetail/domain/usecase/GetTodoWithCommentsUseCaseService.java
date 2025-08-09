@@ -21,8 +21,8 @@ public class GetTodoWithCommentsUseCaseService implements GetTodoWithCommentsUse
     @Override
     @Transactional(readOnly = true)
     public TodoWithCommentsDto execute(final long todoId) {
-        final var todo = todoPort.getTodoById(todoId);
-        final var comments = commentPort.getCommentsByTodoId(todoId);
+        final TodoSpec todo = todoPort.getTodoById(todoId);
+        final List<CommentSpec> comments = commentPort.getCommentsByTodoId(todoId);
         return new TodoWithCommentsDto(todo, comments);
     }
 }

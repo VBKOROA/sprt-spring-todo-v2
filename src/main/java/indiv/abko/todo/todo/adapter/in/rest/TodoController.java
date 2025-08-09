@@ -3,11 +3,13 @@ package indiv.abko.todo.todo.adapter.in.rest;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
+import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
 import indiv.abko.todo.todo.domain.port.in.command.CreateTodoCommand;
 import indiv.abko.todo.todo.domain.port.in.command.DeleteMyTodoCommand;
 import indiv.abko.todo.todo.domain.port.in.command.SearchTodosCommand;
 import indiv.abko.todo.todo.domain.port.in.command.UpdateMyTodoCommand;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/todos")
@@ -57,7 +61,7 @@ public class TodoController {
                 .title(createReq.title())
                 .content(createReq.content())
                 .build();
-        final var createdTodo = todoUseCaseFacade.createTodo(command);
+        final Todo createdTodo = todoUseCaseFacade.createTodo(command);
         return ApiResp.created(TodoResp.from(createdTodo));
     }
 
@@ -86,8 +90,8 @@ public class TodoController {
                 .orderBy(condition.orderBy())
                 .pageable(pageable)
                 .build();
-        final var todos = todoUseCaseFacade.searchTodos(command);
-        final var responseTodos = todos.map(TodoResp::from).getContent();
+        final Page<Todo> todos = todoUseCaseFacade.searchTodos(command);
+        final List<TodoResp> responseTodos = todos.map(TodoResp::from).getContent();
         final var responseData = TodoListResp.builder()
                 .todos(responseTodos)
                 .pageNumber(todos.getNumber())
@@ -128,12 +132,12 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        final var command =  UpdateMyTodoCommand.builder()
+        final UpdateMyTodoCommand command =  UpdateMyTodoCommand.builder()
                 .requesterId(requesterId)
                 .todoId(id)
                 .content(updateReq.content())
                 .build();
-        final var updatedTodo = todoUseCaseFacade.updateMyTodo(command);
+        final Todo updatedTodo = todoUseCaseFacade.updateMyTodo(command);
         return ApiResp.ok(TodoResp.from(updatedTodo));
     }
 
@@ -166,7 +170,7 @@ public class TodoController {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        final var command = DeleteMyTodoCommand.builder()
+        final DeleteMyTodoCommand command = DeleteMyTodoCommand.builder()
                 .todoId(id)
                 .requesterId(requesterId)
                 .build();

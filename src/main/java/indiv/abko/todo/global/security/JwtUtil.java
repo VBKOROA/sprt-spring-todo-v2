@@ -25,8 +25,8 @@ public class JwtUtil {
         algorithm = Algorithm.HMAC256(secretKey); // 비밀키를 이용하여 서명 알고리즘 제작
     }
 
-    public String createToken(long memberId, String memberName) {
-        var issuedAt = Instant.now();
+    public String createToken(final long memberId, final String memberName) {
+        final var issuedAt = Instant.now();
         return JWT.create()
                 .withIssuedAt(issuedAt)
                 .withSubject(memberName)
@@ -35,7 +35,7 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
-    public boolean validate(String token) {
+    public boolean validate(final String token) {
         try {
             JWT.require(algorithm).build().verify(token);
             return true;
@@ -44,11 +44,11 @@ public class JwtUtil {
         }
     }
 
-    public String getSubject(String token) {
+    public String getSubject(final String token) {
         return JWT.require(algorithm).build().verify(token).getSubject();
     }
 
-    public Claim getClaim(String token, AuthClaim claimKey) {
+    public Claim getClaim(final String token, final AuthClaim claimKey) {
         return JWT.require(algorithm).build().verify(token).getClaim(claimKey.getKey());
     }
 }

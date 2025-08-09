@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DeleteTodosByAuthorIdService implements DeleteTodosByAuthorId {
@@ -15,8 +17,8 @@ public class DeleteTodosByAuthorIdService implements DeleteTodosByAuthorId {
 
     @Override
     @Transactional
-    public void execute(long authorId) {
-        var todoIds = todoRepo.findTodoIdsByAuthorId(authorId);
+    public void execute(final long authorId) {
+        final List<Long> todoIds = todoRepo.findTodoIdsByAuthorId(authorId);
         todoIds.forEach(todoId -> {
             todoRepo.deleteById(todoId);
             todoCommentPort.deleteAllByTodoId(todoId);

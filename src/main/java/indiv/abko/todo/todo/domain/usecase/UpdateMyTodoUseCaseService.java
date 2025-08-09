@@ -27,7 +27,7 @@ public class UpdateMyTodoUseCaseService implements UpdateMyTodoUseCase {
      */
     @Override
     @Transactional
-    public Todo execute(UpdateMyTodoCommand updateCommand) {
+    public Todo execute(final UpdateMyTodoCommand updateCommand) {
         final Todo todo = todoRepo.findBy(updateCommand.todoId())
                 .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.updateContent(updateCommand.content(), updateCommand.requesterId());

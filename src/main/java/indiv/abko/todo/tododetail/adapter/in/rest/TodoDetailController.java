@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/todos")
 @RequiredArgsConstructor
@@ -43,9 +45,9 @@ public class TodoDetailController {
             @PathVariable("id")
             @Parameter(name = "id", description = "Todo ID")
             long id) {
-        final var todoWithComments = getTodoWithCommentsByIdUseCase.execute(id);
+        final TodoWithCommentsDto todoWithComments = getTodoWithCommentsByIdUseCase.execute(id);
         final var todoResp = TodoResp.from(todoWithComments.todo());
-        final var commentResps = todoWithComments.comments().stream().map(CommentResp::from).toList();
+        final List<CommentResp> commentResps = todoWithComments.comments().stream().map(CommentResp::from).toList();
         final var responseData = new TodoWithCommentsResp(todoResp, commentResps);
         return ApiResp.ok(responseData);
     }

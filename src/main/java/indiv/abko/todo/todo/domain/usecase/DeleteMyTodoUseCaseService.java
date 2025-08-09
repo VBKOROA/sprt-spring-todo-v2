@@ -25,7 +25,7 @@ public class DeleteMyTodoUseCaseService implements DeleteMyTodoUseCase {
      */
     @Override
     @Transactional
-    public void execute(DeleteMyTodoCommand command) {
+    public void execute(final DeleteMyTodoCommand command) {
         final Todo todo = todoRepo.findSummary(command.todoId())
             .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.shouldHaveAuth(command.requesterId());

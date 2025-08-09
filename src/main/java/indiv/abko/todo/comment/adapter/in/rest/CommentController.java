@@ -3,6 +3,7 @@ package indiv.abko.todo.comment.adapter.in.rest;
 import indiv.abko.todo.comment.adapter.in.rest.dto.CommentResp;
 import indiv.abko.todo.comment.adapter.in.rest.dto.CommentWriteReq;
 import indiv.abko.todo.comment.adapter.in.rest.dto.UpdateCommentReq;
+import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.in.*;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
@@ -59,13 +60,13 @@ public class CommentController {
                 .authorId(authorId)
                 .content(req.content())
                 .build();
-        final var addedComment = writeCommentUseCase.execute(command);
+        final Comment addedComment = writeCommentUseCase.execute(command);
         return ApiResp.created(CommentResp.from(addedComment));
     }
 
     @GetMapping("/{id}")
     public ApiResp<CommentResp> readComment(@PathVariable("id") long id) {
-        final var comment = readCommentByIdUseCase.execute(id);
+        final Comment comment = readCommentByIdUseCase.execute(id);
         return ApiResp.ok(CommentResp.from(comment));
     }
 
@@ -77,8 +78,8 @@ public class CommentController {
         if (requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        final var command = updateReq.toCommand(id, requesterId);
-        final var updatedComment = updateMyCommentUseCase.execute(command);
+        final UpdateMyCommentCommand command = updateReq.toCommand(id, requesterId);
+        final Comment updatedComment = updateMyCommentUseCase.execute(command);
         return ApiResp.ok(CommentResp.from(updatedComment));
     }
 

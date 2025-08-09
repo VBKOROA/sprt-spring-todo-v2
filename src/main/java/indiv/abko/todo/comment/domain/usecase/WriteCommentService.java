@@ -8,6 +8,7 @@ import indiv.abko.todo.comment.domain.out.CommentAuthorPort;
 import indiv.abko.todo.comment.domain.out.CommentRepository;
 import indiv.abko.todo.comment.domain.out.CommentTodoPort;
 import indiv.abko.todo.global.exception.BusinessException;
+import indiv.abko.todo.global.vo.AuthorVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,8 @@ public class WriteCommentService implements WriteCommentUseCase {
         if(commentRepo.countByTodoId(command.todoId()) == COMMENT_LIMIT) {
             throw new BusinessException(CommentExceptionEnum.COMMENT_LIMIT_EXCEEDED);
         }
-        final var author = authorPort.getAuthor(command.todoId());
-        final var comment = command.toDomain(author);
+        final AuthorVO author = authorPort.getAuthor(command.todoId());
+        final Comment comment = command.toDomain(author);
         return commentRepo.save(comment);
     }
 }

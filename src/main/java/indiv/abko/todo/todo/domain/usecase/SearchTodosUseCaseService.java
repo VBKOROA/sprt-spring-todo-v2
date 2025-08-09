@@ -24,7 +24,7 @@ public class SearchTodosUseCaseService implements SearchTodosUseCase {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Todo> execute(SearchTodosCommand searchCommand) {
+    public Page<Todo> execute(final SearchTodosCommand searchCommand) {
         return todoRepo.searchSummaries(searchCommand.toCriteria(), searchCommand.pageable());
     }
 }

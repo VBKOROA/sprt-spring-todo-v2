@@ -17,7 +17,7 @@ public class CommentRepositoryAdapter implements CommentRepository {
     @Override
     public Comment save(final Comment comment) {
         final var entity = CommentJpaEntity.from(comment);
-        final var saved = commentJpaRepo.save(entity);
+        final CommentJpaEntity saved = commentJpaRepo.save(entity);
         return saved.toDomain();
     }
 
@@ -28,7 +28,7 @@ public class CommentRepositoryAdapter implements CommentRepository {
 
     @Override
     public List<Comment> findAllBy(final long todoId) {
-        final var entities = commentJpaRepo.findAllByTodoId(todoId);
+        final List<CommentJpaEntity> entities = commentJpaRepo.findAllByTodoId(todoId);
         return entities.stream().map(CommentJpaEntity::toDomain).toList();
     }
 
@@ -39,7 +39,7 @@ public class CommentRepositoryAdapter implements CommentRepository {
 
     @Override
     public Optional<Comment> findById(final long id) {
-        final var entity = commentJpaRepo.findById(id);
+        final Optional<CommentJpaEntity> entity = commentJpaRepo.findById(id);
         return entity.map(CommentJpaEntity::toDomain);
     }
 

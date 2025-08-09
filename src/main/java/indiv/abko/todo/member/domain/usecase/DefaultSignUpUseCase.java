@@ -23,7 +23,7 @@ public class DefaultSignUpUseCase implements SignUpUseCase {
         if(memberRepo.isExistsByEmail(signUpCommand.email())) {
             throw new BusinessException(MemberExceptionEnum.MEMBER_EMAIL_DUPLICATE);
         }
-        final var member = signUpCommand.toDomain(passwordEncoder);
+        final Member member = signUpCommand.toDomain(passwordEncoder);
         return memberRepo.save(member);
     }
 }
