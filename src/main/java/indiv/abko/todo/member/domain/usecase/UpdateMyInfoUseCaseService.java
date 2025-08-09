@@ -17,7 +17,7 @@ public class UpdateMyInfoUseCaseService implements UpdateMyInfoUseCase {
     @Override
     @Transactional
     public Member execute(final long requesterId, final String name) {
-        final var requester = memberRepo.findById(requesterId)
+        final Member requester = memberRepo.findById(requesterId)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
         requester.update(name);
         return memberRepo.save(requester);

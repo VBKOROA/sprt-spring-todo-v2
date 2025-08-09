@@ -13,7 +13,7 @@ public record SignUpCommand(
         String email,
         String password
 ) {
-    public Member toDomain(MemberPasswordEncoder passwordEncoder) {
+    public Member toDomain(final MemberPasswordEncoder passwordEncoder) {
         return Member.builder()
                 .name(NameVO.fromRawName(name))
                 .email(EmailVO.fromRawEmail(email))

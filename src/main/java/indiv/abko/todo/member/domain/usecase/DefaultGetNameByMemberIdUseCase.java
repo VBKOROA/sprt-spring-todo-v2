@@ -16,7 +16,7 @@ public class DefaultGetNameByMemberIdUseCase implements GetNameByMemberIdUseCase
     @Override
     @Transactional(readOnly = true)
     public String execute(final long id) {
-        final var name = memberRepo.findNameById(id)
+        final String name = memberRepo.findNameById(id)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_NOT_FOUND));
         return name;
     }
