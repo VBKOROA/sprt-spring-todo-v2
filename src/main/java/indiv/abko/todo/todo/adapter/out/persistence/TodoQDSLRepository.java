@@ -4,6 +4,7 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
 import indiv.abko.todo.todo.domain.Todo;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 import static indiv.abko.todo.todo.adapter.out.persistence.QTodoJpaEntity.todoJpaEntity;
 
@@ -28,11 +31,11 @@ public class TodoQDSLRepository {
     private final JPAQueryFactory queryFactory;
 
     public Page<Todo> search(final SearchTodosCriteria searchCriteria, final Pageable pageable) {
-        final var authorExpression = authorNameLike(searchCriteria.authorName());
-        final var titleExpression = titleLike(searchCriteria.title());
-        final var contentExpression = contentLike(searchCriteria.content());
+        final BooleanExpression authorExpression = authorNameLike(searchCriteria.authorName());
+        final BooleanExpression titleExpression = titleLike(searchCriteria.title());
+        final BooleanExpression contentExpression = contentLike(searchCriteria.content());
 
-        final var content = queryFactory
+        final List<TodoJpaEntity> content = queryFactory
                 .selectFrom(todoJpaEntity)
                 .where(
                         authorExpression,
@@ -44,7 +47,7 @@ public class TodoQDSLRepository {
                 .orderBy(getOrderBy(searchCriteria.orderBy()))
                 .fetch();
 
-        final var countQuery = queryFactory
+        final JPAQuery<Long> countQuery = queryFactory
                 .select(todoJpaEntity.count())
                 .from(todoJpaEntity)
                 .where(
@@ -53,7 +56,7 @@ public class TodoQDSLRepository {
                         contentExpression
                 );
 
-        final var page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+        final Page<TodoJpaEntity> page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
         return page.map(TodoJpaEntity::toDomain);
     }
 
@@ -83,14 +86,14 @@ public class TodoQDSLRepository {
             return DEFAULT_ORDER;
         }
 
-        final var property = sortCondition[PROPERTY_IDX];
-        final var path = getPath(property);
+        final String property = sortCondition[PROPERTY_IDX];
+        final ComparableExpressionBase<?> path = getPath(property);
 
         if (path == null) {
             return DEFAULT_ORDER;
         }
 
-        final var direction = "desc".equalsIgnoreCase(sortCondition[ORDER_IDX]) ?
+        final Order direction = "desc".equalsIgnoreCase(sortCondition[ORDER_IDX]) ?
                 Order.DESC : Order.ASC;
 
         return new OrderSpecifier<>(direction, path);
