@@ -20,6 +20,7 @@ public class UpdateMyCommentUseCaseService implements UpdateMyCommentUseCase {
     public Comment execute(final UpdateMyCommentCommand command) {
         final Comment comment = commentRepo.findById(command.commentId())
                 .orElseThrow(() -> new BusinessException(CommentExceptionEnum.COMMENT_NOT_FOUND));
+        comment.shouldHaveAuth(command.requesterId());
         comment.updateContent(command.content(), command.requesterId());
         return commentRepo.save(comment);
     }
