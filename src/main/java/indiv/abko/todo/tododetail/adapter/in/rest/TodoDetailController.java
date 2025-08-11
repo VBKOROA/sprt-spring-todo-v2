@@ -27,23 +27,23 @@ import java.util.List;
 @RequestMapping("/api/v1/todos")
 @RequiredArgsConstructor
 @Validated
-@Tag(name = "Todo API", description = "할일 관리 시스템의 Todo 단건 조회 API")
+@Tag(name = "Todo API", description = "할일 관리 시스템의 Todo 상세 조회 관련 API")
 public class TodoDetailController {
     private final GetTodoWithCommentsUseCase getTodoWithCommentsByIdUseCase;
 
     @GetMapping("/{id}")
-    @Operation(summary = "Todo 조회", description = "Todo를 조회함. 해당 Todo와 연결된 댓글 목록도 함께 조회함.")
+    @Operation(summary = "Todo 상세 조회", description = "Todo를 ID로 조회하며, 해당 Todo에 달린 댓글 목록을 함께 반환합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Todo가 성공적으로 조회됨"),
             @ApiResponse(responseCode = "404", description = "Todo를 찾을 수 없음",
                     content = @Content(
                             schema = @Schema(implementation = ApiResp.class),
-                            examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"Todo를 찾을 수 없습니다.\",\"data\":null}")
+                            examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 Todo가 존재하지 않습니다.\",\"data\":null}")
                     ))
     })
     public ApiResp<TodoWithCommentsResp> getTodo(
             @PathVariable("id")
-            @Parameter(name = "id", description = "Todo ID")
+            @Parameter(name = "id", description = "Todo ID", example = "1")
             long id) {
         final TodoWithCommentsDto todoWithComments = getTodoWithCommentsByIdUseCase.execute(id);
         final var todoResp = TodoResp.from(todoWithComments.todo());
