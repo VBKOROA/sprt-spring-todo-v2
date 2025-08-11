@@ -29,7 +29,7 @@ public class DeleteMyTodoUseCaseService implements DeleteMyTodoUseCase {
         final Todo todo = todoRepo.findSummary(command.todoId())
             .orElseThrow(() -> new BusinessException(TodoExceptionEnum.TODO_NOT_FOUND));
         todo.shouldHaveAuth(command.requesterId());
-        todoRepo.delete(todo);
         todoCommentPort.deleteAllByTodoId(command.todoId());
+        todoRepo.delete(todo);
     }
 }

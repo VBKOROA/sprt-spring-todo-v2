@@ -19,7 +19,9 @@ public class DeleteTodosByAuthorIdService implements DeleteTodosByAuthorId {
     @Transactional
     public void execute(final long authorId) {
         final List<Long> todoIds = todoRepo.findTodoIdsByAuthorId(authorId);
-        todoIds.forEach(todoCommentPort::deleteAllByTodoId);
+        if(todoIds.isEmpty() == false) {
+            todoCommentPort.deleteAllByTodoIds(todoIds);
+        }
         todoRepo.deleteAllByAuthorId(authorId);
     }
 }
