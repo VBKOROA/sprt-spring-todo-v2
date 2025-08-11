@@ -1,4 +1,4 @@
-# 🚀 Spring Boot Todo 애플리케이션
+# 🚀 Spring Boot Todo V2 애플리케이션
 
 > 💬 **"단순한 Todo 앱을 넘어, 견고한 백엔드 설계를 경험하다"**
 
