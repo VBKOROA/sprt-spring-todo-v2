@@ -8,6 +8,7 @@ import indiv.abko.todo.comment.domain.in.WriteCommentUseCase;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
+import indiv.abko.todo.global.security.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -51,12 +52,9 @@ public class TodoCommentController {
             @RequestBody
             @Valid
             CommentWriteReq req,
-            @RequestAttribute(name = "memberId", required = false)
+            @AuthUser
             @Parameter(hidden = true)
-            Long authorId) {
-        if (authorId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+            long authorId) {
         final var command = WriteCommentCommand.builder() 
                 .todoId(todoId)
                 .authorId(authorId)

@@ -2,6 +2,7 @@ package indiv.abko.todo.todo.adapter.in.rest;
 
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
+import indiv.abko.todo.global.security.AuthUser;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
 import indiv.abko.todo.todo.domain.Todo;
 import indiv.abko.todo.todo.domain.port.in.TodoUseCaseFacade;
@@ -51,10 +52,7 @@ public class TodoController {
             ))
     })
     public ApiResp<TodoResp> createTodo(@RequestBody @Valid TodoCreateReq createReq,
-                                        @RequestAttribute(name = "memberId", required = false) @Parameter(hidden = true) Long memberId) {
-        if(memberId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+                                        @AuthUser @Parameter(hidden = true) long memberId) {
         final var command = CreateTodoCommand.builder()
                 .memberId(memberId)
                 .title(createReq.title())
@@ -131,12 +129,9 @@ public class TodoController {
         @RequestBody
         @Valid
         TodoUpdateReq updateReq,
-        @RequestAttribute(name = "memberId", required = false)
+        @AuthUser
         @Parameter(hidden = true)
-        Long requesterId) {
-        if(requesterId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+        long requesterId) {
         final UpdateMyTodoCommand command =  UpdateMyTodoCommand.builder()
                 .requesterId(requesterId)
                 .todoId(id)
@@ -171,12 +166,9 @@ public class TodoController {
         @Parameter(name = "id", description = "Todo ID")
         @PathVariable("id")
         long id,
-        @RequestAttribute(name = "memberId", required = false)
+        @AuthUser
         @Parameter(hidden = true)
-        Long requesterId) {
-        if(requesterId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+        long requesterId) {
         final DeleteMyTodoCommand command = DeleteMyTodoCommand.builder()
                 .todoId(id)
                 .requesterId(requesterId)

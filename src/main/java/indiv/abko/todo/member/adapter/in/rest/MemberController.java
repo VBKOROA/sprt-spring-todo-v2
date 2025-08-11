@@ -3,6 +3,7 @@ package indiv.abko.todo.member.adapter.in.rest;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
+import indiv.abko.todo.global.security.AuthUser;
 import indiv.abko.todo.global.security.JwtAuthFilter;
 import indiv.abko.todo.member.adapter.in.rest.dto.*;
 import indiv.abko.todo.member.domain.Member;
@@ -96,11 +97,8 @@ public class MemberController {
                             examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 ID의 Member가 없습니다.\",\"data\":null}")))
     })
     public ApiResp<MemberResp> update(@RequestBody @Valid UpdateMemberReq updateReq,
-                                      @RequestAttribute(name = "memberId", required = false)
-                                      @Parameter(hidden = true) Long requesterId) {
-        if(requesterId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+                                      @AuthUser
+                                      @Parameter(hidden = true) long requesterId) {
         final Member member = updateMyInfoUseCase.execute(requesterId, updateReq.name());
         final var responseMember = MemberResp.from(member);
         return ApiResp.ok(responseMember);
@@ -118,11 +116,8 @@ public class MemberController {
                     content = @Content(schema = @Schema(implementation = ApiResp.class),
                             examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 ID의 Member가 없습니다.\",\"data\":null}")))
     })
-    public void delete(@RequestAttribute(name = "memberId", required = false)
-                       @Parameter(hidden = true) Long requesterId) {
-        if(requesterId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+    public void delete(@AuthUser
+                       @Parameter(hidden = true) long requesterId) {
         deleteMeUseCase.execute(requesterId);
     }
 }
