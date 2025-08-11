@@ -41,6 +41,11 @@ public class CommentController {
                     content = @Content(
                             schema = @Schema(implementation = ApiResp.class),
                             examples = @ExampleObject(value = "{\"status\":\"BAD_REQUEST\",\"message\":\"요청이 잘못되었습니다.\",\"data\":null}")
+                    )),
+            @ApiResponse(responseCode = "401", description = "인증되지 않은 사용자",
+                    content = @Content(
+                            schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증이 필요합니다.\",\"data\":null}")
                     ))
     })
     public ApiResp<CommentResp> writeComment(
@@ -84,10 +89,18 @@ public class CommentController {
     @Operation(summary = "내 댓글 수정", description = "자신이 작성한 댓글을 수정합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "댓글 수정 성공"),
-            @ApiResponse(responseCode = "400", description = "파라미터가 유효하지 않음", content = @Content(schema = @Schema(implementation = ApiResp.class))),
-            @ApiResponse(responseCode = "401", description = "인증되지 않은 사용자", content = @Content(schema = @Schema(implementation = ApiResp.class))),
-            @ApiResponse(responseCode = "403", description = "권한이 없음", content = @Content(schema = @Schema(implementation = ApiResp.class))),
-            @ApiResponse(responseCode = "404", description = "댓글을 찾을 수 없음", content = @Content(schema = @Schema(implementation = ApiResp.class)))
+            @ApiResponse(responseCode = "400", description = "파라미터가 유효하지 않음",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"BAD_REQUEST\",\"message\":\"요청이 잘못되었습니다.\",\"data\":null}"))),
+            @ApiResponse(responseCode = "401", description = "인증되지 않은 사용자",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증이 필요합니다.\",\"data\":null}"))),
+            @ApiResponse(responseCode = "403", description = "권한이 없음",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"FORBIDDEN\",\"message\":\"해당 댓글에 대한 권한이 없습니다.\",\"data\":null}"))),
+            @ApiResponse(responseCode = "404", description = "댓글을 찾을 수 없음",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 댓글이 존재하지 않습니다.\",\"data\":null}")))
     })
     public ApiResp<CommentResp> updateComment(
             @Parameter(description = "할일 ID", example = "1") @PathVariable("todoId") long todoId,
@@ -107,9 +120,15 @@ public class CommentController {
     @Operation(summary = "내 댓글 삭제", description = "자신이 작성한 댓글을 삭제합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "댓글 삭제 성공"),
-            @ApiResponse(responseCode = "401", description = "인증되지 않은 사용자", content = @Content(schema = @Schema(implementation = ApiResp.class))),
-            @ApiResponse(responseCode = "403", description = "권한이 없음", content = @Content(schema = @Schema(implementation = ApiResp.class))),
-            @ApiResponse(responseCode = "404", description = "댓글을 찾을 수 없음", content = @Content(schema = @Schema(implementation = ApiResp.class)))
+            @ApiResponse(responseCode = "401", description = "인증되지 않은 사용자",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증이 필요합니다.\",\"data\":null}"))),
+            @ApiResponse(responseCode = "403", description = "권한이 없음",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"FORBIDDEN\",\"message\":\"해당 댓글에 대한 권한이 없습니다.\",\"data\":null}"))),
+            @ApiResponse(responseCode = "404", description = "댓글을 찾을 수 없음",
+                    content = @Content(schema = @Schema(implementation = ApiResp.class),
+                            examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 댓글이 존재하지 않습니다.\",\"data\":null}")))
     })
     public void deleteComment(
             @Parameter(description = "할일 ID", example = "1") @PathVariable("todoId") long todoId,
