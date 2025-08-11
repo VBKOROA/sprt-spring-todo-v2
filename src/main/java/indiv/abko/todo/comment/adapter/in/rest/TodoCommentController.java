@@ -28,7 +28,7 @@ public class TodoCommentController {
 
     private final WriteCommentUseCase writeCommentUseCase;
 
-    @PostMapping("/api/v1/todos/{todoId}/comments")
+    @PostMapping("/api/v2/todos/{todoId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "댓글 작성", description = "특정 할일에 대한 댓글을 작성함.")
     @ApiResponses(value = {

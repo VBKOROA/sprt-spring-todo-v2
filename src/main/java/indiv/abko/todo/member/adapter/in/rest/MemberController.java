@@ -1,8 +1,6 @@
 package indiv.abko.todo.member.adapter.in.rest;
 
 import indiv.abko.todo.global.dto.ApiResp;
-import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.AuthUser;
 import indiv.abko.todo.global.security.JwtAuthFilter;
 import indiv.abko.todo.member.adapter.in.rest.dto.*;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/members")
+@RequestMapping("/api/v2/members")
 @Tag(name = "Member API", description = "회원 관련 API")
 public class MemberController {
     private final ReadMemberInfoUseCase readMemberInfoUseCase;

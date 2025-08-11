@@ -1,6 +1,5 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
-import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.security.AuthUser;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
 import indiv.abko.todo.todo.domain.Todo;
@@ -32,7 +31,7 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/todos")
+@RequestMapping("/api/v2/todos")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "Todo API", description = "할일 관리 시스템의 Todo 관련 API")

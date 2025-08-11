@@ -27,13 +27,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v2/comments")
 @Tag(name = "Comment API", description = "할일 관리 시스템의 댓글 관련 API")
 public class CommentController {
     private final ReadCommentByIdUseCase readCommentByIdUseCase;
     private final UpdateMyCommentUseCase updateMyCommentUseCase;
     private final DeleteMyCommentUseCase deleteMyCommentUseCase;
 
-    @GetMapping("/api/v1/comments/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "댓글 단건 조회", description = "댓글 ID로 댓글을 조회합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "댓글 조회 성공"),
@@ -47,7 +48,7 @@ public class CommentController {
         return ApiResp.ok(CommentResp.from(comment));
     }
 
-    @PatchMapping("/api/v1/comments/{id}")
+    @PatchMapping("/{id}")
     @Operation(summary = "내 댓글 수정", description = "자신이 작성한 댓글을 수정합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "댓글 수정 성공"),
@@ -73,7 +74,7 @@ public class CommentController {
         return ApiResp.ok(CommentResp.from(updatedComment));
     }
 
-    @DeleteMapping("/api/v1/comments/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "내 댓글 삭제", description = "자신이 작성한 댓글을 삭제합니다.")
     @ApiResponses(value = {

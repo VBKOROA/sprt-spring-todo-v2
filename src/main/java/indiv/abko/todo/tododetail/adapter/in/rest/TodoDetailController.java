@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/todos")
+@RequestMapping("/api/v2/todos")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "Todo API", description = "할일 관리 시스템의 Todo 상세 조회 관련 API")
