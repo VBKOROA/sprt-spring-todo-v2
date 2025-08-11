@@ -7,7 +7,6 @@ import indiv.abko.todo.comment.domain.in.WriteCommentCommand;
 import indiv.abko.todo.comment.domain.in.WriteCommentUseCase;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
