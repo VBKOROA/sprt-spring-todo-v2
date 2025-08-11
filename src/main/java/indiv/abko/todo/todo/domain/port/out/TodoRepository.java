@@ -24,4 +24,6 @@ public interface TodoRepository {
     List<Long> findTodoIdsByAuthorId(long authorId);
 
     void deleteById(long todoId);
+
+    void deleteAllByAuthorId(long authorId);
 }
