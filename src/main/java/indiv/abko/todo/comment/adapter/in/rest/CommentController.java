@@ -10,6 +10,7 @@ import indiv.abko.todo.comment.domain.in.UpdateMyCommentUseCase;
 import indiv.abko.todo.global.dto.ApiResp;
 import indiv.abko.todo.global.exception.BusinessException;
 import indiv.abko.todo.global.exception.GlobalExceptionEnum;
+import indiv.abko.todo.global.security.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -66,10 +67,7 @@ public class CommentController {
     public ApiResp<CommentResp> updateComment(
             @Parameter(description = "댓글 ID", example = "1") @PathVariable("id") long id,
             @RequestBody @Valid UpdateCommentReq updateReq,
-            @RequestAttribute(name = "memberId", required = false) @Parameter(hidden = true) Long requesterId) {
-        if (requesterId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+            @AuthUser @Parameter(hidden = true) long requesterId) {
         final UpdateMyCommentCommand command = updateReq.toCommand(id, requesterId);
         final Comment updatedComment = updateMyCommentUseCase.execute(command);
         return ApiResp.ok(CommentResp.from(updatedComment));
@@ -92,10 +90,7 @@ public class CommentController {
     })
     public void deleteComment(
             @Parameter(description = "댓글 ID", example = "1") @PathVariable("id") long id,
-            @RequestAttribute(name = "memberId", required = false) @Parameter(hidden = true) Long requesterId) {
-        if (requesterId == null) {
-            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
-        }
+            @AuthUser @Parameter(hidden = true) long requesterId) {
         deleteMyCommentUseCase.execute(id, requesterId);
     }
 }
