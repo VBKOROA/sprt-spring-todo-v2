@@ -13,7 +13,6 @@ public interface TodoRepository {
     Page<Todo> searchSummaries(SearchTodosCriteria searchCriteria, Pageable pageable);
 
     Todo save(Todo todo);
-    Todo saveComment(Todo todo);
 
     Optional<Todo> findSummary(Long id);
 
@@ -22,8 +21,6 @@ public interface TodoRepository {
     boolean isExistBy(long todoId);
 
     List<Long> findTodoIdsByAuthorId(long authorId);
-
-    void deleteById(long todoId);
 
     void deleteAllByAuthorId(long authorId);
 }

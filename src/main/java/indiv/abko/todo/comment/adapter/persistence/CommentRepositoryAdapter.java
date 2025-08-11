@@ -52,4 +52,9 @@ public class CommentRepositoryAdapter implements CommentRepository {
     public void delete(final long commentId) {
         commentJpaRepo.deleteById(commentId);
     }
+
+    @Override
+    public void deleteAllByTodoIds(List<Long> todoIds) {
+        commentJpaRepo.deleteAllByTodoIdIn(todoIds);
+    }
 }

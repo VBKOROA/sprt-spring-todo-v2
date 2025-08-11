@@ -34,12 +34,6 @@ public class TodoRepositoryAdapter implements TodoRepository {
     }
 
     @Override
-    public Todo saveComment(final Todo todo) {
-        final TodoJpaEntity todoEntity = todoJpaRepository.save(TodoJpaEntity.from(todo));
-        return todoEntity.toDomain();
-    }
-
-    @Override
     public Optional<Todo> findSummary(final Long id) {
         return todoJpaRepository.findById(id).map(TodoJpaEntity::toDomain);
     }
@@ -59,11 +53,6 @@ public class TodoRepositoryAdapter implements TodoRepository {
     public List<Long> findTodoIdsByAuthorId(final long authorId) {
         final List<TodoIdProjection> todoIds = todoJpaRepository.findAllByAuthorId(authorId);
         return todoIds.stream().map(TodoIdProjection::id).toList();
-    }
-
-    @Override
-    public void deleteById(final long todoId) {
-        todoJpaRepository.deleteById(todoId);
     }
 
     @Override
