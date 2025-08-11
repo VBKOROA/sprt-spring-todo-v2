@@ -9,7 +9,9 @@ import lombok.Builder;
 public record TodoListResp(
     @Schema(description = "Todo 목록")
     List<TodoResp> todos,
+    @Schema(description = "현재 페이지 번호", example = "0")
     int pageNumber,
+    @Schema(description = "전체 페이지 수", example = "10")
     int totalPages
 ) {
 }
