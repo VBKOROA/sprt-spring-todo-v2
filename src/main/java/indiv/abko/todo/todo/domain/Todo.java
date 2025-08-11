@@ -1,6 +1,7 @@
 package indiv.abko.todo.todo.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import indiv.abko.todo.global.vo.AuthorVO;
 import indiv.abko.todo.global.vo.ContentVO;
@@ -27,8 +28,8 @@ public class Todo {
         this.content = ContentVO.fromRawContent(content);
     }
 
-    public void shouldHaveAuth(final long memberId) {
-        if (author.getId().equals(memberId) == false) {
+    public void shouldHaveAuth(final long requesterId) {
+        if (Objects.equals(author.getId(), requesterId) == false) {
             throw new BusinessException(TodoExceptionEnum.TODO_PERMISSION_DENIED);
         }
     }

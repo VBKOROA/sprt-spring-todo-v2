@@ -28,7 +28,7 @@ public class WriteCommentService implements WriteCommentUseCase {
         if(commentRepo.countByTodoId(command.todoId()) == COMMENT_LIMIT) {
             throw new BusinessException(CommentExceptionEnum.COMMENT_LIMIT_EXCEEDED);
         }
-        final AuthorVO author = authorPort.getAuthor(command.todoId());
+        final AuthorVO author = authorPort.getAuthor(command.authorId());
         final Comment comment = command.toDomain(author);
         return commentRepo.save(comment);
     }

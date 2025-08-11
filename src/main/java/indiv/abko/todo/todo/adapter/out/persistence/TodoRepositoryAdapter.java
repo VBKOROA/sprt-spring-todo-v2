@@ -65,4 +65,9 @@ public class TodoRepositoryAdapter implements TodoRepository {
     public void deleteById(final long todoId) {
         todoJpaRepository.deleteById(todoId);
     }
+
+    @Override
+    public void deleteAllByAuthorId(long authorId) {
+        todoJpaRepository.deleteAllByAuthorId(authorId);
+    }
 }
