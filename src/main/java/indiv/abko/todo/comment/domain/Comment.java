@@ -1,0 +1,34 @@
+package indiv.abko.todo.comment.domain;
+
+import indiv.abko.todo.global.exception.BusinessException;
+import indiv.abko.todo.global.exception.GlobalExceptionEnum;
+import indiv.abko.todo.global.vo.AuthorVO;
+import indiv.abko.todo.global.vo.ContentVO;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+@Getter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class Comment {
+    private Long id;
+    private ContentVO content;
+    private AuthorVO author;
+    private Long todoId;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
+
+    public void updateContent(String content, long requesterId) {
+        shouldHaveAuth(requesterId);
+        this.content = ContentVO.fromRawContent(content);
+    }
+
+    public void shouldHaveAuth(long requesterId) {
+        if(Objects.equals(author.getId(), requesterId) == false) {
+            throw new BusinessException(CommentExceptionEnum.PERMISSION_DENIED);
+        }
+    }
+}

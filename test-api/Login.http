@@ -1,0 +1,11 @@
+###
+### 성공 (200 Ok)
+###
+
+POST http://localhost:8080/api/v1/members/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "abko@abko.com",
+  "password": "abko"
+}

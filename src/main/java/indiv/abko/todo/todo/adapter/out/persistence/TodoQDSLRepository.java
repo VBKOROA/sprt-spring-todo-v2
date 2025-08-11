@@ -4,18 +4,20 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import indiv.abko.todo.todo.adapter.in.rest.dto.todo.TodoSearchCondition;
-import indiv.abko.todo.todo.adapter.out.persistence.entity.TodoJpaEntity;
-import indiv.abko.todo.todo.application.port.in.command.SearchTodosCommand;
 import indiv.abko.todo.todo.domain.SearchTodosCriteria;
+import indiv.abko.todo.todo.domain.Todo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-import static indiv.abko.todo.todo.adapter.out.persistence.entity.QTodoJpaEntity.todoJpaEntity;
+import static indiv.abko.todo.todo.adapter.out.persistence.QTodoJpaEntity.todoJpaEntity;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,24 +30,42 @@ public class TodoQDSLRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<TodoJpaEntity> search(final SearchTodosCriteria searchCriteria) {
-        return queryFactory
+    public Page<Todo> search(final SearchTodosCriteria searchCriteria, final Pageable pageable) {
+        final BooleanExpression authorExpression = authorNameLike(searchCriteria.authorName());
+        final BooleanExpression titleExpression = titleLike(searchCriteria.title());
+        final BooleanExpression contentExpression = contentLike(searchCriteria.content());
+
+        final List<TodoJpaEntity> content = queryFactory
                 .selectFrom(todoJpaEntity)
                 .where(
-                        authorLike(searchCriteria.author()),
-                        titleLike(searchCriteria.title()),
-                        contentLike(searchCriteria.content())
+                        authorExpression,
+                        titleExpression,
+                        contentExpression
                 )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .orderBy(getOrderBy(searchCriteria.orderBy()))
                 .fetch();
+
+        final JPAQuery<Long> countQuery = queryFactory
+                .select(todoJpaEntity.count())
+                .from(todoJpaEntity)
+                .where(
+                        authorExpression,
+                        titleExpression,
+                        contentExpression
+                );
+
+        final Page<TodoJpaEntity> page = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+        return page.map(TodoJpaEntity::toDomain);
     }
 
     private static String makeLikePattern(final String value) {
         return "%" + value + "%";
     }
 
-    private BooleanExpression authorLike(final String author) {
-        return StringUtils.hasText(author) ? todoJpaEntity.author.like(makeLikePattern(author)) : null;
+    private BooleanExpression authorNameLike(final String authorName) {
+        return StringUtils.hasText(authorName) ? todoJpaEntity.authorName.like(makeLikePattern(authorName)) : null;
     }
 
     private BooleanExpression titleLike(final String title) {
@@ -61,7 +81,7 @@ public class TodoQDSLRepository {
             return DEFAULT_ORDER;
         }
 
-        final String[] sortCondition = sort.split(ORDER_SEPARATOR);
+        final var sortCondition = sort.split(ORDER_SEPARATOR);
         if (sortCondition.length != VALID_SORT_CONDITION_LENGTH) {
             return DEFAULT_ORDER;
         }
@@ -84,7 +104,7 @@ public class TodoQDSLRepository {
             case "id" -> todoJpaEntity.id;
             case "title" -> todoJpaEntity.title;
             case "content" -> todoJpaEntity.content;
-            case "author" -> todoJpaEntity.author;
+            case "authorName" -> todoJpaEntity.authorName;
             case "createdAt" -> todoJpaEntity.createdAt;
             case "modifiedAt" -> todoJpaEntity.modifiedAt;
             default -> null;
