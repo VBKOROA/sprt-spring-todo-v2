@@ -21,9 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/api/v1/todos/{todoId}/comments")
 @RequiredArgsConstructor
 @Tag(name = "Comment API", description = "할일 관리 시스템의 댓글 관련 API")
 public class CommentController {
@@ -32,7 +30,7 @@ public class CommentController {
     private final UpdateMyCommentUseCase updateMyCommentUseCase;
     private final DeleteMyCommentUseCase deleteMyCommentUseCase;
 
-    @PostMapping("")
+    @PostMapping("/api/v1/todos/{todoId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "댓글 작성", description = "특정 할일에 대한 댓글을 작성함.")
     @ApiResponses(value = {
@@ -70,8 +68,8 @@ public class CommentController {
         return ApiResp.created(CommentResp.from(addedComment));
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = " 댓글 단건 조회", description = "댓글 ID로 댓글을 조회합니다.")
+    @GetMapping("/api/v1/comments/{id}")
+    @Operation(summary = "댓글 단건 조회", description = "댓글 ID로 댓글을 조회합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "댓글 조회 성공"),
             @ApiResponse(responseCode = "404", description = "댓글을 찾을 수 없음",
@@ -79,13 +77,12 @@ public class CommentController {
                             examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 댓글이 존재하지 않습니다.\",\"data\":null}")))
     })
     public ApiResp<CommentResp> readComment(
-            @Parameter(description = "할일 ID", example = "1") @PathVariable("todoId") long todoId,
             @Parameter(description = "댓글 ID", example = "1") @PathVariable("id") long id) {
         final Comment comment = readCommentByIdUseCase.execute(id);
         return ApiResp.ok(CommentResp.from(comment));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/api/v1/comments/{id}")
     @Operation(summary = "내 댓글 수정", description = "자신이 작성한 댓글을 수정합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "댓글 수정 성공"),
@@ -103,7 +100,6 @@ public class CommentController {
                             examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 댓글이 존재하지 않습니다.\",\"data\":null}")))
     })
     public ApiResp<CommentResp> updateComment(
-            @Parameter(description = "할일 ID", example = "1") @PathVariable("todoId") long todoId,
             @Parameter(description = "댓글 ID", example = "1") @PathVariable("id") long id,
             @RequestBody @Valid UpdateCommentReq updateReq,
             @RequestAttribute(name = "memberId", required = false) @Parameter(hidden = true) Long requesterId) {
@@ -115,7 +111,7 @@ public class CommentController {
         return ApiResp.ok(CommentResp.from(updatedComment));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/v1/comments/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "내 댓글 삭제", description = "자신이 작성한 댓글을 삭제합니다.")
     @ApiResponses(value = {
@@ -131,7 +127,6 @@ public class CommentController {
                             examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 댓글이 존재하지 않습니다.\",\"data\":null}")))
     })
     public void deleteComment(
-            @Parameter(description = "할일 ID", example = "1") @PathVariable("todoId") long todoId,
             @Parameter(description = "댓글 ID", example = "1") @PathVariable("id") long id,
             @RequestAttribute(name = "memberId", required = false) @Parameter(hidden = true) Long requesterId) {
         if (requesterId == null) {
