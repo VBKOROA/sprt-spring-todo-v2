@@ -23,7 +23,7 @@ public class DefaultLoginUseCase implements LoginUseCase {
     public String execute(final String email, final String password) {
         final Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException(MemberExceptionEnum.MEMBER_LOGIN_FAILED));
-        member.shouldHaveAuth(password, passwordEncoder);
+        member.verifyPassword(password, passwordEncoder);
         return todoJwtUtilPort.createToken(member);
     }
 }

@@ -23,7 +23,7 @@ public class Member {
     private LocalDateTime createdAt; // 생성 시간
     private EncodedPasswordVO password;
 
-    public void shouldHaveAuth(String rawPassword, MemberPasswordEncoder passwordEncoder) {
+    public void verifyPassword(String rawPassword, MemberPasswordEncoder passwordEncoder) {
         if(this.password.matches(rawPassword, passwordEncoder) == false) {
             throw new BusinessException(MemberExceptionEnum.MEMBER_LOGIN_FAILED);
         };

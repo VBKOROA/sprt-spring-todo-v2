@@ -7,6 +7,7 @@ import indiv.abko.todo.global.vo.ContentVO;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class Comment {
     }
 
     public void shouldHaveAuth(long requesterId) {
-        if(author.getId().equals(requesterId) == false) {
+        if(Objects.equals(author.getId(), requesterId) == false) {
             throw new BusinessException(CommentExceptionEnum.PERMISSION_DENIED);
         }
     }
