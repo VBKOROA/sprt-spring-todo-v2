@@ -1,7 +1,6 @@
 package indiv.abko.todo.todo.adapter.in.rest;
 
 import indiv.abko.todo.global.exception.BusinessException;
-import indiv.abko.todo.global.exception.GlobalExceptionEnum;
 import indiv.abko.todo.global.security.AuthUser;
 import indiv.abko.todo.todo.adapter.in.rest.dto.*;
 import indiv.abko.todo.todo.domain.Todo;
