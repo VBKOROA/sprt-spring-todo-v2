@@ -26,7 +26,10 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         if (attribute == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
-        // 명시적으로 Long 처리
-        return Long.valueOf(attribute.toString());
+        try {
+            return Long.valueOf(attribute.toString());
+        } catch (NumberFormatException e) {
+            throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
+        }
     }
 }
