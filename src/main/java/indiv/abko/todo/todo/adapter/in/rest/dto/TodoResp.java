@@ -3,7 +3,6 @@ package indiv.abko.todo.todo.adapter.in.rest.dto;
 import java.time.LocalDateTime;
 
 import indiv.abko.todo.todo.domain.Todo;
-import indiv.abko.todo.todo.domain.port.in.TodoDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
@@ -16,7 +15,7 @@ public record TodoResp(
     String title,
     @Schema(description = "Todo 내용", example = "테스트")
     String content,
-    @Schema(description = "Todo 작성자 ID", example = "테스트")
+    @Schema(description = "Todo 작성자 ID", example = "1")
     long authorId,
     @Schema(description = "Todo 작성자 이름", example = "테스트")
     String authorName,
@@ -30,6 +29,7 @@ public record TodoResp(
                 .id(todo.getId())
                 .title(todo.getTitle().getTitle())
                 .content(todo.getContent().getContent())
+                .authorId(todo.getAuthor().getId())
                 .authorName(todo.getAuthor().getName())
                 .createdAt(todo.getCreatedAt())
                 .modifiedAt(todo.getModifiedAt())

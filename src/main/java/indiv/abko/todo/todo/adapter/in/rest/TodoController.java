@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import indiv.abko.todo.global.dto.ApiResp;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -52,7 +51,7 @@ public class TodoController {
             ))
     })
     public ApiResp<TodoResp> createTodo(@RequestBody @Valid TodoCreateReq createReq,
-                                        @RequestAttribute(name = "memberId", required = false) Long memberId) {
+                                        @RequestAttribute(name = "memberId", required = false) @Parameter(hidden = true) Long memberId) {
         if(memberId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
         }
@@ -77,7 +76,7 @@ public class TodoController {
             ))
     })
     public ApiResp<TodoListResp> searchTodos(
-            @ModelAttribute 
+            @ModelAttribute
             @ParameterObject
             TodoSearchCondition condition,
             @ParameterObject
@@ -112,22 +111,28 @@ public class TodoController {
         @ApiResponse(responseCode = "401", description = "인증 실패",
             content = @Content(
                 schema = @Schema(implementation = ApiResp.class),
-                examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증에 실패하였습니다.\",\"data\":null}")
+                examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증이 필요합니다.\",\"data\":null}")
+            )),
+        @ApiResponse(responseCode = "403", description = "권한 없음",
+            content = @Content(
+                schema = @Schema(implementation = ApiResp.class),
+                examples = @ExampleObject(value = "{\"status\":\"FORBIDDEN\",\"message\":\"해당 Todo에 대한 권한이 없습니다.\",\"data\":null}")
             )),
         @ApiResponse(responseCode = "404", description = "Todo를 찾을 수 없음",
             content = @Content(
                 schema = @Schema(implementation = ApiResp.class),
-                examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"Todo를 찾을 수 없습니다.\",\"data\":null}")
+                examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 Todo가 존재하지 않습니다.\",\"data\":null}")
             ))
     })
     public ApiResp<TodoResp> updateMyTodo(
-        @PathVariable("id") 
-        @Parameter(name = "id", description = "Todo ID") 
+        @PathVariable("id")
+        @Parameter(name = "id", description = "Todo ID")
         long id,
-        @RequestBody 
-        @Valid 
+        @RequestBody
+        @Valid
         TodoUpdateReq updateReq,
         @RequestAttribute(name = "memberId", required = false)
+        @Parameter(hidden = true)
         Long requesterId) {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
@@ -149,23 +154,25 @@ public class TodoController {
         @ApiResponse(responseCode = "401", description = "인증 실패",
             content = @Content(
                 schema = @Schema(implementation = ApiResp.class),
-                examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증에 실패하였습니다.\",\"data\":null}")
+                examples = @ExampleObject(value = "{\"status\":\"UNAUTHORIZED\",\"message\":\"인증이 필요합니다.\",\"data\":null}")
+            )),
+        @ApiResponse(responseCode = "403", description = "권한 없음",
+            content = @Content(
+                schema = @Schema(implementation = ApiResp.class),
+                examples = @ExampleObject(value = "{\"status\":\"FORBIDDEN\",\"message\":\"해당 Todo에 대한 권한이 없습니다.\",\"data\":null}")
             )),
         @ApiResponse(responseCode = "404", description = "Todo를 찾을 수 없음",
             content = @Content(
                 schema = @Schema(implementation = ApiResp.class),
-                examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"Todo를 찾을 수 없습니다.\",\"data\":null}")
+                examples = @ExampleObject(value = "{\"status\":\"NOT_FOUND\",\"message\":\"해당 Todo가 존재하지 않습니다.\",\"data\":null}")
             ))
     })
     public void deleteMyTodo(
         @Parameter(name = "id", description = "Todo ID")
-        @PathVariable("id") 
+        @PathVariable("id")
         long id,
-        @Parameter(name = "X-Todo-Password", 
-            in = ParameterIn.HEADER, 
-            description = "Todo 삭제를 위한 인증 비밀번호 / base64로 인코딩되어야 함.", 
-            required = true)
         @RequestAttribute(name = "memberId", required = false)
+        @Parameter(hidden = true)
         Long requesterId) {
         if(requesterId == null) {
             throw new BusinessException(GlobalExceptionEnum.UNAUTHORIZED);
