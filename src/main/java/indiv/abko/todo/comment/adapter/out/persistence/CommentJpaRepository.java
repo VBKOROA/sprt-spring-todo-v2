@@ -1,4 +1,4 @@
-package indiv.abko.todo.comment.adapter.persistence;
+package indiv.abko.todo.comment.adapter.out.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
