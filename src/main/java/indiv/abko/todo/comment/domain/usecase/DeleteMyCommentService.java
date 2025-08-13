@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteMyCommentUseCaseService implements DeleteMyCommentUseCase {
+public class DeleteMyCommentService implements DeleteMyCommentUseCase {
     private final CommentRepository commentRepo;
 
     @Override

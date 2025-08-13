@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetCommentsByTodoIdUseCaseService implements GetCommentsByTodoIdUseCase {
+public class GetCommentsByTodoIdService implements GetCommentsByTodoIdUseCase {
     private final CommentRepository commentRepo;
 
     @Override

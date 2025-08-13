@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteMyTodoUseCaseService implements DeleteMyTodoUseCase {
+public class DeleteMyTodoService implements DeleteMyTodoUseCase {
     private final TodoRepository todoRepo;
     private final TodoCommentPort todoCommentPort;
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetTodoWithCommentsUseCaseService implements GetTodoWithCommentsUseCase {
+public class GetTodoWithCommentsService implements GetTodoWithCommentsUseCase {
     private final TodoDetailTodoPort todoPort;
     private final TodoDetailCommentPort commentPort;
 

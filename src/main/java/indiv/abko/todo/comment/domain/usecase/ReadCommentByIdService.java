@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ReadCommentByIdUseCaseService implements ReadCommentByIdUseCase {
+public class ReadCommentByIdService implements ReadCommentByIdUseCase {
     private final CommentRepository commentRepo;
 
     @Override

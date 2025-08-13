@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultLoginUseCase implements LoginUseCase {
+public class LoginService implements LoginUseCase {
     private final MemberJwtUtilPort todoJwtUtilPort;
     private final MemberRepository memberRepository;
     private final MemberPasswordEncoder passwordEncoder;

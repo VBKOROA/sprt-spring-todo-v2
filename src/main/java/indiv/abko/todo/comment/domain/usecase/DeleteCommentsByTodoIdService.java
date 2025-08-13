@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteCommentsByTodoIdUseCaseService implements DeleteCommentsByTodoIdUseCase {
+public class DeleteCommentsByTodoIdService implements DeleteCommentsByTodoIdUseCase {
     private final CommentRepository commentRepo;
 
     @Override

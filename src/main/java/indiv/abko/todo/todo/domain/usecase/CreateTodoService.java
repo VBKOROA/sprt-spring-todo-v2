@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CreateTodoUseCaseService implements CreateTodoUseCase {
+public class CreateTodoService implements CreateTodoUseCase {
     private final TodoRepository todoRepo;
     private final TodoAuthorPort todoAuthorPort;
 

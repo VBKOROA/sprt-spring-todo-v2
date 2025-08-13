@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultSignUpUseCase implements SignUpUseCase {
+public class SignUpService implements SignUpUseCase {
     private final MemberRepository memberRepo;
     private final MemberPasswordEncoder passwordEncoder;
 
