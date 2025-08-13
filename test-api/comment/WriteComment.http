@@ -1,0 +1,11 @@
+###
+### 성공 (201 Created)
+###
+
+@id =1
+POST http://localhost:8080/api/v2/todos/{{id}}/comments HTTP/1.1
+content-type: application/json
+
+{
+    "content": "테스트 댓글"
+}

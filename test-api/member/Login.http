@@ -2,7 +2,7 @@
 ### 성공 (200 Ok)
 ###
 
-POST http://localhost:8080/api/v1/members/login HTTP/1.1
+POST http://localhost:8080/api/v2/members/login HTTP/1.1
 content-type: application/json
 
 {
