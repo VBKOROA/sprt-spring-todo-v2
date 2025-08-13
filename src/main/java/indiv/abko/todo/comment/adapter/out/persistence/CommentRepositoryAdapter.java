@@ -1,4 +1,4 @@
-package indiv.abko.todo.comment.adapter.persistence;
+package indiv.abko.todo.comment.adapter.out.persistence;
 
 import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.comment.domain.out.CommentRepository;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor

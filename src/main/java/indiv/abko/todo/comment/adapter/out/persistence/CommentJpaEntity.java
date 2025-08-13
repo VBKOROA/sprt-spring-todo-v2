@@ -1,4 +1,4 @@
-package indiv.abko.todo.comment.adapter.persistence;
+package indiv.abko.todo.comment.adapter.out.persistence;
 
 import indiv.abko.todo.comment.domain.Comment;
 import indiv.abko.todo.global.entity.BaseTimeJpaEntity;
