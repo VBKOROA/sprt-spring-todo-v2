@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class SearchTodosUseCaseService implements SearchTodosUseCase {
+public class SearchTodosService implements SearchTodosUseCase {
     private final TodoRepository todoRepo;
 
     /**

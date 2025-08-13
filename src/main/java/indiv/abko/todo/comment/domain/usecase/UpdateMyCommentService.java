@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateMyCommentUseCaseService implements UpdateMyCommentUseCase {
+public class UpdateMyCommentService implements UpdateMyCommentUseCase {
     private final CommentRepository commentRepo;
 
     @Override

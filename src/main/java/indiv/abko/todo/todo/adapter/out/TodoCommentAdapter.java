@@ -2,7 +2,6 @@ package indiv.abko.todo.todo.adapter.out;
 
 import indiv.abko.todo.comment.domain.in.DeleteCommentsByTodoIdUseCase;
 import indiv.abko.todo.comment.domain.in.DeleteCommentsByTodoIdsUseCase;
-import indiv.abko.todo.member.domain.usecase.DefaultGetNameByMemberIdUseCase;
 import indiv.abko.todo.todo.domain.port.out.TodoCommentPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
