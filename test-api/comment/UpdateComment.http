@@ -1,0 +1,11 @@
+###
+### 성공 (200 Ok)
+###
+
+@id =1
+PATCH http://localhost:8080/api/v2/comments/{{id}} HTTP/1.1
+content-type: application/json
+
+{
+    "content": "테스트 댓글 3"
+}

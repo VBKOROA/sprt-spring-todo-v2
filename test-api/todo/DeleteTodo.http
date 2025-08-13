@@ -1,0 +1,15 @@
+###
+### 성공 (204 No Content)
+###
+
+@successId =1
+DELETE http://localhost:8080/api/v2/todos/{{successId}} HTTP/1.1
+content-type: application/json
+
+###
+### 실패 (400 Bad Request)
+###
+
+@failId =1
+DELETE http://localhost:8080/api/v2/todos/{{failId}} HTTP/1.1
+content-type: application/json

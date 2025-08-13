@@ -1,8 +1,8 @@
 ###
-### 성공 (200 Ok)
+### 성공 (201 Created)
 ###
 
-POST http://localhost:8080/api/v1/members HTTP/1.1
+POST http://localhost:8080/api/v2/members HTTP/1.1
 content-type: application/json
 
 {
